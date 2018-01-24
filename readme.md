@@ -59,7 +59,9 @@ P.S : We don't care much since laravel will handle all the database stuff for yo
 
 ### Debug and Testing
 ## PHPunit
-First time you run PHPunit (click run on any of the files in tests) it will try to scare you with a big dialog box 
+First time you run PHPunit (click run on any of the files in tests) it will try to scare you with a big dialog box
+If you already setup a PHP cli interpreter then just click the Fix button and you should be done.
+Otherwise follow **Add PHP cli** then select the new interpreter.
 
 
  @andrew redo... we need composer xdebug.. so I'll rewrite later
