@@ -8,7 +8,7 @@
 4. Run PHPStorm, Create a new project from VCS and drop the git repo into `{LARAGON_INSTALL}/www/{project_name}/`
 Yay you are done!
 
-## Setting up XDebug with PHPStorm
+## Setting up XDebug with PHPStorm  @andrew redo... you need composer xdebug.. so I'll rewrite later
 1. Follow [This Tutorial](https://forum.laragon.org/topic/264/tutorial-how-to-add-xdebug-to-laragon)
 5. Copy & Paste these lines after the line you added in the tutorial above.
 ```
