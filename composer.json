@@ -54,10 +54,13 @@
       "@php artisan package:discover"
     ],
     "post-install-cmd": [
-      "@php artisan migrate --force"
+      "@php artisan migrate:fresh --force"
     ],
     "post-update-cmd": [
-      "@php artisan ide-helper:generate"
+      "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+        "@php artisan ide-helper:generate",
+        "@php artisan ide-helper:meta",
+        "@php artisan optimize"
     ]
   },
   "config": {
