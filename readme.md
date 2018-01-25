@@ -22,20 +22,26 @@ Since you're pulling this rep, laragon's automagic vhost will be be slightly wro
 
 ### .env file
 Pretty straight forward but nothing will work unless you do this.
-- you can do this from within IDEA / PHPStorm
+- you can do this from within PHPStorm
 - Copy the .env.example file and call it .env
-- you may wanna review it and make sure it it reflects your actual setup
 
 ### MySQL DB setup
 Again, you're pulling a repo so laragon won't automatically create a database for you. Let do it manually :
 1. Open HeidiSQL from laragon's menu
-2. Login with root and your password (should be empty by default)
+2. Login with root and your password (empty by default)
 3. Create a new database and name it SOEN341
 4. Switch to a terminal and run `php artisan migrate` in your project root
 
-## General IntelliJ Setup
+## General PHPStorm Setup
+### Some plugins
+So PHPStorm helps you as much as it can but it need to know what it's reading. 
+
+So if you're using PHPStorm apparently everything is installed except Laravel Plugin.
+
+To install it : open Settings (CTRL + ALT + S) > Plugins > Click browse repositories and search for it.
+
 ### Shiny Terminal (cmder.exe)
-*Not really required but will make life easy*
+*Not really required but will make life VERY easy*
 1. Open Settings (CTRL + ALT + S) -> Tools > Terminal
 2. Change Shell path to `{LARAGON_INSTALL}\bin\cmder\cmder.bat`
 PS: you wont have to add all the fun thing into PATH if you use it.
@@ -55,13 +61,13 @@ PS: you wont have to add all the fun thing into PATH if you use it.
 3. For the execution choose executable, add the following path `{LARAGON_INSTALL}\bin\composer\composer.bat` and use default interpreter. (Alternatively choose phar and use the .phar)
 
 ### Node / NPM
-*Not really required but will make life easy*
+*Really not required but will make my life slightly easier*
 1. Open Settings (CTRL + ALT + S) -> Languages & Frameworks > Node.js & NPM
 2. Add a new node interpreter
 3. Path to the executable is as follows `{LARAGON_INSTALL}\bin\nodejs\{some_node_version_here}\node.exe`
 
 ### Database View
-*Not really required but will make life easy*
+*Not really required unless you want to handle DB things.. laravel will handle a big chunk of it automatically*
 1. Open the database tab in the top of the right sidebar.
 2. Click the + icon > Data Source > MySQL
 3. Create a new source with the following info. Host = `localhost`, Database = `SOEN341`, `user = root`, `password = {blank or wtvr you use}` 
@@ -78,12 +84,12 @@ Otherwise follow **Add PHP cli** then select the new interpreter.
 I'll probably hook you up with examples later, just remind me.
 
 ### Setting up XDebug with PHPStorm 
-1. Download the appropriate version of [xDebug](https://xdebug.org/download.php) [(Yours should be 7.2 64bit VC15 TS)](https://xdebug.org/files/php_xdebug-2.6.0RC1-7.2-vc15-x86_64.dll)
+1. Download the appropriate version of [xDebug](https://xdebug.org/download.php) (Yours should be 7.2 64bit VC15 TS) [click here for direct link](https://xdebug.org/files/php_xdebug-2.6.0RC1-7.2-vc15-x86_64.dll)
 2. Move it into your php path inside the ext folder : `{LARAGON_INSTALL}\bin\php\{some_php_version}\ext\`
 3. Rename it to simply `php_xdebug.dll`
 
 #### php.ini Changes
-1. Open Laragon's Menu > PHP and choose php.ini
+1. Open Laragon's menu > PHP and choose php.ini
 2. Copy & Paste these lines to the bottom of the file
 ```
        [XDebug]
@@ -92,7 +98,7 @@ I'll probably hook you up with examples later, just remind me.
        xdebug.remote_host = "127.0.0.1"
 ```
 3. Finally Restart Laragon and enable xdebug in Menu > PHP > Extentions.
-4. Quick test : use var_dump. If your session dump at the top looks different, Xdebug is working congrats.
+4. Quick test : open the window you saw in the **PHP cli** section and add a new interpreter with same info, it should now say you have xdebug 2.6.0rc installed as your debugger.
 
 #### PHPStorm config
 1. Open Run > Edit Configurations
