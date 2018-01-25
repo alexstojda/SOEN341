@@ -2,7 +2,7 @@
 
 ### Team Members
  - Alex Stojda
-
+ - Nicolas Brodeur-Champagne
 
 ---
 
@@ -32,13 +32,13 @@ Again, you're pulling a repo so laragon won't automatically create a database fo
 - you may wanna review it and make sure it it reflects your actual setup
 
 ## General IntelliJ Setups
-Not really required but preferred 
+Not really required but preferred
 
 ### Database View
 1. Open the database tab in the top of the right sidebar.
 2. Click the + icon > Data Source > MySQL
-3. Create a new source with the following info. Host = `localhost`, Database = `SOEN341`, `user = root`, `password = {blank or wtvr you use}` 
-4. You can how use the databse viewer inside PHPStorm / IDEA instead of HeidiSQL. 
+3. Create a new source with the following info. Host = `localhost`, Database = `SOEN341`, `user = root`, `password = {blank or wtvr you use}`
+4. You can how use the databse viewer inside PHPStorm / IDEA instead of HeidiSQL.
 P.S : We don't care much since laravel will handle all the database stuff for you.
 
 ### Add PHP cli
@@ -49,7 +49,7 @@ P.S : We don't care much since laravel will handle all the database stuff for yo
 5. (Optional debugger step)
 6. Back in the 1st window you should go into the PHP Runtime tab and hit Sync Extensions w/ Interpreter.
 
-### Composer 
+### Composer
 1. Open Settings (CTRL + ALT + S) -> Languages & Frameworks > PHP > Composer (Install from plugins if you don't have it for some reason)
 2. Path to json should be `{PROJECT_PATH}\composer.json`
 3. For the execution choose executable, add the following path `{LARAGON_INSTALL}\bin\composer\composer.bat` and use default interpreter. (Alternatively choose phar and use the .phar)
@@ -71,7 +71,7 @@ Otherwise follow **Add PHP cli** then select the new interpreter.
 
 
  @andrew redo... we need composer xdebug.. so I'll rewrite later
-## Setting up XDebug with PHPStorm 
+## Setting up XDebug with PHPStorm
 1. Follow [This Tutorial](https://forum.laragon.org/topic/264/tutorial-how-to-add-xdebug-to-laragon)
 
 ####USELESS
