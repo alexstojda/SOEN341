@@ -9,6 +9,8 @@
 1. Install [Laragon WAMP](https://sourceforge.net/projects/laragon/files/releases/3.2/laragon-wamp.exe/download)
 3. Run PHPStorm / IDEA and create a new project from Github in your laragon's documents root folder. (Typically located in `{LARAGON_INSTALL}/www/`)
 3. Laragon should now list your new project. Open the control panel and hit start all.
+4. Open Terminal (the laragon one) in SOEN341 folder and type `composer update`
+ You can continue setting up while it fetches all our dependencies for you.
 
 ## Configuring your local environment :
 ### Apache config
@@ -18,21 +20,21 @@ Since you're pulling this rep, laragon's automagic vhost will be be slightly wro
 3. Append `public/` to every instance of the directory path, i.e when you seen `.../SOEN341/<add here>`
 4. May need to restart the apache service for things to update.
 
+### .env file
+Pretty straight forward but nothing will work unless you do this.
+- you can do this from within IDEA / PHPStorm
+- Copy the .env.example file and call it .env
+- you may wanna review it and make sure it it reflects your actual setup
+
 ### MySQL DB setup
 Again, you're pulling a repo so laragon won't automatically create a database for you. Let do it manually :
 1. Open HeidiSQL from laragon's menu
 2. Login with root and your password (should be empty by default)
 3. Create a new database and name it SOEN341
 4. Switch to a terminal and run `php artisan migrate` in your project root
-``
-### .env file
-Pretty straight forward but nothing will work unless you do this.
-- Copy the .env.example file and call it .env
-- you can do this from within IDEA / PHPStorm
-- you may wanna review it and make sure it it reflects your actual setup
 
 ## General IntelliJ Setup
-### Shiny Terminal (cmdr.exe)
+### Shiny Terminal (cmder.exe)
 *Not really required but will make life easy*
 1. Open Settings (CTRL + ALT + S) -> Tools > Terminal
 2. Change Shell path to `{LARAGON_INSTALL}\bin\cmder\cmder.bat`
