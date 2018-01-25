@@ -9,7 +9,7 @@
 1. Install [Laragon WAMP](https://sourceforge.net/projects/laragon/files/releases/3.2/laragon-wamp.exe/download)
 3. Run PHPStorm / IDEA and create a new project from Github in your laragon's documents root folder. (Typically located in `{LARAGON_INSTALL}/www/`)
 3. Laragon should now list your new project. Open the control panel and hit start all.
-4. Open Terminal (the laragon one) in SOEN341 folder and type `composer update`
+4. Open Terminal (the laragon one) in SOEN341 folder and type `composer install`
  You can continue setting up while it fetches all our dependencies for you.
 
 ## Configuring your local environment :
