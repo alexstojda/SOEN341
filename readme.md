@@ -82,17 +82,15 @@ I'll probably hook you up with examples later, just remind me.
 
 #### php.ini Changes
 1. Open Laragon's Menu > PHP and choose php.ini
-3. ```Ctrl+F``` and find [XDebug]  at bottom if you feel like scrolling
-4. remove everything because we don't need profiler, that's too advanced
-5. Copy & Paste these lines
+2. Copy & Paste these lines to the bottom of the file
 ```
        [XDebug]
        xdebug.remote_enable = 1
        xdebug.remote_handler = "dbgp"
        xdebug.remote_host = "127.0.0.1"
 ```
-6. Finally Restart Laragon and enable xdebug in Menu > PHP > Extentions.
-7. Quick test : use var_dump. If your session dump at the top looks different, Xdebug is working congrats.
+3. Finally Restart Laragon and enable xdebug in Menu > PHP > Extentions.
+4. Quick test : use var_dump. If your session dump at the top looks different, Xdebug is working congrats.
 
 #### PHPStorm config
 1. Open Run > Edit Configurations
