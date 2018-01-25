@@ -3,7 +3,7 @@
 ### Team Members
  - Alex Stojda
  - Evangelos Dimopoulos
-
+ - Nicolas Brodeur-Champagne
 ---
 
 ## Laragon wamp stack for local development:
@@ -35,7 +35,7 @@ Again, you're pulling a repo so laragon won't automatically create a database fo
 
 ## General PHPStorm Setup
 ### Some plugins
-So PHPStorm helps you as much as it can but it need to know what it's reading. 
+So PHPStorm helps you as much as it can but it need to know what it's reading.
 
 So if you're using PHPStorm apparently everything is installed except Laravel Plugin.
 
@@ -55,7 +55,7 @@ PS: you wont have to add all the fun thing into PATH if you use it.
 5. (Optional debugger step)
 6. Back in the 1st window you should go into the PHP Runtime tab and hit Sync Extensions w/ Interpreter.
 
-### Composer 
+### Composer
 *Not really required but will make life easy*
 1. Open Settings (CTRL + ALT + S) -> Languages & Frameworks > PHP > Composer (Install from plugins if you don't have it for some reason)
 2. Path to json should be `{PROJECT_PATH}\composer.json`
@@ -71,8 +71,8 @@ PS: you wont have to add all the fun thing into PATH if you use it.
 *Not really required unless you want to handle DB things.. laravel will handle a big chunk of it automatically*
 1. Open the database tab in the top of the right sidebar.
 2. Click the + icon > Data Source > MySQL
-3. Create a new source with the following info. Host = `localhost`, Database = `SOEN341`, `user = root`, `password = {blank or wtvr you use}` 
-4. You can how use the databse viewer inside PHPStorm / IDEA instead of HeidiSQL. 
+3. Create a new source with the following info. Host = `localhost`, Database = `SOEN341`, `user = root`, `password = {blank or wtvr you use}`
+4. You can how use the databse viewer inside PHPStorm / IDEA instead of HeidiSQL.
 P.S : We don't care much since laravel will handle all the database stuff for you.
 
 ## Debug and Testing
@@ -84,7 +84,7 @@ Otherwise follow **Add PHP cli** then select the new interpreter.
 #### Writing unit test
 I'll probably hook you up with examples later, just remind me.
 
-### Setting up XDebug with PHPStorm 
+### Setting up XDebug with PHPStorm
 1. Download the appropriate version of [xDebug](https://xdebug.org/download.php) (Yours should be 7.2 64bit VC15 TS) [click here for direct link](https://xdebug.org/files/php_xdebug-2.6.0RC1-7.2-vc15-x86_64.dll)
 2. Move it into your php path inside the ext folder : `{LARAGON_INSTALL}\bin\php\{some_php_version}\ext\`
 3. Rename it to simply `php_xdebug.dll`
