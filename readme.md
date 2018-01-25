@@ -2,6 +2,7 @@
 
 ### Team Members
  - Alex Stojda
+ - Evangelos Dimopoulos
 
 
 ---
