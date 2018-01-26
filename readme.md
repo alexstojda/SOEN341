@@ -3,7 +3,7 @@
 ### Team Members
  - Alex Stojda
  - Evangelos Dimopoulos
- - Andrew Hanichkovs
+ - Andrew Hanichkovsky
  - Nicolas Brodeur-Champagne
 
 ## Laragon wamp stack for local development:
@@ -11,7 +11,8 @@
 3. Run PHPStorm / IDEA and create a new project from Github in your laragon's documents root folder. (Typically located in `{LARAGON_INSTALL}/www/`)
 3. Laragon should now list your new project. Open the control panel and hit start all.
 4. Open Terminal (the laragon one) in SOEN341 folder and type `composer install`
- You can continue setting up while it fetches all our dependencies for you.
+
+You can continue setting up while it fetches all our dependencies for you.
 
 ## Configuring your local environment :
 ### Apache config
@@ -27,19 +28,21 @@ Pretty straight forward but nothing will work unless you do this.
 - Copy the .env.example file and call it .env
 
 ### MySQL DB setup
-Again, you're pulling a repo so laragon won't automatically create a database for you. Let do it manually :
+Again, you're pulling a repo so laragon won't automatically create a database for you. Lets do it manually :
 1. Open HeidiSQL from laragon's menu
 2. Login with root and your password (empty by default)
 3. Create a new database and name it SOEN341
 4. Switch to a terminal and run `php artisan migrate` in your project root
 
 ## General PHPStorm Setup
-### Some plugins
-So PHPStorm helps you as much as it can but it need to know what it's reading.
+### Plugins
+So PHPStorm helps you as much as it can but it needs to know what it's reading.
 
-So if you're using PHPStorm apparently everything is installed except Laravel Plugin.
+So if you're using PHPStorm apparently everything is installed except : 
+- Laravel Plugin
+- LaravelStorm
 
-To install it : open Settings (CTRL + ALT + S) > Plugins > Click browse repositories and search for it.
+To install them : open Settings (CTRL + ALT + S) > Plugins > Click browse repositories and search for each.
 
 ### Shiny Terminal (cmder.exe)
 *Not really required but will make life VERY easy*
@@ -79,9 +82,9 @@ P.S : We don't care much since laravel will handle all the database stuff for yo
 ### PHPunit
 First time you run PHPunit (click run on any of the files in tests) it will try to scare you with a big dialog box
 If you already setup a PHP cli interpreter then just click the Fix button and you should be done.
-Otherwise follow **Add PHP cli** then select the new interpreter.
+Otherwise follow the **Add PHP cli** section then select the new interpreter.
 
-#### Writing unit test
+#### Writing unit tests
 I'll probably hook you up with examples later, just remind me.
 
 ### Setting up XDebug with PHPStorm
@@ -92,21 +95,21 @@ I'll probably hook you up with examples later, just remind me.
 #### php.ini Changes
 1. Open Laragon's menu > PHP and choose php.ini
 2. Copy & Paste these lines to the bottom of the file
-```
+    ```
        [XDebug]
        xdebug.remote_enable = 1
        xdebug.remote_handler = "dbgp"
        xdebug.remote_host = "127.0.0.1"
-```
+    ```
 3. Finally Restart Laragon and enable xdebug in Menu > PHP > Extentions.
 4. Quick test : open the window you saw in the **PHP cli** section and add a new interpreter with same info, it should now say you have xdebug 2.6.0rc installed as your debugger.
 
 #### PHPStorm config
 1. Open Run > Edit Configurations
 2. Click +, choose PHP Web Application and write the start url as ```http://soen341.oo```
-3. Click on the 3 dots near server now
- - Add a new entry as [name wtvr] with host ```localhost``` on port ```80``` with ```XDebug```
+3. Click on the 3 dots near server
+  - Add a new entry as [name wtvr] with host ```localhost``` on port ```80``` with ```XDebug```
   - Ignore path mapping, we're local
 4. Back in PHP Web App config choose your new server
 5. You can now run debug which will open a new XDebug session and send you to our index page.
- - Add breakpoints as you wish, dig through objects and step through as much as your heart desires.
+  - Add breakpoints as you wish, dig through objects and step through as much as your heart desires.
