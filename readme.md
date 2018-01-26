@@ -5,6 +5,7 @@
  - Evangelos Dimopoulos
  - Andrew Hanichkovsky
  - Nicolas Brodeur-Champagne
+ - Peter Granitski
 
 ## Laragon wamp stack for local development:
 1. Install [Laragon WAMP](https://sourceforge.net/projects/laragon/files/releases/3.2/laragon-wamp.exe/download)
