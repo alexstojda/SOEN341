@@ -1,4 +1,5 @@
 # UC4 SOEN 341
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/alexstojda/SOEN341.svg?columns=all)](https://waffle.io/alexstojda/SOEN341) [![Build Status](https://travis-ci.org/alexstojda/SOEN341.svg?branch=master)](https://travis-ci.org/alexstojda/SOEN341) 
 
 ### Team Members
  - Alex Stojda
