@@ -5,6 +5,7 @@
  - Evangelos Dimopoulos
  - Andrew Hanichkovsky
  - Nicolas Brodeur-Champagne
+ - Hannah Jack Halcro
  - Peter Granitski
  - Beeri Nduwimana
 
