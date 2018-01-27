@@ -19,5 +19,3 @@ before_script:
   - './vendor/laravel/dusk/bin/chromedriver-linux &'
   - 'cp .env.testing .env'
   - 'php artisan serve &'
-script:
-  - 'php artisan dusk'
