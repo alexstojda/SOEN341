@@ -5,5 +5,5 @@ before_install:
 
 install:
   - 'composer install'
-  - 'npm prod'
+  - 'npm run prod'
 services:
