@@ -1,12 +1,16 @@
 sudo: required
 language: php
 dist: trusty
+cache:
+  directories:
+    - $HOME/.cache/composer/files
+    - $HOME/.composer/cache/files
 php:
   - '7.2'
 before_install:
 
 install:
-  - 'travis_retry composer install --no-interaction'
+  - 'travis_retry composer install --no-interaction --prefer-dist'
 services:
 
 before_script:
