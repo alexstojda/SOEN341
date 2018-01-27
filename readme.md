@@ -8,7 +8,7 @@
  - Nicolas Brodeur-Champagne
  - Hannah Jack Halcro
  - Peter Granitski
- - Beeri Nduwimana (test edit)
+ - Beeri Nduwimana:
  - Ivan Ilyushchenko
 
 ### Relevant Wiki Links ([Main page](https://github.com/alexstojda/SOEN341/wiki)) : *first install? start here* 
