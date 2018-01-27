@@ -2,8 +2,7 @@ language: php
 php:
   - '7.2'
 before_install:
-  - mysql -e 'CREATE DATABASE SOEN341;'
+
 install:
   - 'composer install'
 services:
-  - mysql
