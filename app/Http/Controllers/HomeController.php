@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        app('session')->put('status', 'new message');
         return view('home');
     }
 }
