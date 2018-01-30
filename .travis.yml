@@ -1,9 +1,19 @@
+sudo: required
 language: php
+cache:
+  directories:
+    - $HOME/.cache/composer/files
+    - $HOME/.composer/cache/files
 php:
   - '7.2'
 before_install:
-  - mysql -e 'CREATE DATABASE SOEN341;'
+
 install:
-  - 'composer install'
+  - 'travis_retry composer install --no-interaction --prefer-dist'
 services:
-  - mysql
+
+before_script:
+  - 'export DISPLAY=:99.0'
+  - 'sh -e /etc/init.d/xvfb start'
+  - './vendor/laravel/dusk/bin/chromedriver-linux &'
+  - 'php artisan serve &'
