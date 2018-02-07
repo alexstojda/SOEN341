@@ -11,10 +11,16 @@
     <testsuites>
         <testsuite name="Feature">
             <directory suffix="Test.php">./tests/Feature</directory>
+            <php>
+                <env name="DB_CONNECTION" value="memory"/>
+            </php>
         </testsuite>
 
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
+            <php>
+                <env name="DB_CONNECTION" value="memory"/>
+            </php>
         </testsuite>
 
         <testsuite name="Browser">
@@ -29,6 +35,7 @@
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="DB_CONNECTION" value="testing"/>
+        <env name="DEBUGBAR_ENABLED" value="false"/>
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
