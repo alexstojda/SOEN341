@@ -27,7 +27,7 @@ class CreateAnswersTable extends Migration
             $table->timestamps('created_at');
 
 
-            $table->foreign('user_id','question_id')->references('id')->on('users')->onDelete('set null')->onUpdate('no action');
+           // $table->foreign('user_id','question_id')->references('id')->on('users')->onDelete('set null')->onUpdate('no action');
         });
     }
 
