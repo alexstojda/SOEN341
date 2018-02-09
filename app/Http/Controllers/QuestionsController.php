@@ -4,21 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Question;
-use App\User;
+use App\Http\Controllers\Auth;
 
 class QuestionsController extends Controller
 {
     public function index()
     {
-        $question = Question::latest()->get();
+        $questions = Question::latest()->get();
 
-        return view('questions.index', compact($question));
+        return view('questions.index', ['questions'=>$questions]);
     }
 
-    //public function show(Question $question)
-    //{
-    //    return view('question.show', compact('question'));
-    //}
+    public function show($id)
+    {
+        $question = Question::findOrFail($id);
+
+        return view('questions.show', ['question'=>$question]);
+    }
 
     public function create()
     {
@@ -35,10 +37,10 @@ class QuestionsController extends Controller
         Question::create([
             'title' => request('title'),
             'body' => request('body'),
-            //'author_id' =>  Auth::user->id(), //use this when sessions are created
+            'author_id' =>  auth()->id() //use this when sessions are created
         ]);
 
-        return redirect('/questions/index');
+        return redirect('questions/index');
     }
 
 

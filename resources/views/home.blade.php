@@ -11,5 +11,12 @@
         You are logged in!
     </dashboard-notification>
 
-    <example-component></example-component>
+    <div class="container">
+        <a href="questions/index" role="button" class="btn btn-info btn-block">
+                Go To Questions!
+        </a>
+    </div>
+
+
+
 @endsection

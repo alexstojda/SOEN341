@@ -1,25 +1,26 @@
-{{--@extends('layouts.app')--}}
+@extends('layouts.app')
 
-{{--@section('content')--}}
-    {{--@if (session('status'))--}}
-    {{--<status-toast>--}}
-    {{--{{ session('status') }}--}}
-    {{--</status-toast>--}}
-    {{--@endif--}}
-    {{--<div class="text-center">--}}
+@section('content')
+    @if (session('status'))
+    <status-toast>
+    {{ session('status') }}
+    </status-toast>
+    @endif
+    <div class="container">
 
-        {{--<div>--}}
-            {{--<h2><a href="question/{{ question->q_head }}">{{ question->q_head }}</h2>a></h2>--}}
+        <div class="text-center">
 
-            {{--<p>{{ question->q_body }}</p>--}}
+            <h2>{{ $question->title }}</h2>
 
-        {{--</div>--}}
+            <p>{{ $question->body }}</p>
 
-
-
-    {{--</div>--}}
+        </div>
 
 
 
+    </div>
 
-{{--@endsection--}}
+
+
+
+@endsection

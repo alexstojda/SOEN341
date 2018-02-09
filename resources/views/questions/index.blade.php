@@ -1,19 +1,25 @@
-{{--@extends('layouts.app')--}}
+@extends('layouts.app')
 
-{{--@section('content')--}}
-    {{--@if (session('status'))--}}
-    {{--<status-toast>--}}
-    {{--{{ session('status') }}--}}
-    {{--</status-toast>--}}
-    {{--@endif--}}
-    {{--@foreach ($questions as $question)--}}
-    {{--<div class="text-center">--}}
-        {{--<h2><a href="question/{{ question->q_head }}">{{ question->q_head }}</h2>a></h2>--}}
+@section('content')
+    @if (session('status'))
+    <status-toast>
+    {{ session('status') }}
+    </status-toast>
+    @endif
 
-        {{--<p>{{ question->q_body }}</p>--}}
+    <div class="container">
+        <a href="create" role="button" class="btn btn-info btn-block">
+            Add a Question
+        </a>
+    </div>
 
-    {{--</div>--}}
-    {{--@endforeach--}}
+    <div class="container">
+        @foreach ($questions as $question)
+            <div class="text-center">
+                <h3><a href="{{ $question->id }}">{{ $question->title }}</a></h3>
 
+            </div>
+        @endforeach
+    </div>
 
-{{--@endsection--}}
+@endsection

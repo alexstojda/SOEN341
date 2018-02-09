@@ -27,7 +27,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereDeletedAt($value)
  * @mixin \Eloquent
  */
-class Question extends Model
-{
+class Question extends Model{
     protected $fillable = ['title','body'];
 }
