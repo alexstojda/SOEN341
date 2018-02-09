@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $status
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property string|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereAnswerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereAuthorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereBody($value)
@@ -23,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereDeletedAt($value)
  * @mixin \Eloquent
  */
 class Question extends Model

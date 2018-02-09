@@ -15,7 +15,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $email
  * @property string $password
  * @property string|null $remember_token
+ * @property string $last_ip
  * @property string $last_login
+ * @property string|null $deleted_at
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCreatedAt($value)
@@ -26,6 +28,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastLogin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastIp($value)
  */
 class User extends Authenticatable
 {
@@ -46,6 +50,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','last_login'
+        'password', 'remember_token','last_ip','last_login'
     ];
 }

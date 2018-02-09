@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $votes
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property string|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Answer whereAuthorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Answer whereBody($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Answer whereCreatedAt($value)
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Answer whereQuestionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Answer whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Answer whereVotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Answer whereDeletedAt($value)
  * @mixin \Eloquent
  */
 class Answer extends Model
