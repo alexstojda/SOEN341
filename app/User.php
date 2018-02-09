@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -30,10 +31,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastLogin($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastIp($value)
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\User onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\User withoutTrashed()
  */
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -41,7 +48,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','last_ip','last_login'
     ];
 
     /**
@@ -52,4 +59,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token','last_ip','last_login'
     ];
+
+    /**
+     * The attributes that are usable dates
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 }
