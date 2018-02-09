@@ -14,20 +14,29 @@ class CreateAnswersTable extends Migration
     public function up()
     {
         Schema::create('answers', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            //Answer identifier
             $table->increments('id');
             //Which question this answer belongs to
-            $table->integer('question_id')->unsigned()->nullable();
+            $table->integer('question_id')->unsigned();
             //User that posted this answer
-            $table->integer('user_id')->unsigned();
+            $table->integer('author_id')->unsigned()->nullable();
             //Answer content
-            $table->multiLineString('answer_body');
-            //Is this the best answer
-            $table->boolean('isBestAnswer');
-            // Generate timestamps for update and creation
-            $table->timestamps('created_at');
+            $table->mediumText('body');
+            //Keep track of the feedback for this answer
+            $table->integer('votes');
+            //Generate timestamps for update and creation
+            $table->timestamps();
+            $table->softDeletes();
+        });
 
+        Schema::table('answers', function (Blueprint $table) {
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+        });
 
-           // $table->foreign('user_id','question_id')->references('id')->on('users')->onDelete('set null')->onUpdate('no action');
+        Schema::table('questions', function (Blueprint $table) {
+            $table->foreign('answer_id')->references('id')->on('answers')->onDelete('set null');
         });
     }
 

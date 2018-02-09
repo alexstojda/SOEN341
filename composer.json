@@ -67,6 +67,7 @@
         "npm run dev",
         "@php artisan ide-helper:generate",
         "@php artisan ide-helper:meta",
+        "@php artisan ide-helper:eloquent",
         "@php artisan optimize"
     ]
   },
