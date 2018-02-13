@@ -15,8 +15,10 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Question::class, function (Faker $faker) {
     return [
-        'author_id' => factory(App\User::class, 1)->create(),
-        'title' => $faker->title,
-        'body' => $faker->paragraph,
+        'author_id' => function () {
+            return factory(App\User::class)->create()->id;
+        },
+        'title' => $faker->sentence(),
+        'body' => $faker->paragraph(),
     ];
 });

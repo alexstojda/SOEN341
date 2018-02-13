@@ -2,22 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Question;
-use App\Http\Controllers\Auth;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index','show']);
+    }
+
     public function index()
     {
         $questions = Question::latest()->get();
 
-        return view('questions.index', ['questions'=>$questions]);
+        return view('questions', ['questions'=>$questions]);
     }
 
     public function show($id)
     {
-        $question = Question::findOrFail($id);
+        try {
+            $question = Question::findOrFail($id);
+        }
+        catch (ModelNotFoundException $exception) {
+            return redirect('questions');
+        }
 
         return view('questions.show', ['question'=>$question]);
     }
@@ -37,11 +47,9 @@ class QuestionsController extends Controller
         Question::create([
             'title' => request('title'),
             'body' => request('body'),
-            'author_id' =>  auth()->id() //use this when sessions are created
+            'author_id' =>  Auth::id() //use this when sessions are created
         ]);
 
-        return redirect('questions/index');
+        return redirect('questions');
     }
-
-
 }
