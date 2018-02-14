@@ -10,13 +10,14 @@ class AnswersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('auth');
     }
 
     public function store($id)
     {
         $this-> validate(request(),[
-            'body' => 'required'
+            'body' => 'required',
+            'question_id' => 'required'
         ]);
 
         Answer::create([
@@ -27,4 +28,9 @@ class AnswersController extends Controller
 
         return redirect('questions/'.$id);
     }
+
+    public function show($question_id){
+
+    }
 }
+

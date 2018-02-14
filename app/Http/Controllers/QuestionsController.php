@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Question;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,13 @@ class QuestionsController extends Controller
             return redirect('questions');
         }
 
-        return view('questions.show', ['question'=>$question]);
+        try {
+            $answers = Answer::whereQuestionId($id);
+        } catch (ModelNotFoundException $exception) {
+            $answers = null;
+        }
+
+        return view('questions.show', ['question'=>$question, 'answers'=>$answers]);
     }
 
     public function create()
