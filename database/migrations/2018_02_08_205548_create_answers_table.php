@@ -24,7 +24,7 @@ class CreateAnswersTable extends Migration
             //Answer content
             $table->mediumText('body');
             //Keep track of the feedback for this answer
-            $table->integer('votes');
+            $table->integer('votes')->default(0);
             //Generate timestamps for update and creation
             $table->timestamps();
             $table->softDeletes();

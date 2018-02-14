@@ -16,6 +16,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property-read \App\User|null $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Answer[] $answers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereAnswerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereAuthorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereBody($value)
@@ -29,4 +32,20 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Question extends Model{
     protected $fillable = ['title','body','author_id'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
 }
