@@ -23,6 +23,8 @@ Route::get('/questions/create', 'QuestionsController@create');
 
 Route::post('/questions/', 'QuestionsController@store');
 
+Route::post('/answer/{id}', 'AnswersController@store');
+
 Route::get('/questions/', 'QuestionsController@index');
 
 Route::get('/questions/{id}', 'QuestionsController@show');
