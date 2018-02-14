@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @if ($status)
+    @if (isset($status))
         <status-toast>
             {{ $status }}
         </status-toast>
