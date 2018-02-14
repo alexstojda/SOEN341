@@ -19,7 +19,7 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
-                        <label for="answer;_label">Your answer:</label>
+                        <label for="answer_label">Your answer:</label>
                         <input type="textarea" class="form-control" id="answer_body" name="body" required>
                         <input type="hidden" name="question_id" value="{{$question->id}}">
                     </div>

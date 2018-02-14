@@ -26,7 +26,7 @@ class AnswersController extends Controller
             'author_id' =>  Auth::id() //use this when sessions are created
         ]);
 
-        return redirect('questions/'.$id);
+        return redirect()->action('QuestionsController@show', ['id' => $id]);
     }
 
     public function show($question_id){
