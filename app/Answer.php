@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Answer extends Model
 {
-    protected $fillable = ['body','question_id','author_id','i_am_a'];
+    protected $fillable = ['body','question_id','author_id'];
     public function user()
     {
         return $this->belongsTo(User::class, 'author_id');
