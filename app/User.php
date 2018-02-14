@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -15,6 +16,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $email
  * @property string $password
  * @property string|null $remember_token
+ * @property string $last_ip
+ * @property string $last_login
+ * @property string|null $deleted_at
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCreatedAt($value)
@@ -24,10 +28,19 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastLogin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastIp($value)
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\User onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\User withoutTrashed()
  */
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -35,7 +48,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','last_ip','last_login'
     ];
 
     /**
@@ -44,6 +57,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','last_ip','last_login'
     ];
+
+    /**
+     * The attributes that are usable dates
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 }
