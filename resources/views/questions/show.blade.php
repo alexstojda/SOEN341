@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="col-xs-6">
                                     <span class="pull-left">
-                                    {{--show the questions--}}
+                                    {{-- show the questions --}}
                                     <br/><p>+ {{ $answer->body }}</p>
                                     {{--<p>{{ $answer->userName }}}</p> // to be added--}}
                                     </span>
