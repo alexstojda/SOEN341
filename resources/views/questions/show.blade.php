@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (session('status'))
-        <status-toast>
-            {{ session('status') }}
-        </status-toast>
+    @if (isset($status))
+    <status-toast>
+    {{ $status }}
+    </status-toast>
     @endif
     <div class="container">
 
@@ -18,8 +18,31 @@
                 <h3>Answers:</h3>
                 @foreach ($answers as $answer)
                     <div class="text-center">
-                        <p>+ {{ $answer->body }}</p>
-                        {{--<p>{{ $answer->userName }}}</p> // to be added--}}
+                        {{--add the up/down vote buttons--}}
+
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-xs-6">
+                                    <span class="pull-right">
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon-chevron-up"></span>
+                                    </a><br/>
+                                    <span> {{ $answer->votes }}</span><br/>
+                                    <a href="#">
+                                        <span class="glyphicon glyphicon-chevron-down"></span>
+                                    </a>
+                                    </span>
+                                </div>
+                                <div class="col-xs-6">
+                                    <span class="pull-left">
+                                    {{--show the questions--}}
+                                    <br/><p>+ {{ $answer->body }}</p>
+                                    {{--<p>{{ $answer->userName }}}</p> // to be added--}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -35,7 +58,14 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Post</button>
+
+                    </div>
                 </form>
+            <br/>
+            <a href="/questions" class="btn btn-info">
+                <span class="glyphicon"></span> Back to Questions
+            </a>
+
             </div>
 
 
