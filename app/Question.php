@@ -28,5 +28,5 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  */
 class Question extends Model{
-    protected $fillable = ['title','body'];
+    protected $fillable = ['title','body','author_id'];
 }

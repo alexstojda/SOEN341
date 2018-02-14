@@ -14,6 +14,16 @@
 
             <p>{{ $question->body }}</p>
 
+            <div class="container">
+                <h3>Answers:</h3>
+                @foreach ($answers as $answer)
+                    <div class="text-center">
+                        <p>+ {{ $answer->body }}</p>
+                        {{--<p>{{ $answer->userName }}}</p> // to be added--}}
+                    </div>
+                @endforeach
+            </div>
+
             <div class="container-fluid">
                 <form method="POST" action="/answers/{{ $question->id }}">
                     {{ csrf_field() }}
@@ -27,6 +37,8 @@
                     <button type="submit" class="btn btn-primary">Post</button>
                 </form>
             </div>
+
+
 
         </div>
 

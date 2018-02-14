@@ -31,7 +31,7 @@ class QuestionsController extends Controller
         }
 
         try {
-            $answers = Answer::whereQuestionId($id);
+            $answers = Answer::where('question_id', $id)->get();
         } catch (ModelNotFoundException $exception) {
             $answers = null;
         }
