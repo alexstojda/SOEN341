@@ -14,6 +14,11 @@
 
             <p>{{ $question->body }}</p>
 
+            <div class="pull-right">
+                By {{$question->user->name}} <br>
+                {{ $question->created_at->diffForHumans()}}
+            </div>
+
             <div class="container">
                 <h3>Answers:</h3>
                 @foreach ($answers as $answer)
