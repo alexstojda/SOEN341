@@ -23,8 +23,18 @@ Route::get('/questions/create', 'QuestionsController@create');
 
 Route::post('/questions/', 'QuestionsController@store');
 
+Route::get('/answers/{id}/upvote', 'AnswersController@upvote');
+
+Route::get('/answers/{id}/downvote', 'AnswersController@downvote');
+
 Route::post('/answers/{id}', 'AnswersController@store');
 
 Route::get('/questions/', 'QuestionsController@index');
 
 Route::get('/questions/{id}', 'QuestionsController@show');
+
+Route::get('/questions/{id}/voters', 'QuestionsController@Voters');
+
+Route::get('/questions/{id}/upvote', 'QuestionsController@upvote');
+
+Route::get('/questions/{id}/downvote', 'QuestionsController@downvote');
