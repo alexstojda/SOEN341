@@ -2,9 +2,9 @@
 
 @section('content')
     @if (isset($status))
-    <status-toast>
-    {{ $status }}
-    </status-toast>
+        <status-toast>
+            {{ $status }}
+        </status-toast>
     @endif
     <div class="container">
 
@@ -25,22 +25,26 @@
 
                                 <div class="col-xs-6">
                                     <span class="pull-right">
-                                         <form method="POST" action="/questions/{{ $question->id }}/upvote/">
+                                        @if(Auth::check())
+                                            <form method="POST" action="/answers/{{ $answer->id }}/upvote/">
                                                 {{ csrf_field() }}
-                                        <button class="glyphicon glyphicon-chevron-up" type="submit" ></button>
-                                        </form>
-                                    <span> {{ $answer->votes }}</span><br/>
-                                        <form method="POST" action="/questions/{{ $question->id }}/downvote/">
+                                                <button class="glyphicon glyphicon-chevron-up" type="submit"></button>
+                                         </form>
+                                        @endif
+                                        <span> {{ $answer->countTotalVotes() }}</span><br/>
+                                        @if(Auth::check())
+                                            <form method="POST" action="/answers/{{ $answer->id }}/downvote/">
                                              {{ csrf_field() }}
-                                            <button class="glyphicon glyphicon-chevron-down" type="submit" ></button>
+                                                <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
                                         </form>
+                                        @endif
                                     </span>
                                 </div>
                                 <div class="col-xs-6">
                                     <span class="pull-left">
                                     {{-- show the questions --}}
-                                    <br/><p>+ {{ $answer->body }}</p>
-                                    {{--<p>{{ $answer->userName }}}</p> // to be added--}}
+                                        <br/><p>+ {{ $answer->body }}</p>
+                                        {{--<p>{{ $answer->userName }}}</p> // to be added--}}
                                     </span>
                                 </div>
                             </div>
@@ -61,18 +65,17 @@
 
                     <button type="submit" class="btn btn-primary">Post</button>
 
-                    </div>
-                </form>
+            </div>
+            </form>
             <br/>
             <a href="/questions" class="btn btn-info">
                 <span class="glyphicon"></span> Back to Questions
             </a>
 
-            </div>
-
-
-
         </div>
+
+
+    </div>
 
 
 
