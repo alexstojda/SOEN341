@@ -15,6 +15,8 @@ class ExampleTest extends DuskTestCase
      */
     public function testBasicExample()
     {
+        dump(env('DB_CONNECTION'));
+        dump(env('DEBUGBAR_ENABLED'));
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                     ->assertSee('Spotted: Concordia');
