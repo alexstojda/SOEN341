@@ -3,9 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Jcc\LaravelVote\Vote;
+
 /**
  * App\User
  *
@@ -49,7 +50,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','last_ip','last_login'
+        'name', 'email', 'password', 'last_ip', 'last_login'
     ];
 
     /**
@@ -58,7 +59,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','last_ip','last_login'
+        'password', 'remember_token', 'last_ip', 'last_login'
     ];
 
     /**
