@@ -25,13 +25,15 @@
 
                                 <div class="col-xs-6">
                                     <span class="pull-right">
-                                    <a href="#">
-                                        <span class="glyphicon glyphicon-chevron-up"></span>
-                                    </a><br/>
+                                         <form method="POST" action="/questions/{{ $question->id }}/upvote/">
+                                                {{ csrf_field() }}
+                                        <button class="glyphicon glyphicon-chevron-up" type="submit" ></button>
+                                        </form>
                                     <span> {{ $answer->votes }}</span><br/>
-                                    <a href="#">
-                                        <span class="glyphicon glyphicon-chevron-down"></span>
-                                    </a>
+                                        <form method="POST" action="/questions/{{ $question->id }}/downvote/">
+                                             {{ csrf_field() }}
+                                            <button class="glyphicon glyphicon-chevron-down" type="submit" ></button>
+                                        </form>
                                     </span>
                                 </div>
                                 <div class="col-xs-6">

@@ -25,7 +25,7 @@ class CreateQuestionsTable extends Migration
             //The answer selected by the author or due to other conditions
             $table->integer('answer_id')->unsigned()->nullable();
             //Status of the question
-            $table->enum('status', array('open', 'closed', 'duplicate'));
+            $table->enum('status', array('open', 'closed', 'duplicate'))->default('open');
             //Generate timestamps for update and creation
             $table->timestamps();
             $table->softDeletes();

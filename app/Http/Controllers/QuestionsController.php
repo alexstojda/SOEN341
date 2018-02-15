@@ -17,12 +17,12 @@ class QuestionsController extends Controller
     public function index()
     {
         $questions = Question::latest()->get();
-
         return view('questions', ['questions'=>$questions]);
     }
 
     public function show($id)
     {
+
         try {
             $question = Question::findOrFail($id);
         }
@@ -58,5 +58,55 @@ class QuestionsController extends Controller
         ]);
 
         return redirect('questions');
+    }
+
+    public function Voters($id){
+        try {
+            $question = Question::findOrFail($id);
+        }
+        catch (ModelNotFoundException $exception) {
+            return redirect('questions');
+        }
+       dd(  $question->countVoters());
+
+    }
+
+    public function upvote($id){
+        try {
+            $question = Question::findOrFail($id);
+        }
+        catch (ModelNotFoundException $exception) {
+            return redirect()->back();
+       }
+         $user = Auth::user();
+
+        if($user->hasUpVoted($question)){
+            $user->cancelVote($question);
+        }
+        else {
+            $user->upVote($question);
+        }
+        return redirect()->back();
+
+    }
+
+    public function downvote($id){
+        try {
+            $question = Question::findOrFail($id);
+        }
+        catch (ModelNotFoundException $exception) {
+            return redirect()->back();
+        }
+        $user = Auth::user();
+
+
+        if($user->hasDownVoted($question)){
+            $user->cancelVote($question);
+        }
+        else {
+            $user->downVote($question);
+        }
+        return redirect()->back();
+
     }
 }

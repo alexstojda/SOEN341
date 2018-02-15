@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Jcc\LaravelVote\CanBeVoted;
 
 /**
  * App\Question
@@ -28,5 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  */
 class Question extends Model{
+    use CanBeVoted;
+    protected $vote = User::class;
     protected $fillable = ['title','body','author_id'];
 }
