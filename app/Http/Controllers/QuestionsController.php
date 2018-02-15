@@ -10,7 +10,7 @@ class QuestionsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
     public function index()
@@ -23,10 +23,9 @@ class QuestionsController extends Controller
     public function show($id)
     {
         try {
-            $question = Question::find($id);
+            $question = Question::findOrFail($id);
             $answers = $question->answers;
-        }
-        catch (ModelNotFoundException $exception) {
+        } catch (ModelNotFoundException $exception) {
             return redirect('questions');
         }
 
@@ -40,7 +39,7 @@ class QuestionsController extends Controller
 
     public function store()
     {
-        $this-> validate(request(),[
+        $this->validate(request(), [
             'title' => 'required',
             'body' => 'required'
         ]);
@@ -48,9 +47,46 @@ class QuestionsController extends Controller
         Question::create([
             'title' => request('title'),
             'body' => request('body'),
-            'author_id' =>  Auth::id() //use this when sessions are created
+            'author_id' => Auth::id() //use this when sessions are created
         ]);
 
         return redirect('questions');
+    }
+
+    public function upvote($id)
+    {
+        try {
+            $question = Question::findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            return redirect()->back();
+        }
+        $user = Auth::user();
+
+        if ($user->hasUpVoted($question)) {
+            $user->cancelVote($question);
+        } else {
+            $user->upVote($question);
+        }
+        return redirect()->back();
+
+    }
+
+    public function downvote($id)
+    {
+        try {
+            $question = Question::findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            return redirect()->back();
+        }
+        $user = Auth::user();
+
+
+        if ($user->hasDownVoted($question)) {
+            $user->cancelVote($question);
+        } else {
+            $user->downVote($question);
+        }
+        return redirect()->back();
+
     }
 }

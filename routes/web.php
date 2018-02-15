@@ -28,3 +28,9 @@ Route::post('/answers/{id}', 'AnswersController@store');
 Route::get('/questions/', 'QuestionsController@index');
 
 Route::get('/questions/{id}', 'QuestionsController@show');
+
+Route::get('/questions/{id}/voters', 'QuestionsController@Voters');
+
+Route::get('/questions/{id}/upvote', 'QuestionsController@upvote');
+
+Route::get('/questions/{id}/downvote', 'QuestionsController@downvote');
