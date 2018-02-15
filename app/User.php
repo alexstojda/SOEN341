@@ -3,9 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Jcc\LaravelVote\Vote;
 /**
  * App\User
  *
@@ -41,6 +41,7 @@ class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    use Vote;
 
     /**
      * The attributes that are mass assignable.

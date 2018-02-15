@@ -1,6 +1,9 @@
 <?php
+
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
+use Jcc\LaravelVote\CanBeVoted;
 
 /**
  * App\Answer
@@ -28,15 +31,20 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Answer extends Model
 {
-    protected $fillable = ['body','question_id','author_id'];
+    use CanBeVoted;
+    protected $vote = User::class;
+    protected $fillable = ['body', 'question_id', 'author_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
     public function parent()
     {
         return $this->belongsTo(Question::class);
     }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
