@@ -56,7 +56,7 @@ return [
 
         'dusk' => [
             'driver' => 'sqlite',
-            'database' => storage_path('app\dusk.sqlite'),
+            'database' => database_path('dusk.sqlite'),
             'prefix' => '',
         ],
 
