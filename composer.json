@@ -15,11 +15,11 @@
     "laravel/framework": "5.6.*",
     "laravel/tinker": "~1.0",
     "mikefrancis/laravel-secureheaders": "^1.2",
-    "barryvdh/laravel-ide-helper": "^2.4",
     "roave/security-advisories": "dev-master"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.1",
+    "barryvdh/laravel-ide-helper": "^2.4",
     "doctrine/dbal": "~2.3",
     "filp/whoops": "~2.0",
     "fzaninotto/faker": "~1.4",
@@ -61,18 +61,35 @@
     ],
     "post-install-cmd": [
       "Illuminate\\Foundation\\ComposerScripts::postInstall",
-      "@php artisan migrate:fresh --force",
-      "yarn install",
-      "yarn run dev",
-      "@php artisan ide-helper:generate",
-      "@php artisan ide-helper:meta",
-      "@php artisan ide-helper:eloquent"
+      "@php artisan migrate --force"
     ],
     "post-update-cmd": [
       "Illuminate\\Foundation\\ComposerScripts::postUpdate",
       "@php artisan migrate --force --seed",
       "yarn upgrade",
       "yarn run dev",
+      "composer ide-helper"
+    ],
+    "reset-env":[
+      "rm -rf node-modules",
+      "rm -rf vendor/*/",
+      "composer fix-silent",
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "@php artisan key:generate",
+      "node_modules\\node-notifier\\vendor\\snoreToast\\SnoreToast.exe -t \"Reset your Development Environment\" -m \"Removed and reinstalled all packages, reset .env to .env.example and generated a new key.\" -p public\\images\\success-kid.jpg"
+
+    ],
+    "fix":[
+      "composer fix-silent",
+      "node_modules\\node-notifier\\vendor\\snoreToast\\SnoreToast.exe -t \"Composer Fix Succeded\" -m \"Updated to the latest common dependencies, everything should be safe and beautiful!\" -p public\\images\\success-kid.jpg",
+      "yarn run dev"
+    ],
+    "fix-silent":[
+      "composer install",
+      "yarn install",
+      "composer ide-helper"
+    ],
+    "ide-helper":[
       "@php artisan ide-helper:generate",
       "@php artisan ide-helper:meta",
       "@php artisan ide-helper:eloquent"
