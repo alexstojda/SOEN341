@@ -11,11 +11,11 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/', 'QuestionsController@index');
+//Route::get('/', 'QuestionsController@index');
 
 Auth::routes();
 
