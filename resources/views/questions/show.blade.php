@@ -7,12 +7,13 @@
         </status-toast>
     @endif
     <div class="container">
-        <div class="text-center">
-
+        <div class="container-fluid">
             <h2>{{ $question->title }}</h2>
-
+            <hr>
+        <div class="fluid-container">
+        <div class="pull-left">
             <p>{{ $question->body }}</p>
-
+        </div>
             <div class="pull-right">
                 By {{$question->user->name}} <br>
                 {{ $question->created_at->diffForHumans()}}
@@ -23,20 +24,20 @@
             {{--Container to display question comments--}}
             @if (is_null($comments))
             @else
-                <div class="text-center">
-                    <br><br>
+
+
                     @foreach ($comments as $comment)
-                        <div> {{--<class="text-center">--}}
-                            + {{$comment->body}} <h5>{{$comment->user->name}}</h5>
-                        </div>
+                            + {{$comment->body}} <small> - {{$comment->user->name}}</small><br>
                     @endforeach
 
-                </div>
+        </div>
             @endif
-
+    </div>
             {{--Button that holds a form to post Comments to Question--}}
             @if (Auth::check())
+                <div class="pull-right">
                 <a href="#com" class="btn btn-default pull-right" data-toggle="collapse">Comment</a>
+                </div>
                 <div id="com" class="collapse">
 
                     <div class="container-fluid">
@@ -56,22 +57,16 @@
                     </div>
                 </div>
             @endif
-            </div>
         </div>
 
-
-
             <div class="container">
-                <h3>Answers:</h3>
+                <h3>{{count($answers)}} Answers</h3>
                 @foreach ($answers as $answer)
-                    <div class="text-center">
+                    <hr>
+                    <div class="fluid-container">
                         {{--add the up/down vote buttons--}}
-
-                        <div class="container">
-                            <div class="row">
-
-                                <div class="col-xs-6">
-                                    <span class="pull-right">
+                        <div class="row">
+                                <div class="pull-left col-xs-1">
                                         @if(Auth::check())
                                         <form method="POST" action="/answers/{{ $answer->id }}/upvote/">
                                             @csrf
@@ -85,40 +80,35 @@
                                             <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
                                         </form>
                                         @endif
-                                    </span>
                                 </div>
-                                <div class="col-xs-6">
-                                    <span class="pull-left">
+                                <div>
+                                    <ul>
                                     {{-- show the questions --}}
-                                        <br/><p>+ {{ $answer->body }} <h6>by {{$answer->user->name}}</h6></p>
-                                        {{--<p>{{ $answer->userName }}}</p> // to be added--}}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                        <li><h4>{{ $answer->body }} <br><small>by {{$answer->user->name}}</small></h4></li>
+                                    </ul>
+
+
 
                     {{--List of comments for each answer--}}
                     @if (is_null($answerComments))
                     @else
-                        <div class="fluid-container">
                             @foreach ($answerComments as $ac)
                                 @foreach ($ac as $answerComment)
                                     @if($answer->id==$answerComment->answer_id)
-                                        <ul>
-                                            <div>
-                                                <li>{{$answerComment->body}}  <h6>{{$answerComment->user->name}}</h6></li>
-                                            </div>
-                                        </ul>
+                                   <br> + {{$answerComment->body}}  <small> - {{$answerComment->user->name}}</small>
                                     @endif
                                 @endforeach
                             @endforeach
-                        </div>
                     @endif
+                                </div>
+                        </div>
+                    </div>
 
                     @if (Auth::check())
                         {{--Button to form for posting comments on each answer--}}
+                    <div class="pull-right">
                         <a href="#ca{{$answer->id}}" class="btn btn-default" data-toggle="collapse">Comment</a>
+                    </div>
                         <div id="ca{{$answer->id}}" class="collapse">
 
                             <div class="container-fluid">
@@ -138,13 +128,11 @@
                             </div>
                         </div>
                         @endif
-
-
                         <br>
                 @endforeach
             </div>
 
-            <div class="container-fluid">
+            <div class="container">
                 <form method="POST" action="/answers/{{ $question->id }}">
                     @csrf
 
@@ -158,9 +146,11 @@
                 </form>
             </div>
             <br/>
+            <div class="text-center">
             <a href="/questions" class="btn btn-info">
                 <span class="glyphicon"></span> Back to Questions
             </a>
+            </div>
         </div>
     </div>
 @endsection
