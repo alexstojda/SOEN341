@@ -14,7 +14,11 @@
 
 
                         <div class="text-center">
-                            <h3><a href="questions/{{ $question->id }}">{{ $question->title }}</a></h3>
+                            <h3>
+                                <div class="pull-left">Votes: {{ $question->countTotalVotes() }}</div>
+                                <a href="questions/{{ $question->id }}" id="qs">{{ $question->title }}</a>
+                                <small>-Posted: {{ $question->created_at->diffForHumans()}}</small>
+                            </h3>
                         </div>
         @endforeach
     </div>
