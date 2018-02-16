@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (session('status'))
+    @if (isset($status))
         <status-toast>
-            {{ session('status') }}
+            {{ $status }}
         </status-toast>
     @endif
 
@@ -11,5 +11,12 @@
         You are logged in!
     </dashboard-notification>
 
-    <example-component></example-component>
+    <div class="container">
+        <a href="questions/" role="button" class="btn btn-info btn-block">
+                Go To Questions!
+        </a>
+    </div>
+
+
+
 @endsection

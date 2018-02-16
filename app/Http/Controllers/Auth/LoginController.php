@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -35,5 +38,18 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Update cetain user details on login
+     *
+     * @param Request $request
+     * @param User $user
+     */
+    function authenticated(Request $request, User $user)
+    {
+        $user->last_login = Carbon::now();
+        $user->last_ip = $request->getClientIp();
+        $user->save();
     }
 }

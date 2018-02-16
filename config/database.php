@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'testing'),
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
             'engine' => null,
         ],
 
-        'testing' => [
+        'dusk' => [
             'driver' => 'sqlite',
             'database' => storage_path('app\dusk.sqlite'),
             'prefix' => '',

@@ -4,12 +4,13 @@ cache:
   directories:
     - $HOME/.cache/composer/files
     - $HOME/.composer/cache/files
+    - node_modules
 php:
   - '7.2'
 before_install:
 
 install:
-  - 'travis_retry composer install --no-interaction --prefer-dist'
+  - 'travis_retry composer install --no-interaction'
 services:
 
 before_script:
