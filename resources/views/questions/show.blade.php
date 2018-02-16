@@ -10,8 +10,28 @@
         <div class="container-fluid">
             <h2>{{ $question->title }}</h2>
             <hr>
-        <div class="fluid-container">
-        <div class="pull-left">
+        <div>
+            <div class="col-sm-1">
+                        <span class="pull-left">
+                            @if(Auth::check())
+                                <form method="POST" action="/questions/{{ $question->id }}/upvote/">
+                                @csrf
+                                    <button class="glyphicon glyphicon-chevron-up" type="submit"></button>
+                             </form>
+                            @endif
+                            <span> {{ $question->countTotalVotes() }}</span><br/>
+                            @if(Auth::check())
+                                <form method="POST" action="/questions/{{ $question->id }}/downvote/">
+                                @csrf
+                                    <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
+                            </form>
+                            @endif
+                        </span>
+            </div>
+
+
+
+        <div>
             <p>{{ $question->body }}</p>
         </div>
             <div class="pull-right">
