@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (session('status'))
+    @if (isset($status))
         <status-toast>
-            {{ session('status') }}
+            {{ isset($status) }}
         </status-toast>
     @endif
 
@@ -15,7 +15,7 @@
     <hr>
     <div class="container-fluid">
     <form method="POST" action="/questions">
-        {{ csrf_field() }}
+        @csrf
 
         <div class="form-group">
             <label for="questionHeader">Enter Main Question:</label>

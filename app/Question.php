@@ -18,6 +18,7 @@ use Jcc\LaravelVote\CanBeVoted;
  * @property \Carbon\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read \App\User|null $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $voters
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Answer[] $answers
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereAnswerId($value)

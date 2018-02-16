@@ -14,6 +14,8 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
+        dump(env('DB_CONNECTION'));
+        dump(env('DEBUGBAR_ENABLED'));
         $response = $this->get('/');
 
         $response->assertStatus(200);
