@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/', 'QuestionsController@index');
 
 Auth::routes();
 
@@ -35,6 +37,7 @@ Route::get('/questions/{id}', 'QuestionsController@show');
 
 Route::get('/questions/{id}/voters', 'QuestionsController@Voters');
 
+//TODO: Why does POST break this
 Route::get('/questions/{id}/upvote', 'QuestionsController@upvote');
 
 Route::get('/questions/{id}/downvote', 'QuestionsController@downvote');

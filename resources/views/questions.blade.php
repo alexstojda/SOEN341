@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -9,8 +10,11 @@
             </a>
         </div>
     @endif
+    @if(Auth::check())
+        <form method="POST" action="/questions/{{ $question->id }}/downvote/">
+            @csrf
 
-    <div class="container">
+            <div class="container">
         @foreach ($questions as $question)
             <div class="container">
                 <div class="row">
@@ -23,9 +27,6 @@
                              </form>
                             @endif
                             <span> {{ $question->countTotalVotes() }}</span><br/>
-                            @if(Auth::check())
-                            <form method="POST" action="/questions/{{ $question->id }}/downvote/">
-                                 @csrf
                                 <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
                             </form>
                             @endif
