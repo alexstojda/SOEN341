@@ -4,7 +4,6 @@ cache:
   directories:
     - $HOME/.cache/composer/files
     - $HOME/.composer/cache/files
-    - node_modules
 php:
   - '7.2'
 before_install:
