@@ -13,6 +13,11 @@
 
             <p>{{ $question->body }}</p>
 
+            <div class="pull-right">
+                By {{$question->user->name}} <br>
+                {{ $question->created_at->diffForHumans()}}
+            </div>
+
             <div class="container">
                 <h3>Answers:</h3>
                 @foreach ($answers as $answer)
@@ -42,7 +47,7 @@
                                 <div class="col-xs-6">
                                     <span class="pull-left">
                                     {{-- show the questions --}}
-                                        <br/><p>+ {{ $answer->body }}</p>
+                                        <br/><p>+ {{ $answer->body }} <h6>by {{$answer->user->name}}</h6></p>
                                         {{--<p>{{ $answer->userName }}}</p> // to be added--}}
                                     </span>
                                 </div>
