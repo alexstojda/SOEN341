@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -10,24 +9,23 @@
             </a>
         </div>
     @endif
-    @if(Auth::check())
-        <form method="POST" action="/questions/{{ $question->id }}/downvote/">
-            @csrf
-
-            <div class="container">
+    <div class="container">
         @foreach ($questions as $question)
             <div class="container">
                 <div class="row">
                     <div class="col-xs-2">
                         <span class="pull-right">
                             @if(Auth::check())
-                            <form method="POST" action="/questions/{{ $question->id }}/upvote/">
+                                <form method="POST" action="/questions/{{ $question->id }}/upvote/">
                                 @csrf
-                                <button class="glyphicon glyphicon-chevron-up" type="submit"></button>
+                                    <button class="glyphicon glyphicon-chevron-up" type="submit"></button>
                              </form>
                             @endif
                             <span> {{ $question->countTotalVotes() }}</span><br/>
-                                <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
+                            @if(Auth::check())
+                                <form method="POST" action="/questions/{{ $question->id }}/downvote/">
+                                @csrf
+                                    <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
                             </form>
                             @endif
                         </span>
