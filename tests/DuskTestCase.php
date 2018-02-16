@@ -20,6 +20,8 @@ abstract class DuskTestCase extends BaseTestCase
     public static function prepare()
     {
         static::startChromeDriver();
+        putenv('DB_CONNECTION=dusk');
+        putenv('DEBUGBAR_ENABLED=false');
     }
 
     /**

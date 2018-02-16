@@ -7,7 +7,6 @@
         </status-toast>
     @endif
     <div class="container">
-
         <div class="text-center">
 
             <h2>{{ $question->title }}</h2>
@@ -31,16 +30,16 @@
                                 <div class="col-xs-6">
                                     <span class="pull-right">
                                         @if(Auth::check())
-                                            <form method="POST" action="/answers/{{ $answer->id }}/upvote/">
-                                                {{ csrf_field() }}
-                                                <button class="glyphicon glyphicon-chevron-up" type="submit"></button>
+                                        <form method="POST" action="/answers/{{ $answer->id }}/upvote/">
+                                            @csrf
+                                            <button class="glyphicon glyphicon-chevron-up" type="submit"></button>
                                          </form>
                                         @endif
                                         <span> {{ $answer->countTotalVotes() }}</span><br/>
                                         @if(Auth::check())
-                                            <form method="POST" action="/answers/{{ $answer->id }}/downvote/">
-                                             {{ csrf_field() }}
-                                                <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
+                                        <form method="POST" action="/answers/{{ $answer->id }}/downvote/">
+                                            @csrf
+                                            <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
                                         </form>
                                         @endif
                                     </span>
@@ -60,7 +59,7 @@
 
             <div class="container-fluid">
                 <form method="POST" action="/answers/{{ $question->id }}">
-                    {{ csrf_field() }}
+                    @csrf
 
                     <div class="form-group">
                         <label for="answer_label">Your answer:</label>
@@ -69,24 +68,12 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Post</button>
-
+                </form>
             </div>
-            </form>
             <br/>
             <a href="/questions" class="btn btn-info">
                 <span class="glyphicon"></span> Back to Questions
             </a>
-
         </div>
-
-
     </div>
-
-
-
-    </div>
-
-
-
-
 @endsection
