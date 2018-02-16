@@ -41,3 +41,6 @@ Route::get('/questions/{id}/voters', 'QuestionsController@Voters');
 Route::get('/questions/{id}/upvote', 'QuestionsController@upvote');
 
 Route::get('/questions/{id}/downvote', 'QuestionsController@downvote');
+
+//Comment routes
+Route::post('/comments/{id}', 'CommentController@store');

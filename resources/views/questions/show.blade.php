@@ -18,6 +18,49 @@
                 {{ $question->created_at->diffForHumans()}}
             </div>
 
+             <br><hr>
+
+            {{--Container to display question comments--}}
+            @if (is_null($comments))
+            @else
+                <div class="text-center">
+                    <br><br>
+                    @foreach ($comments as $comment)
+                        <div> {{--<class="text-center">--}}
+                            + {{$comment->body}} <h5>{{$comment->user->name}}</h5>
+                        </div>
+                    @endforeach
+
+                </div>
+            @endif
+
+            {{--Button that holds a form to post Comments to Question--}}
+            @if (Auth::check())
+                <a href="#com" class="btn btn-default pull-right" data-toggle="collapse">Comment</a>
+                <div id="com" class="collapse">
+
+                    <div class="container-fluid">
+                        <form method="POST" action="/comments/{{ $question->id }}">
+                            @csrf
+
+                            <div class="form-group">
+                                <label for="commentBody">Your comment:</label>
+                                <input type="textarea" class="form-control" id="c_body" name="body" required>
+                                <input type="hidden" name="question_id" value="{{$question->id}}">
+                                <input type="hidden" name="answer_id" value=null>
+                                <input type="hidden" name="i_am_a" value="commentQ">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Post</button>
+                        </form>
+                    </div>
+                </div>
+            @endif
+            </div>
+        </div>
+
+
+
             <div class="container">
                 <h3>Answers:</h3>
                 @foreach ($answers as $answer)
@@ -54,6 +97,50 @@
                             </div>
                         </div>
                     </div>
+
+                    {{--List of comments for each answer--}}
+                    @if (is_null($answerComments))
+                    @else
+                        <div class="fluid-container">
+                            @foreach ($answerComments as $ac)
+                                @foreach ($ac as $answerComment)
+                                    @if($answer->id==$answerComment->answer_id)
+                                        <ul>
+                                            <div>
+                                                <li>{{$answerComment->body}}  <h6>{{$answerComment->user->name}}</h6></li>
+                                            </div>
+                                        </ul>
+                                    @endif
+                                @endforeach
+                            @endforeach
+                        </div>
+                    @endif
+
+                    @if (Auth::check())
+                        {{--Button to form for posting comments on each answer--}}
+                        <a href="#ca{{$answer->id}}" class="btn btn-default" data-toggle="collapse">Comment</a>
+                        <div id="ca{{$answer->id}}" class="collapse">
+
+                            <div class="container-fluid">
+                                <form method="POST" action="/comments/{{ $question->id }}">
+                                    {{ csrf_field() }}
+
+                                    <div class="form-group">
+                                        <label for="answerCommentBody">Your comment:</label>
+                                        <input type="text-area" class="form-control" id="c_body" name="body" required>
+                                        <input type="hidden" name="question_id" value=null>
+                                        <input type="hidden" name="answer_id" value="{{$answer->id}}">
+                                        <input type="hidden" name="i_am_a" value="commentA">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary">Post</button>
+                                </form>
+                            </div>
+                        </div>
+                        @endif
+
+
+                        <br>
                 @endforeach
             </div>
 

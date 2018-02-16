@@ -23,13 +23,23 @@ class QuestionsController extends Controller
     public function show($id)
     {
         try {
-            $question = Question::findOrFail($id);
+            $question = Question::find($id);
+            $comments = $question->comments;
             $answers = $question->answers;
+
+//            $answerComments = $answers->comments;
+
+
+            $answerComments = array();
+
+            foreach($answers as $answer) {
+                            $answerComments[] = $answer->comments;
+                        }
         } catch (ModelNotFoundException $exception) {
             return redirect('questions');
         }
 
-        return view('questions.show', compact('question', 'answers'));
+        return view('questions.show', compact('question', 'answers', 'comments', 'answerComments'));
     }
 
     public function create()
