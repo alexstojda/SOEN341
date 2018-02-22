@@ -9,11 +9,13 @@
             </a>
         </div>
     @endif
-    <div class="container">
+    <div class="container-fluid text-center">
+
+        <h1>Questions</h1>
         @foreach ($questions as $question)
 
 
-                        <div class="text-center">
+                        <div class="card container text-center">
                             <h3>
                                 <div class="pull-left">Votes: {{ $question->countTotalVotes() }}</div>
                                 <a href="questions/{{ $question->id }}" id="qs">{{ $question->title }}</a>
