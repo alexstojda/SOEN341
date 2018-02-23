@@ -14,13 +14,10 @@
         <h1>Questions</h1>
         @foreach ($questions as $question)
 
-                    {{--TODO: intellij complains about the div in h3, find out why. --}}
                         <div class="card container text-center">
-                            <h3>
-                                <div class="pull-left">Votes: {{ $question->countTotalVotes() }}</div>
-                                <a href="questions/{{ $question->id }}" id="qs">{{ $question->title }}</a>
-                                <small>-Posted: {{ $question->created_at->diffForHumans()}}</small>
-                            </h3>
+                                <div class="pull-left"><h3>Votes: {{ $question->countTotalVotes() }} </h3></div>
+                                <h3>   <a href="questions/{{ $question->id }}" id="qs">{{ $question->title }}</a>
+                                <small>-Posted: {{ $question->created_at->diffForHumans()}}</small></h3>
                         </div>
         @endforeach
     </div>
