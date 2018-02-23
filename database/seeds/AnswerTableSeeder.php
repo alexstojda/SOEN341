@@ -11,6 +11,6 @@ class AnswerTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Answer::class, 5)->create();
+        factory(App\Answer::class, 20)->create();
     }
 }
