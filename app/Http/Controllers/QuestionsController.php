@@ -27,6 +27,7 @@ class QuestionsController extends Controller
             $comments = $question->comments;
             $answers = $question->answers;
 
+            //TODO: Can't you just pass comments as a collection instead of this weird array shit?
 //            $answerComments = $answers->comments;
 
 

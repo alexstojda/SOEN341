@@ -61,7 +61,7 @@
                 <div id="com" class="collapse">
 
                     <div class="container-fluid">
-                        <form method="POST" action="/comments/{{ $question->id }}">
+                        <form method="POST" action="/comments">
                             @csrf
 
                             <div class="form-group">
@@ -132,13 +132,13 @@
                         <div id="ca{{$answer->id}}" class="collapse">
 
                             <div class="container-fluid">
-                                <form method="POST" action="/comments/{{ $question->id }}">
-                                    {{ csrf_field() }}
+                                <form method="POST" action="/comments">
+                                    @csrf
 
                                     <div class="form-group">
                                         <label for="answerCommentBody">Your comment:</label>
                                         <input type="text-area" class="form-control" id="c_body" name="body" required>
-                                        <input type="hidden" name="question_id" value=null>
+                                        <input type="hidden" name="question_id" value="{{$question->id}}">
                                         <input type="hidden" name="answer_id" value="{{$answer->id}}">
                                         <input type="hidden" name="i_am_a" value="commentA">
                                     </div>
@@ -153,7 +153,7 @@
             </div>
 
             <div class="container">
-                <form method="POST" action="/answers/{{ $question->id }}">
+                <form method="POST" action="/answers">
                     @csrf
 
                     <div class="form-group">

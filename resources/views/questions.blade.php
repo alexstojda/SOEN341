@@ -14,7 +14,7 @@
         <h1>Questions</h1>
         @foreach ($questions as $question)
 
-
+                    {{--TODO: intellij complains about the div in h3, find out why. --}}
                         <div class="card container text-center">
                             <h3>
                                 <div class="pull-left">Votes: {{ $question->countTotalVotes() }}</div>
