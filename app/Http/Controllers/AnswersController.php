@@ -13,7 +13,7 @@ class AnswersController extends Controller
         $this->middleware('auth');
     }
 
-    public function store($id)
+    public function store()
     {
         $this-> validate(request(),[
             'body' => 'required',
@@ -21,12 +21,12 @@ class AnswersController extends Controller
         ]);
 
         Answer::create([
-            'question_id' => $id,
+            'question_id' => request('question_id'),
             'body' => request('body'),
-            'author_id' =>  Auth::id() //use this when sessions are created
+            'author_id' => Auth::id() //use this when sessions are created
         ]);
 
-        return redirect()->action('QuestionsController@show', ['id' => $id]);
+        return redirect()->action('QuestionsController@show', ['id' => request('question_id')]);
     }
 
     public function show($question_id){

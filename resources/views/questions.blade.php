@@ -9,36 +9,16 @@
             </a>
         </div>
     @endif
-    <div class="container">
+    <div class="container-fluid text-center">
+
+        <h1>Questions</h1>
         @foreach ($questions as $question)
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-2">
-                        <span class="pull-right">
-                            @if(Auth::check())
-                                <form method="POST" action="/questions/{{ $question->id }}/upvote/">
-                                @csrf
-                                    <button class="glyphicon glyphicon-chevron-up" type="submit"></button>
-                             </form>
-                            @endif
-                            <span> {{ $question->countTotalVotes() }}</span><br/>
-                            @if(Auth::check())
-                                <form method="POST" action="/questions/{{ $question->id }}/downvote/">
-                                @csrf
-                                    <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
-                            </form>
-                            @endif
-                        </span>
-                    </div>
-                    <div class="col-xs-10">
-                        <span class="pull-left">
-                        <div class="text-center">
-                            <h3><a href="questions/{{ $question->id }}">{{ $question->title }}</a></h3>
+
+                        <div class="card container text-center">
+                                <div class="pull-left"><h3>Votes: {{ $question->countTotalVotes() }} </h3></div>
+                                <h3>   <a href="questions/{{ $question->id }}" id="qs">{{ $question->title }}</a>
+                                <small>-Posted: {{ $question->created_at->diffForHumans()}}</small></h3>
                         </div>
-                        </span>
-                    </div>
-                </div>
-            </div>
         @endforeach
     </div>
 
