@@ -27,15 +27,12 @@ class QuestionsController extends Controller
             $comments = $question->comments;
             $answers = $question->answers;
 
-            //TODO: Can't you just pass comments as a collection instead of this weird array shit?
-//            $answerComments = $answers->comments;
-
-
-            $answerComments = array();
-
+            $aComments = array();
             foreach($answers as $answer) {
-                            $answerComments[] = $answer->comments;
+                            $aComments[] = $answer->comments;
                         }
+            $answerComments = collect($aComments);
+
         } catch (ModelNotFoundException $exception) {
             return redirect('questions');
         }

@@ -107,8 +107,6 @@
                                         <li><h4>{{ $answer->body }} <br><small>by {{$answer->user->name}}</small></h4></li>
                                     </ul>
 
-
-
                     {{--List of comments for each answer--}}
                     @if (is_null($answerComments))
                     @else
@@ -152,6 +150,7 @@
                 @endforeach
             </div>
 
+    @if (Auth::check())
             <div class="container">
                 <form method="POST" action="/answers">
                     @csrf
@@ -165,6 +164,7 @@
                     <button type="submit" class="btn btn-primary">Post</button>
                 </form>
             </div>
+    @endif
             <br/>
             <div class="text-center">
             <a href="/questions" class="btn btn-info">
@@ -173,4 +173,5 @@
             </div>
         </div>
     </div>
+
 @endsection
