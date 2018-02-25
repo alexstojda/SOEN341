@@ -9,7 +9,6 @@
 
     <div class="text-center">
         <h1>Create Question</h1>
-        THere
     </div>
 
     <hr>
