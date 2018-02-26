@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+window.SimpleMDE = require('simplemde');
 
 window.Vue = require('vue');
 
