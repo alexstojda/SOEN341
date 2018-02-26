@@ -12,7 +12,7 @@
     </div>
 
     <hr>
-    <div class="container-fluid">
+    <div class="container">
         <form method="POST" action="/questions">
             @csrf
 
@@ -32,6 +32,11 @@
 @endsection
 
 @section('scripts')
+    <style type="text/css">
+        .editor-toolbar.fullscreen {
+            z-index: 1100 !important;
+        }
+    </style>
     <script>
         var simplemde = new SimpleMDE({element: $("#q_body")[0], autosave: true, forceSync: true});
     </script>

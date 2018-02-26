@@ -6,6 +6,7 @@
             {{ $status }}
         </status-toast>
     @endif
+
     <div class="container">
         <div class="container-fluid">
             <h2>{{ $question->title }}</h2>
@@ -175,4 +176,11 @@
     </div>
     </div>
 
+@endsection
+@section('scripts')
+    <style type="text/css">
+        .editor-toolbar.fullscreen {
+            z-index: 1100 !important;
+        }
+    </style>
 @endsection
