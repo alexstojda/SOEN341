@@ -14,16 +14,16 @@
             <div class="col-sm-1">
                         <span class="pull-left">
                             @if(Auth::check())
-                                <form method="POST" action="/questions/{{ $question->id }}/upvote/">
+                                <form  method="POST" action="/questions/{{ $question->id }}/upvote/">
                                 @csrf
-                                    <button class="glyphicon glyphicon-chevron-up" type="submit"></button>
+                                    <button dusk="upvote-button" class="glyphicon glyphicon-chevron-up" type="submit"></button>
                              </form>
                             @endif
                             <span> {{ $question->countTotalVotes() }}</span><br/>
                             @if(Auth::check())
                                 <form method="POST" action="/questions/{{ $question->id }}/downvote/">
                                 @csrf
-                                    <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
+                                    <button dusk="downvote-button"   class="glyphicon glyphicon-chevron-down" type="submit"></button>
                             </form>
                             @endif
                         </span>
@@ -90,14 +90,14 @@
                                         @if(Auth::check())
                                         <form method="POST" action="/answers/{{ $answer->id }}/upvote/">
                                             @csrf
-                                            <button class="glyphicon glyphicon-chevron-up" type="submit"></button>
+                                            <button dusk="upvote-button-{{ $answer->id }}" class="glyphicon glyphicon-chevron-up" type="submit"></button>
                                          </form>
                                         @endif
                                         <span> {{ $answer->countTotalVotes() }}</span><br/>
                                         @if(Auth::check())
                                         <form method="POST" action="/answers/{{ $answer->id }}/downvote/">
                                             @csrf
-                                            <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
+                                            <button dusk="downvote-button-{{ $answer->id }}" class="glyphicon glyphicon-chevron-down" type="submit"></button>
                                         </form>
                                         @endif
                                 </div>
