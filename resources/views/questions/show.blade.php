@@ -101,11 +101,9 @@
                     <div>
                         <ul>
                             {{-- show the questions --}}
-                            <li>
-                                <h4>{{ $answer->body }} <br>
-                                    <small>by {{$answer->user->name}}</small>
-                                </h4>
-                            </li>
+                            <h4>{!! $parser->parse($answer->body) !!} <br>
+                                <small>by {{$answer->user->name}}</small>
+                            </h4>
                         </ul>
 
                         {{--List of comments for each answer--}}
@@ -163,8 +161,8 @@
                 @csrf
 
                 <div class="form-group">
-                    <label for="answer_label">Your answer:</label>
-                    <input type="textarea" class="form-control" id="answer_body" name="body" required>
+                    <label for="answer_body">Your answer:</label>
+                    <textarea class="form-control" id="answer_body" name="body" required></textarea>
                     <input type="hidden" name="question_id" value="{{$question->id}}">
                 </div>
 
@@ -188,4 +186,14 @@
             z-index: 1100 !important;
         }
     </style>
+    <script>
+        var simplemde = new SimpleMDE({
+            element: $("#answer_body")[0],
+            autosave: true,
+            forceSync: true,
+            renderingConfig: {
+                singleLineBreaks: false
+            }
+        });
+    </script>
 @endsection
