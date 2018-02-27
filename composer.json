@@ -10,6 +10,7 @@
   "require": {
     "php": ">=7.1.0",
     "bepsvpt/secure-headers": "^4.1",
+    "cebe/markdown": "~1.1.1",
     "fideloper/proxy": "~4.0",
     "jcc/laravel-vote": "^1.1",
     "laravel/framework": "5.6.*",

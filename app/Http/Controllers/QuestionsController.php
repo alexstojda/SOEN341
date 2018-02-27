@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use cebe\markdown\GithubMarkdown;
+use cebe\markdown\Markdown;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +27,8 @@ class QuestionsController extends Controller
         try {
             $question = Question::find($id);
             $comments = $question->comments;
+
+            $parser = new GithubMarkdown();
             $answers = $question->answers;
 
             $aComments = array();
@@ -37,7 +41,7 @@ class QuestionsController extends Controller
             return redirect('questions');
         }
 
-        return view('questions.show', compact('question', 'answers', 'comments', 'answerComments'));
+        return view('questions.show', compact('question', 'answers', 'comments', 'answerComments', 'parser'));
     }
 
     public function create()
