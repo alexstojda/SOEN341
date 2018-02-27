@@ -16,7 +16,7 @@
 
                         <div class="card container text-center">
                                 <div class="pull-left"><h3>Votes: {{ $question->countTotalVotes() }} </h3></div>
-                                <h3>   <a href="questions/{{ $question->id }}" id="qs">{{ $question->title }}</a>
+                                <h3>   <a dusk="question-{{ $question->id }}" href="questions/{{ $question->id }}" id="qs">{{ $question->title }}</a>
                                 <small>-Posted: {{ $question->created_at->diffForHumans()}}</small></h3>
                         </div>
         @endforeach
