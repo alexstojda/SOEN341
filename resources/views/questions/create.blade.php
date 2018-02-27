@@ -38,6 +38,13 @@
         }
     </style>
     <script>
-        var simplemde = new SimpleMDE({element: $("#q_body")[0], autosave: true, forceSync: true});
+        var simplemde = new SimpleMDE({
+            element: $("#q_body")[0],
+            autosave: true,
+            forceSync: true,
+            renderingConfig: {
+                singleLineBreaks: false
+            }
+        });
     </script>
 @endsection

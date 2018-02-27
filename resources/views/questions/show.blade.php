@@ -13,7 +13,7 @@
             <hr>
             <div class="row">
                 <div class="col-sm-1">
-                        <span class="pull-left">
+                        <span class="pull-left text-center">
                             @if(Auth::check())
                                 <form method="POST" action="/questions/{{ $question->id }}/upvote/">
                                 @csrf
@@ -83,7 +83,7 @@
             <div class="fluid-container">
                 {{--add the up/down vote buttons--}}
                 <div class="row">
-                    <div class="pull-left col-xs-1">
+                    <div class="pull-left col-xs-1 text-center">
                         @if(Auth::check())
                             <form method="POST" action="/answers/{{ $answer->id }}/upvote/">
                                 @csrf
@@ -109,17 +109,22 @@
                         </ul>
 
                         {{--List of comments for each answer--}}
-                        @if (is_null($answerComments))
-                        @else
-                            @foreach ($answerComments as $ac)
-                                @foreach ($ac as $answerComment)
-                                    @if($answer->id==$answerComment->answer_id)
-                                        <br> + {{$answerComment->body}}
-                                        <small> - {{$answerComment->user->name}}</small>
-                                    @endif
-                                @endforeach
-                            @endforeach
-                        @endif
+                        <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10">
+                                @if (is_null($answerComments))
+                                @else
+                                    @foreach ($answerComments as $ac)
+                                        @foreach ($ac as $answerComment)
+                                            @if($answer->id==$answerComment->answer_id)
+                                                <br> + {{$answerComment->body}}
+                                                <small> - {{$answerComment->user->name}}</small>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

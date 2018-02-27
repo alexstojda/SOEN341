@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use cebe\markdown\GithubMarkdown;
 use cebe\markdown\Markdown;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,7 @@ class QuestionsController extends Controller
             $question = Question::find($id);
             $comments = $question->comments;
 
-            $parser = new Markdown();
+            $parser = new GithubMarkdown();
             $answers = $question->answers;
 
             $aComments = array();
