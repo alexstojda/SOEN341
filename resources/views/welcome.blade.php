@@ -1,97 +1,54 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Spotted: ConU</title>
+<!DOCTYPE html>
+<html>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+    <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
+    <script src="{{ url('js/jquery-3.3.1.min.js') }}"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=News+Cycle:400,700">
+    <link rel="stylesheet" href="{{ url('fonts/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="css/styles.css">
 
-            .full-height {
-                height: 100vh;
-            }
+</head>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Spotted: Concordia
-                    <br>Q&A
-                </div>
-
-
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://github.com/alexstojda/SOEN341">Github</a>
-                </div>
-            </div>
+<body>
+<nav class="navbar navbar-light navbar-expand-md">
+    <div class="container-fluid"><a class="navbar-brand" href="#"><i class="fa fa-toggle-on" style="margin-right:6px;"></i>Q&amp;A CONCORDIA</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        @if (Route::has('login'))
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                @auth
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="{{ url('/home') }}">HOME</a></li>
+                @else
+                     <li class="nav-item" role="presentation"><a class="nav-link active" href="{{ route('login') }}">LOGIN</a></li>
+                     <li class="nav-item" role="presentation"><a class="nav-link" href="{{ route('register') }}">REGISTER</a></li>
+                @endauth
+            </ul>
         </div>
-    </body>
+        @endif
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h1 class="text-center"><br><strong>Spotted: Concordia</strong><br></h1>
+        <p class="text-center" style="font-size:62px;"><strong>Q&amp;A</strong><br></p>
+        <div class="wrapper"><a class="btn btn-light btn-sm" role="button" href="https://github.com/alexstojda/SOEN341">Learn more</a></div>
+    </div>
+    <header class="justify-content-center align-content-center" style="margin-top:0;">
+        <h1 class="text-center"></h1>
+        <h1 class="text-center"></h1>
+    </header>
+</div>
+<script src="{{ url('js/popper.min.js') }}"></script>
+<script src="{{ url('js/bootstrap.min.js') }}"></script>
+</body>
+
 </html>
+
+
