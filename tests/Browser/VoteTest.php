@@ -28,7 +28,7 @@ class VoteTest extends DuskTestCase
             $browser->loginAs($user);
             $browser->visit('/questions')
                 ->resize(1920, 1080)
-                ->click("@question-$question->id")
+                ->click("@question")
                 ->screenshot("before-button-q")
                 ->click('@upvote-button')
                 ->screenshot("after-button-q");
@@ -72,27 +72,27 @@ class VoteTest extends DuskTestCase
             $browser->loginAs($user);
             $browser->visit('/questions')
                 ->resize(1920, 1080)
-                ->click("@question-$question->id")
+                ->click("@question")
                 ->screenshot("before-button")
-                ->click("@upvote-button-$answer->id")
+                ->click("@upvote-button-a")
                 ->screenshot("after-button");
 
             $this->assertEquals(1, $answer->countTotalVotes());
 
-            $browser->click("@upvote-button-$answer->id");
+            $browser->click("@upvote-button-a");
             $this->assertEquals(0, $answer->countTotalVotes());
 
-            $browser->click("@downvote-button-$answer->id");
+            $browser->click("@downvote-button-a");
             $this->assertEquals(-1, $answer->countTotalVotes());
 
-            $browser->click("@downvote-button-$answer->id");
+            $browser->click("@downvote-button-a");
             $this->assertEquals(0, $answer->countTotalVotes());
 
-            $browser->click("@downvote-button-$answer->id");
+            $browser->click("@downvote-button-a");
             $this->assertEquals(-1, $answer->countTotalVotes());
-            $browser->click("@upvote-button-$answer->id");
+            $browser->click("@upvote-button-a");
             $this->assertEquals(1, $answer->countTotalVotes());
-            $browser->click("@downvote-button-$answer->id");
+            $browser->click("@downvote-button-a");
             $this->assertEquals(-1, $answer->countTotalVotes());
 
 

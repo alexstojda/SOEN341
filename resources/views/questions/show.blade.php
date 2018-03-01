@@ -17,14 +17,16 @@
                             @if(Auth::check())
                                 <form method="POST" action="/questions/{{ $question->id }}/upvote/">
                                 @csrf
-                                    <button dusk="upvote-button" class="glyphicon glyphicon-chevron-up" type="submit"></button>
+                                    <button dusk="upvote-button" class="glyphicon glyphicon-chevron-up"
+                                            type="submit"></button>
                              </form>
                             @endif
                             <span> {{ $question->countTotalVotes() }}</span><br/>
                             @if(Auth::check())
                                 <form method="POST" action="/questions/{{ $question->id }}/downvote/">
                                 @csrf
-                                    <button dusk="downvote-button"   class="glyphicon glyphicon-chevron-down" type="submit"></button>
+                                    <button dusk="downvote-button" class="glyphicon glyphicon-chevron-down"
+                                            type="submit"></button>
                             </form>
                             @endif
                         </span>
@@ -87,14 +89,16 @@
                         @if(Auth::check())
                             <form method="POST" action="/answers/{{ $answer->id }}/upvote/">
                                 @csrf
-                                <button dusk="upvote-button-{{ $answer->id }}" class="glyphicon glyphicon-chevron-up" type="submit"></button>
+                                <button dusk="upvote-button-{{ $answer->id }}" class="glyphicon glyphicon-chevron-up"
+                                        type="submit"></button>
                             </form>
                         @endif
                         <span> {{ $answer->countTotalVotes() }}</span><br/>
                         @if(Auth::check())
                             <form method="POST" action="/answers/{{ $answer->id }}/downvote/">
                                 @csrf
-                                <button dusk="downvote-button-{{ $answer->id }}" class="glyphicon glyphicon-chevron-down" type="submit"></button>
+                                <button dusk="downvote-button-{{ $answer->id }}"
+                                        class="glyphicon glyphicon-chevron-down" type="submit"></button>
                             </form>
                         @endif
                     </div>
@@ -176,8 +180,7 @@
             <span class="glyphicon"></span> Back to Questions
         </a>
     </div>
-    </div>
-    </div>
+
 
 @endsection
 @section('scripts')
