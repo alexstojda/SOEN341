@@ -90,14 +90,14 @@
                                         @if(Auth::check())
                                         <form method="POST" action="/answers/{{ $answer->id }}/upvote/">
                                             @csrf
-                                            <button dusk="upvote-button-{{ $answer->id }}" class="glyphicon glyphicon-chevron-up" type="submit"></button>
+                                            <button dusk="upvote-button-a" class="glyphicon glyphicon-chevron-up" type="submit"></button>
                                          </form>
                                         @endif
                                         <span> {{ $answer->countTotalVotes() }}</span><br/>
                                         @if(Auth::check())
                                         <form method="POST" action="/answers/{{ $answer->id }}/downvote/">
                                             @csrf
-                                            <button dusk="downvote-button-{{ $answer->id }}" class="glyphicon glyphicon-chevron-down" type="submit"></button>
+                                            <button dusk="downvote-button-a" class="glyphicon glyphicon-chevron-down" type="submit"></button>
                                         </form>
                                         @endif
                                 </div>
