@@ -28,6 +28,7 @@ class VoteTest extends DuskTestCase
             $browser->loginAs($user);
             $browser->visit('/questions')
                 ->click("@question-$question->id")
+                ->pause(1000)
                 ->click('@upvote-button')
                 ->pause(1000);
 
