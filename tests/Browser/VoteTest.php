@@ -25,11 +25,13 @@ class VoteTest extends DuskTestCase
         $question = factory(Question::class)->create();
 
         $this->browse(function (Browser $browser) use ($question, $user) {
-            $browser->loginAs($user)
-                ->resize(1920, 1080);
+            $browser->loginAs($user);
             $browser->visit('/questions')
+                ->resize(1920, 1080)
                 ->click("@question-$question->id")
-                ->click('@upvote-button');
+                ->screenshot("before-button-q")
+                ->click('@upvote-button')
+                ->screenshot("after-button-q");
 
             $this->assertEquals(1, $question->countTotalVotes());
 
@@ -67,11 +69,13 @@ class VoteTest extends DuskTestCase
         $answer = factory(Answer::class)->create();
 
         $this->browse(function (Browser $browser) use ($question, $user, $answer) {
-            $browser->loginAs($user)
-                ->resize(1920, 1080);
+            $browser->loginAs($user);
             $browser->visit('/questions')
+                ->resize(1920, 1080)
                 ->click("@question-$question->id")
-                ->click("@upvote-button-$answer->id");
+                ->screenshot("before-button")
+                ->click("@upvote-button-$answer->id")
+                ->screenshot("after-button");
 
             $this->assertEquals(1, $answer->countTotalVotes());
 
