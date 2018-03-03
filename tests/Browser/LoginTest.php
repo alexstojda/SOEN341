@@ -29,7 +29,7 @@ class LoginTest extends DuskTestCase
                 ->type('email', $user->email)
                 ->type('password', 'secret')
                 ->screenshot('login-0')
-                ->click('@d-login')
+                ->press('Login')
                 ->screenshot('login-1')
                 ->assertPathIs('/home');
         });

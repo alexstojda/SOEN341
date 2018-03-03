@@ -72,10 +72,9 @@ class VoteTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($question, $user, $answer) {
             $browser->loginAs($user);
-            $browser->visit('/questions')
-                ->resize(1920, 1080)
-                ->click("@question-" . $question->id)
-                ->screenshot("before-button")
+            $browser->visit('/questions/'. $question->id)
+                ->resize(1920, 1080);
+            $browser ->screenshot("before-button")
                 ->click("@upvote-button-a" . $answer->id)
                 ->screenshot("after-button");
 
