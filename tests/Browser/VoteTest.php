@@ -7,6 +7,7 @@ use App\Question;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Imgur\Client;
+use SebastianBergmann\Environment\Console;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Throwable;
@@ -106,7 +107,8 @@ class VoteTest extends DuskTestCase
             $client->setOption('client_secret', '61092279a8d645f46b3b24fdc3af8a7e9eeebc02');
 
             $path = "./screenshots/";
-            echo getcwd();
+            fwrite(STDERR, "\n=== A test failed, generated screenshots are: ===\n");
+            fwrite(STDERR, getcwd()."\n");
             if ($handle = opendir($path)) {
                 while (false !== ($file = readdir($handle))) {
                     if ('.' === $file) continue;
@@ -121,8 +123,7 @@ class VoteTest extends DuskTestCase
 
                     $response = $client->api('image')->upload($imageData);
 
-                    echo "\n=== A test failed, generated screenshots are: ===";
-                    echo "Screenshot: ".$response['link']."\n";
+                    fwrite(STDERR, "Screenshot: ".$response['link']."\n");
 
                 }
                 closedir($handle);
