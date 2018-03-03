@@ -33,7 +33,7 @@ class VoteTest extends DuskTestCase
                 ->resize(1920, 1080)
                 ->click("@question-" . $question->id);
             $browser->click('@upvote-button-' . $question->id);
-            $this->assertEquals(0, $question->countTotalVotes());
+            $this->assertEquals(1, $question->countTotalVotes());
 
             $browser->click('@upvote-button-' . $question->id);
             $this->assertEquals(0, $question->countTotalVotes());
@@ -77,7 +77,7 @@ class VoteTest extends DuskTestCase
                 ->click("@upvote-button-a" . $answer->id)
                 ->screenshot("after-button");
 
-            $this->assertEquals(0, $answer->countTotalVotes());
+            $this->assertEquals(1, $answer->countTotalVotes());
 
             $browser->click("@upvote-button-a" . $answer->id);
             $this->assertEquals(0, $answer->countTotalVotes());
