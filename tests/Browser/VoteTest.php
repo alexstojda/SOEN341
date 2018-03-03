@@ -57,50 +57,50 @@ class VoteTest extends DuskTestCase
 
     }
 
-//    /**
-//     * A basic browser test example.
-//     *
-//     * @return void
-//     * @throws \Throwable
-//     */
-//    public function testAnswerVote()
-//    {
-//        $user = factory(User::class)->create();
-//
-//        $question = factory(Question::class)->create();
-//        $answer = factory(Answer::class)->create();
-//
-//        $this->browse(function (Browser $browser) use ($question, $user, $answer) {
-//            $browser->loginAs($user);
-//            $browser->visit('/questions')
-//                ->resize(1920, 1080)
-//                ->click("@question-" . $question->id)
-//                ->screenshot("before-button")
-//                ->click("@upvote-button-a" . $answer->id)
-//                ->screenshot("after-button");
-//
-//            $this->assertEquals(1, $answer->countTotalVotes());
-//
-//            $browser->click("@upvote-button-a" . $answer->id);
-//            $this->assertEquals(0, $answer->countTotalVotes());
-//
-//            $browser->click("@downvote-button-a" . $answer->id);
-//            $this->assertEquals(-1, $answer->countTotalVotes());
-//
-//            $browser->click("@downvote-button-a" . $answer->id);
-//            $this->assertEquals(0, $answer->countTotalVotes());
-//
-//            $browser->click("@downvote-button-a" . $answer->id);
-//            $this->assertEquals(-1, $answer->countTotalVotes());
-//            $browser->click("@upvote-button-a" . $answer->id);
-//            $this->assertEquals(1, $answer->countTotalVotes());
-//            $browser->click("@downvote-button-a" . $answer->id);
-//            $this->assertEquals(-1, $answer->countTotalVotes());
-//
-//
-//        });
-//    }
-//
+    /**
+     * A basic browser test example.
+     *
+     * @return void
+     * @throws \Throwable
+     */
+    public function testAnswerVote()
+    {
+        $user = factory(User::class)->create();
+
+        $question = factory(Question::class)->create();
+        $answer = factory(Answer::class)->create();
+
+        $this->browse(function (Browser $browser) use ($question, $user, $answer) {
+            $browser->loginAs($user);
+            $browser->visit('/questions')
+                ->resize(1920, 1080)
+                ->click("@question-" . $question->id)
+                ->screenshot("before-button")
+                ->click("@upvote-button-a" . $answer->id)
+                ->screenshot("after-button");
+
+            $this->assertEquals(1, $answer->countTotalVotes());
+
+            $browser->click("@upvote-button-a" . $answer->id);
+            $this->assertEquals(0, $answer->countTotalVotes());
+
+            $browser->click("@downvote-button-a" . $answer->id);
+            $this->assertEquals(-1, $answer->countTotalVotes());
+
+            $browser->click("@downvote-button-a" . $answer->id);
+            $this->assertEquals(0, $answer->countTotalVotes());
+
+            $browser->click("@downvote-button-a" . $answer->id);
+            $this->assertEquals(-1, $answer->countTotalVotes());
+            $browser->click("@upvote-button-a" . $answer->id);
+            $this->assertEquals(1, $answer->countTotalVotes());
+            $browser->click("@downvote-button-a" . $answer->id);
+            $this->assertEquals(-1, $answer->countTotalVotes());
+
+
+        });
+    }
+
     protected function onNotSuccessfulTest(Throwable $e)
     {
         if (env('USE_IMGUR') == "imgur") {
