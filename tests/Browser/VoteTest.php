@@ -106,7 +106,7 @@ class VoteTest extends DuskTestCase
             $client->setOption('client_id', '100fc6bc6dd8279');
             $client->setOption('client_secret', '61092279a8d645f46b3b24fdc3af8a7e9eeebc02');
 
-            $path = "./screenshots/";
+            $path = "./tests/Browser/screenshots/";
             fwrite(STDERR, "\n=== A test failed, generated screenshots are: ===\n");
             fwrite(STDERR, getcwd()."\n");
             if ($handle = opendir($path)) {
