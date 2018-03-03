@@ -107,7 +107,7 @@ class VoteTest extends DuskTestCase
             $client->setOption('client_secret', '61092279a8d645f46b3b24fdc3af8a7e9eeebc02');
 
             $path = "./tests/Browser/screenshots/";
-            fwrite(STDOUT, "\e[37;44m" . "\n=== A test failed, generated screenshots are: ===\n");
+            fwrite(STDOUT, "\e[37;44m" . "\n=== A test failed, generated screenshots are: ===\n" . "\e[0m");
             fwrite(STDOUT, getcwd() . "\n");
             if ($handle = opendir($path)) {
                 while (false !== ($file = readdir($handle))) {
@@ -122,11 +122,10 @@ class VoteTest extends DuskTestCase
                     ];
 
                     $response = $client->api('image')->upload($imageData);
-                    fwrite(STDOUT, "Screenshot: " . $response['link'] . "\n");
+                    fwrite(STDOUT, "\e[37;44m" . "Screenshot: " . $response['link'] . "\n" . "\e[0m" );
                     unlink($pathToFile);
 
                 }
-                fwrite(STDOUT, "\e[37;44m");
                 closedir($handle);
             }
         }
