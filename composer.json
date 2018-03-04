@@ -88,6 +88,7 @@
     "fix-silent":[
       "composer install",
       "yarn install",
+      "@php artisan migrate --force --seed",
       "composer ide-helper"
     ],
     "ide-helper":[
