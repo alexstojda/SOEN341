@@ -35,14 +35,14 @@ Route::post('/answers/', 'AnswersController@store');
 Route::post('/comments/', 'CommentController@store');
 
 //TODO: Why does POST break all the voting routes but not answer store or comments store..
-Route::get('/answers/{id}/upvote', 'AnswersController@upvote');
+Route::any('/answers/{id}/upvote', 'AnswersController@upvote');
 
-Route::get('/answers/{id}/downvote', 'AnswersController@downvote');
+Route::any('/answers/{id}/downvote', 'AnswersController@downvote');
 
-Route::get('/questions/{id}/upvote', 'QuestionsController@upvote');
+Route::any('/questions/{id}/upvote', 'QuestionsController@upvote');
 
-Route::get('/questions/{id}/downvote', 'QuestionsController@downvote');
+Route::any('/questions/{id}/downvote', 'QuestionsController@downvote');
 
-Route::get('/questions/{id}/voters', 'QuestionsController@Voters');
+Route::any('/questions/{id}/voters', 'QuestionsController@Voters');
 
 //Comment routes
