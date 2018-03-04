@@ -27,7 +27,8 @@
     "laravel/dusk": "^3.0",
     "mockery/mockery": "~1.0",
     "phpunit/phpunit": "~7.0",
-    "symfony/thanks": "^1.0"
+    "symfony/thanks": "^1.0",
+    "j0k3r/php-imgur-api-client": "^3.0.0"
   },
   "autoload": {
     "classmap": [
@@ -88,6 +89,7 @@
     "fix-silent":[
       "composer install",
       "yarn install",
+      "@php artisan migrate --force --seed",
       "composer ide-helper"
     ],
     "ide-helper":[

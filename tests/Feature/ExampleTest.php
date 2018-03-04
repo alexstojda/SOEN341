@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExampleTest extends TestCase
 {
@@ -15,7 +14,6 @@ class ExampleTest extends TestCase
     public function testBasicTest()
     {
         dump(env('DB_CONNECTION'));
-        dump(env('DEBUGBAR_ENABLED'));
         $response = $this->get('/');
 
         $response->assertStatus(200);
