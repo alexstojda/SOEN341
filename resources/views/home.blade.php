@@ -11,7 +11,6 @@
         <div class="container">
             <h1 class="display-3">Welcome!</h1>
             <p>This is where we can put some text that is welcoming to the user! Get them to click the button below</p>
-            <!--TODO get that button smaller and a nicer colour-->
             <p><a href="questions/" role="button" class="btn btn-info btn-block">
                     Go To Questions!
                 </a></p>
