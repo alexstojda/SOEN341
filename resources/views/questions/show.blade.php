@@ -110,8 +110,6 @@
                                     data-questionid="{{$question->id}}" data-answerid="{{$answer->id}}"></button>
                         @elseif($hasAcceptedAnswer)
                             <button disabled class="accept-answer btn glyphicon glyphicon-check btn-success"></button>
-                        @else
-                            <button disabled class="accept-answer btn glyphicon glyphicon-unchecked"></button>
                         @endif
                     </div>
                     <div>
