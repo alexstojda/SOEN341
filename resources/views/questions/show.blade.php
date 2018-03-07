@@ -25,7 +25,8 @@
                             @if(Auth::check())
                                 <form method="POST" action="/questions/{{ $question->id }}/downvote/">
                                 @csrf
-                                    <button dusk="downvote-q{{ $question->id }}" class="glyphicon glyphicon-chevron-down"
+                                    <button dusk="downvote-q{{ $question->id }}"
+                                            class="glyphicon glyphicon-chevron-down"
                                             type="submit"></button>
                             </form>
                             @endif
@@ -100,6 +101,15 @@
                                 <button dusk="downvote-a{{ $answer->id }}"
                                         class="glyphicon glyphicon-chevron-down" type="submit"></button>
                             </form>
+                        @endif
+                        @if($canAcceptAnswer && !$hasAcceptedAnswer)
+                            <button class="accept-answer btn glyphicon glyphicon-unchecked"
+                                    data-questionid="{{$question->id}}" data-answerid="{{$answer->id}}"></button>
+                        @elseif($canAcceptAnswer && $hasAcceptedAnswer && ($answer->id == $question->answer_id))
+                            <button class="accept-answer btn glyphicon glyphicon-check btn-success"
+                                    data-questionid="{{$question->id}}" data-answerid="{{$answer->id}}"></button>
+                        @elseif($hasAcceptedAnswer)
+                            <button disabled class="accept-answer btn glyphicon glyphicon-check btn-success"></button>
                         @endif
                     </div>
                     <div>
@@ -190,6 +200,12 @@
         }
     </style>
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         var simplemde = new SimpleMDE({
             element: $("#answer_body")[0],
             autosave: true,
@@ -197,6 +213,35 @@
             renderingConfig: {
                 singleLineBreaks: false
             }
+        });
+
+        $('.accept-answer').hover(function () {
+            if(!$(this).prop('disabled'))
+                $(this).toggleClass('glyphicon-unchecked glyphicon-check btn-success');
+        }).click(function () {
+            $('.accept-answer').prop('disabled', true);
+            var question_id = $(this).data('questionid');
+            var answer_id = $(this).data('answerid');
+            var invoker = $(this);
+            $.ajax({
+                url: '/api/question/acceptAnswer',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    question_id: question_id,
+                    answer_id: answer_id
+                }
+            }).done(function (result) {
+                if (result.status === "success") {
+                    invoker.prop('disabled', false);
+                    invoker.toggleClass('glyphicon-unchecked glyphicon-check btn-success');
+                } else {
+                    $('.accept-answer').prop('disabled', false);
+                    alert(result.body.message);
+                }
+            }).fail(function (result) {
+                console.log(result);
+            });
         });
     </script>
 @endsection

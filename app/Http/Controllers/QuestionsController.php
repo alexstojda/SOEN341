@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Question;
 use cebe\markdown\GithubMarkdown;
 use cebe\markdown\Markdown;
@@ -41,7 +42,12 @@ class QuestionsController extends Controller
             return redirect('questions');
         }
 
-        return view('questions.show', compact('question', 'answers', 'comments', 'answerComments', 'parser'));
+        $user = Auth::user();
+
+        $canAcceptAnswer = ($question['author_id'] == $user['id']);
+        $hasAcceptedAnswer = (isset($question['answer_id']) );
+
+        return view('questions.show', compact('question', 'answers', 'comments', 'answerComments', 'parser', 'canAcceptAnswer', 'hasAcceptedAnswer'));
     }
 
     public function create()
@@ -100,5 +106,39 @@ class QuestionsController extends Controller
         }
         return redirect()->back();
 
+    }
+
+    public function updateAcceptanceState() {
+
+        $this-> validate(request(),[
+            'question_id' => 'required',
+            'answer_id' => 'required'
+        ]);
+
+        try {
+            $answer = Answer::findOrFail(request('answer_id'));
+        } catch (ModelNotFoundException $exception) {
+            return response()->json(['status' => 'fail', 'body' => ['message' => 'Answer - ModelNotFoundException']]);
+        }
+
+        try {
+            $question = Question::findOrFail(request('question_id'));
+        } catch (ModelNotFoundException $exception) {
+            return response()->json(['status' => 'fail', 'body' => ['message' => 'Question - ModelNotFoundException']]);
+        }
+
+        $user = Auth::user();
+
+        if ($question['author_id'] != $user->id) {
+            return response()->json(['status' => 'fail', 'body' => ['message' => 'User did not ask the question']]);
+        } else if ($question['answer_id'] == request('answer_id')){
+            $question->answer_id = null;
+            $question->save();
+            return response()->json(['status' => 'success', 'body' => ['answerUnset' => true]]);
+        } else {
+            $question->answer_id = $answer['id'];
+            $question->save();
+            return response()->json(['status' => 'success', 'body' => ['answerSet' => true]]);
+        }
     }
 }

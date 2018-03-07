@@ -33,7 +33,7 @@ class CreateQuestionsTable extends Migration
 
         Schema::table('questions', function(Blueprint $table) {
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
-            //$table->foreign('answer_id')->references('id')->on('answers')->onDelete('set null');
+            $table->foreign('answer_id')->references('id')->on('answers')->onDelete('set null');
         });
     }
 
