@@ -45,4 +45,6 @@ Route::get('/questions/{id}/downvote', 'QuestionsController@downvote');
 
 Route::get('/questions/{id}/voters', 'QuestionsController@Voters');
 
+Route::post('/api/question/acceptAnswer', 'QuestionsController@updateAcceptanceState');
+
 //Comment routes

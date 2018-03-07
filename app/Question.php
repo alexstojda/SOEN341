@@ -52,4 +52,8 @@ class Question extends Model{
         return $this->hasMany(Comment::class);
     }
 
+    public function acceptedAnswer() {
+        return $this->belongsTo(Answer::class, 'answer_id');
+    }
+
 }

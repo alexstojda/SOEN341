@@ -97,6 +97,14 @@
                                 <button class="glyphicon glyphicon-chevron-down" type="submit"></button>
                             </form>
                         @endif
+                        @if($canAcceptAnswer && !$hasAcceptedAnswer)
+                            <button class="accept-answer btn glyphicon glyphicon-unchecked"
+                                    data-questionid="{{$question->id}}" data-answerid="{{$answer->id}}"></button>
+                        @endif
+                        @if($canAcceptAnswer && $hasAcceptedAnswer && ($answer->id == $question->answer_id))
+                            <button class="accept-answer btn glyphicon glyphicon-check btn-success"
+                                    data-questionid="{{$question->id}}" data-answerid="{{$answer->id}}"></button>
+                        @endif
                     </div>
                     <div>
                         <ul>
@@ -187,6 +195,20 @@
         }
     </style>
     <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        (function($) {
+            $.fn.toggleDisabled = function(){
+                return this.each(function(){
+                    this.disabled = !this.disabled;
+                });
+            };
+        })(jQuery);
+
         var simplemde = new SimpleMDE({
             element: $("#answer_body")[0],
             autosave: true,
@@ -194,6 +216,36 @@
             renderingConfig: {
                 singleLineBreaks: false
             }
+        });
+
+        $('.accept-answer').hover(function () {
+            $(this).toggleClass('glyphicon-unchecked glyphicon-check btn-success');
+        }).click(function () {
+            $('.accept-answer').prop('disabled', true);
+            var question_id = $(this).data('questionid');
+            var answer_id = $(this).data('answerid');
+            console.log("Q: "+question_id+" A: "+answer_id);
+            var invoker = $(this);
+            $.ajax({
+                url: '/api/question/acceptAnswer',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    question_id: question_id,
+                    answer_id: answer_id
+                }
+            }).done(function (result) {
+                console.log(result);
+                if(result.status === "success"){
+                    invoker.prop('disabled', false);
+                    invoker.toggleClass('glyphicon-unchecked glyphicon-check btn-success');
+                } else {
+                    $('.accept-answer').prop('disabled', false);
+                    alert(result.body.message);
+                }
+            }).fail(function (result){
+                console.log(result);
+            });
         });
     </script>
 @endsection
