@@ -37,7 +37,9 @@
                         @foreach ($questions as $question)
                         <tbody>
                         <tr>
-                            <td align="center">{{ $question->countTotalVotes() }}</td>
+                            <td align="center">
+                                <vote model="questions" :id="{{$question->id}}" :auth="0" csrf="{{csrf_token()}}"></vote>
+                            </td>
                             <td class="hidden-xs">{{ $question->created_at->diffForHumans()}}</td>
                             <td><a dusk="question" href="questions/{{ $question->id }}" id="qs">{{ $question->title }}</a></td>
                         </tr>

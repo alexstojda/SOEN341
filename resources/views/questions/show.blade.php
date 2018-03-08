@@ -14,22 +14,8 @@
             <div class="row">
                 <div class="col-sm-1">
                         <span class="pull-left text-center">
-                            @if(Auth::check())
-                                <form method="POST" action="/questions/{{ $question->id }}/upvote/">
-                                @csrf
-                                    <button dusk="upvote-q{{ $question->id }}" class="glyphicon glyphicon-chevron-up"
-                                            type="submit"></button>
-                             </form>
-                            @endif
-                            <vote id={{$question->id}} model="questions"></vote>
-                            @if(Auth::check())
-                                <form method="POST" action="/questions/{{ $question->id }}/downvote/">
-                                @csrf
-                                    <button dusk="downvote-q{{ $question->id }}"
-                                            class="glyphicon glyphicon-chevron-down"
-                                            type="submit"></button>
-                            </form>
-                            @endif
+                            <vote :id="{{$question->id}}" model="questions" :auth="{{Auth::check()}}"
+                                  csrf="{{csrf_token()}}"></vote>
                         </span>
                 </div>
                 <div class="col-sm-11">
@@ -87,21 +73,8 @@
                 <div class="row">
                     <div class="pull-left col-xs-1 text-center">
                         {{--add the up/down vote buttons--}}
-                        @if(Auth::check())
-                            <form method="POST" action="{{url("/answers/$answer->id/upvote/")}}">
-                                @csrf
-                                <button dusk="upvote-a{{ $answer->id }}" class="glyphicon glyphicon-chevron-up"
-                                        type="submit"></button>
-                            </form>
-                        @endif
-                        <vote id={{$answer->id}} model="answers"></vote>
-                        @if(Auth::check())
-                            <form method="POST" action="{{url("/answers/$answer->id/downvote/")}}">
-                                @csrf
-                                <button dusk="downvote-a{{ $answer->id }}"
-                                        class="glyphicon glyphicon-chevron-down" type="submit"></button>
-                            </form>
-                        @endif
+                        <vote :id="{{$answer->id}}" model="answers" :auth="{{Auth::check()}}"
+                              csrf="{{csrf_token()}}"></vote>
                         @if($canAcceptAnswer && !$hasAcceptedAnswer)
                             <button class="accept-answer btn glyphicon glyphicon-unchecked"
                                     data-questionid="{{$question->id}}" data-answerid="{{$answer->id}}"></button>
@@ -201,7 +174,7 @@
     <script>
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': '{{csrf_token()}}'
             }
         });
 
