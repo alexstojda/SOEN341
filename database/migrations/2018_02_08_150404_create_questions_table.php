@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Migrations\Migration;
+    use Illuminate\Database\Schema\Blueprint;
+    use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionsTable extends Migration
+    class CreateQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -33,7 +33,6 @@ class CreateQuestionsTable extends Migration
 
         Schema::table('questions', function(Blueprint $table) {
             $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('answer_id')->references('id')->on('answers')->onDelete('set null');
         });
     }
 
