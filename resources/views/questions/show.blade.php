@@ -21,7 +21,7 @@
                                             type="submit"></button>
                              </form>
                             @endif
-                            <span> {{ $question->countTotalVotes() }}</span><br/>
+                            <vote id={{$question->id}} model="questions"></vote>
                             @if(Auth::check())
                                 <form method="POST" action="/questions/{{ $question->id }}/downvote/">
                                 @csrf
@@ -84,19 +84,19 @@
         @foreach ($answers as $answer)
             <hr>
             <div class="fluid-container">
-                {{--add the up/down vote buttons--}}
                 <div class="row">
                     <div class="pull-left col-xs-1 text-center">
+                        {{--add the up/down vote buttons--}}
                         @if(Auth::check())
-                            <form method="POST" action="/answers/{{ $answer->id }}/upvote/">
+                            <form method="POST" action="{{url("/answers/$answer->id/upvote/")}}">
                                 @csrf
                                 <button dusk="upvote-a{{ $answer->id }}" class="glyphicon glyphicon-chevron-up"
                                         type="submit"></button>
                             </form>
                         @endif
-                        <span> {{ $answer->countTotalVotes() }}</span><br/>
+                        <vote id={{$answer->id}} model="answers"></vote>
                         @if(Auth::check())
-                            <form method="POST" action="/answers/{{ $answer->id }}/downvote/">
+                            <form method="POST" action="{{url("/answers/$answer->id/downvote/")}}">
                                 @csrf
                                 <button dusk="downvote-a{{ $answer->id }}"
                                         class="glyphicon glyphicon-chevron-down" type="submit"></button>
@@ -190,9 +190,8 @@
             <span class="glyphicon"></span> Back to Questions
         </a>
     </div>
-
-
 @endsection
+
 @section('scripts')
     <style type="text/css">
         .editor-toolbar.fullscreen {

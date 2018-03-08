@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Answer;
 use App\Question;
 use cebe\markdown\GithubMarkdown;
-use cebe\markdown\Markdown;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
 
@@ -74,7 +73,7 @@ class QuestionsController extends Controller
     public function upvote($id)
     {
         try {
-            $question = Question::findOrFail($id);
+            $question = Question::whereId($id)->first();
         } catch (ModelNotFoundException $exception) {
             return redirect()->back();
         }
