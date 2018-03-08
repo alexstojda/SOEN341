@@ -19,6 +19,7 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('dashboard-notification', require('./components/DashboardNotification.vue'));
 Vue.component('status-toast', require('./components/StatusToast.vue'));
+Vue.component('vote', require('./components/VoteComponent.vue'));
 
 const app = new Vue({
     el: '#app'

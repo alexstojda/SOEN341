@@ -8,15 +8,26 @@
     @endif
 
     <dashboard-notification>
-        You are logged in!
+        @{{ appName }}
     </dashboard-notification>
 
     <div class="container">
         <a href="questions/" role="button" class="btn btn-info btn-block">
-                Go To Questions!
+            Go To Questions!
         </a>
     </div>
 
 
 
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+      let v = new Vue({
+        el: '#app',
+        data: {
+          appName: 'SOEN341'
+        }
+      })
+    </script>
 @endsection
