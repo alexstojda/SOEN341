@@ -39,7 +39,7 @@
                         <tr>
                             <td align="center">{{ $question->countTotalVotes() }}</td>
                             <td class="hidden-xs">{{ $question->created_at->diffForHumans()}}</td>
-                            <td><a href="questions/{{ $question->id }}" id="qs">{{ $question->title }}</a></td>
+                            <td><a dusk="question" href="questions/{{ $question->id }}" id="qs">{{ $question->title }}</a></td>
                         </tr>
                         </tbody>
                         @endforeach
