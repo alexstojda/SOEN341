@@ -1,55 +1,52 @@
 <?php
 
-namespace Tests\Feature;
+    namespace Tests\Feature;
 
-use App\Answer;
-use App\User;
-use App\Question;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+    use App\Answer;
+    use App\Question;
+    use App\User;
+    use Illuminate\Foundation\Testing\RefreshDatabase;
+    use Tests\TestCase;
 
-class AnswersTest extends TestCase
-{
-    use RefreshDatabase;
-    /**
-     * test if an answer can be created and stored in the DB
-     *
-     * @return void
-     */
-    public function testAnswersCanBeCreated()
-    {
-        // create user, without which testing question doesn't work
-        $user = factory(User::class)->create();
-        // before creating an answer, we must have a question to answer
-        $question = factory(Question::class)->create();
-        $answer = factory(Answer::class)->create();
+    class AnswersTest extends TestCase {
+        use RefreshDatabase;
 
-        $this->assertNotEmpty($user);
-        $this->assertNotEmpty($question);
-        $this->assertNotEmpty($answer);
+        /**
+         * test if an answer can be created and stored in the DB
+         *
+         * @return void
+         */
+        public function testAnswersCanBeCreated() {
+            // create user, without which testing question doesn't work
+            $user = factory(User::class)->create();
+            // before creating an answer, we must have a question to answer
+            $question = factory(Question::class)->create();
+            $answer = factory(Answer::class)->create();
 
-        $this->assertDatabaseHas('users', [
-            'name' => $user->name,
-            'email' => $user->email,
-            'password' => $user->password,
-            'last_ip' => $user->last_ip,
-            'last_login' => $user->last_login
-        ]);
+            $this->assertNotEmpty($user);
+            $this->assertNotEmpty($question);
+            $this->assertNotEmpty($answer);
 
-        $this->assertDatabaseHas('questions', [
-                'author_id' => $question->author_id,
-                'body' => $question->body,
-                'title' => $question->title
-            ]
-        );
+            $this->assertDatabaseHas('users', [
+                'name'       => $user->name,
+                'email'      => $user->email,
+                'password'   => $user->password,
+                'last_ip'    => $user->last_ip,
+                'last_login' => $user->last_login,
+            ]);
 
-        $this->assertDatabaseHas('answers', [
-                'author_id' => $answer->author_id,
-                'question_id' => $answer->question_id,
-                'body' => $answer->body
-            ]
-        );
+            $this->assertDatabaseHas('questions', [
+                    'author_id' => $question->author_id,
+                    'body'      => $question->body,
+                    'title'     => $question->title,
+                ]
+            );
+
+            $this->assertDatabaseHas('answers', [
+                    'author_id'   => $answer->author_id,
+                    'question_id' => $answer->question_id,
+                    'body'        => $answer->body,
+                ]
+            );
+        }
     }
-}

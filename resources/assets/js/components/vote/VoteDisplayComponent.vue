@@ -1,14 +1,15 @@
 <template>
-    <div class="container">
-        <div class="alert alert-success">
+    <div>
+        <span>
             <slot></slot>
-        </div>
+        </span>
+        </br>
     </div>
 </template>
 
 <script>
   export default {
-    name: 'notification-toast'
+    name: 'vote-display',
   }
 </script>
 

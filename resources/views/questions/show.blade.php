@@ -14,22 +14,8 @@
             <div class="row">
                 <div class="col-sm-1">
                         <span class="pull-left text-center">
-                            @if(Auth::check())
-                                <form method="POST" action="/questions/{{ $question->id }}/upvote/">
-                                @csrf
-                                    <button dusk="upvote-q{{ $question->id }}" class="glyphicon glyphicon-chevron-up"
-                                            type="submit"></button>
-                             </form>
-                            @endif
-                            <vote id={{$question->id}} model="questions"></vote>
-                            @if(Auth::check())
-                                <form method="POST" action="/questions/{{ $question->id }}/downvote/">
-                                @csrf
-                                    <button dusk="downvote-q{{ $question->id }}"
-                                            class="glyphicon glyphicon-chevron-down"
-                                            type="submit"></button>
-                            </form>
-                            @endif
+                            <vote :id="{{$question->id}}" model="questions" :auth="{{Auth::check()}}"
+                                  csrf="{{csrf_token()}}"></vote>
                         </span>
                 </div>
                 <div class="col-sm-11">
@@ -87,21 +73,8 @@
                 <div class="row">
                     <div class="pull-left col-xs-1 text-center">
                         {{--add the up/down vote buttons--}}
-                        @if(Auth::check())
-                            <form method="POST" action="{{url("/answers/$answer->id/upvote/")}}">
-                                @csrf
-                                <button dusk="upvote-a{{ $answer->id }}" class="glyphicon glyphicon-chevron-up"
-                                        type="submit"></button>
-                            </form>
-                        @endif
-                        <vote id={{$answer->id}} model="answers"></vote>
-                        @if(Auth::check())
-                            <form method="POST" action="{{url("/answers/$answer->id/downvote/")}}">
-                                @csrf
-                                <button dusk="downvote-a{{ $answer->id }}"
-                                        class="glyphicon glyphicon-chevron-down" type="submit"></button>
-                            </form>
-                        @endif
+                        <vote :id="{{$answer->id}}" model="answers" :auth="{{Auth::check()}}"
+                              csrf="{{csrf_token()}}"></vote>
                         @if($canAcceptAnswer && !$hasAcceptedAnswer)
                             <button class="accept-answer btn glyphicon glyphicon-unchecked"
                                     data-questionid="{{$question->id}}" data-answerid="{{$answer->id}}"></button>
@@ -199,48 +172,48 @@
         }
     </style>
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': '{{csrf_token()}}'
+        }
+      })
 
-        var simplemde = new SimpleMDE({
-            element: $("#answer_body")[0],
-            autosave: true,
-            forceSync: true,
-            renderingConfig: {
-                singleLineBreaks: false
-            }
-        });
+      var simplemde = new SimpleMDE({
+        element: $('#answer_body')[0],
+        autosave: true,
+        forceSync: true,
+        renderingConfig: {
+          singleLineBreaks: false
+        }
+      })
 
-        $('.accept-answer').hover(function () {
-            if(!$(this).prop('disabled'))
-                $(this).toggleClass('glyphicon-unchecked glyphicon-check btn-success');
-        }).click(function () {
-            $('.accept-answer').prop('disabled', true);
-            var question_id = $(this).data('questionid');
-            var answer_id = $(this).data('answerid');
-            var invoker = $(this);
-            $.ajax({
-                url: '/api/question/acceptAnswer',
-                method: 'POST',
-                dataType: 'json',
-                data: {
-                    question_id: question_id,
-                    answer_id: answer_id
-                }
-            }).done(function (result) {
-                if (result.status === "success") {
-                    invoker.prop('disabled', false);
-                    invoker.toggleClass('glyphicon-unchecked glyphicon-check btn-success');
-                } else {
-                    $('.accept-answer').prop('disabled', false);
-                    alert(result.body.message);
-                }
-            }).fail(function (result) {
-                console.log(result);
-            });
-        });
+      $('.accept-answer').hover(function () {
+        if (!$(this).prop('disabled'))
+          $(this).toggleClass('glyphicon-unchecked glyphicon-check btn-success')
+      }).click(function () {
+        $('.accept-answer').prop('disabled', true)
+        var question_id = $(this).data('questionid')
+        var answer_id = $(this).data('answerid')
+        var invoker = $(this)
+        $.ajax({
+          url: '/api/question/acceptAnswer',
+          method: 'POST',
+          dataType: 'json',
+          data: {
+            question_id: question_id,
+            answer_id: answer_id
+          }
+        }).done(function (result) {
+          if (result.status === 'success') {
+            invoker.prop('disabled', false)
+            invoker.toggleClass('glyphicon-unchecked glyphicon-check btn-success')
+          } else {
+            $('.accept-answer').prop('disabled', false)
+            alert(result.body.message)
+          }
+        }).fail(function (result) {
+          console.log(result)
+        })
+      })
     </script>
 @endsection

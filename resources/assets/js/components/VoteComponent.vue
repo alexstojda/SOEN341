@@ -1,25 +1,43 @@
 <template>
-    <div>
-        <span> {{ votes.total }}</span>
-        </br>
+    <div class="col-sm-1">
+        <span class="pull-left text-center">
+            <form v-show="auth_status" method="POST" :action="'/'+model+'/'+id+'/upvote'">
+                <input name="_token" :value="csrf" type="hidden"/>
+                <button :dusk="'upvote-'+model[0]+id" class="glyphicon glyphicon-chevron-up" type="submit"></button>
+            </form>
+            <vote-display>
+                {{ votes.total }}
+            </vote-display>
+            <form v-show="auth_status" method="POST" :action="'/'+model+'/'+id+'/downvote'">
+                <input name="_token" :value="csrf" type="hidden"/>
+                <button :dusk="'downvote-'+model[0]+id" class="glyphicon glyphicon-chevron-down" type="submit"></button>
+            </form>
+        </span>
     </div>
 </template>
 
 <script>
   import axios from 'axios'
+  import VoteDisplay from './vote/VoteDisplayComponent'
 
   export default {
     name: 'vote',
+    components: {VoteDisplay},
     data () {
-      return {votes: {}}
+      return {
+        votes: {},
+        auth_status: this.auth === 1,
+      }
     },
     props: {
+      id: Number,
       model: String,
-      id: String,
+      auth: Number,
+      csrf: String,
     },
     mounted () {
       axios.get('/api/' + this.model + '/' + this.id + '/votes').then((response) => {
-        this.votes = response.data;
+        this.votes = response.data
       })
     },
   }
