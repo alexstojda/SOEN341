@@ -7,9 +7,9 @@
 </template>
 
 <script>
-    export default {
-        name: "notification-toast"
-    }
+  export default {
+    name: 'notification-toast'
+  }
 </script>
 
 <style scoped>

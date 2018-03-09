@@ -15,9 +15,9 @@
 </template>
 
 <script>
-    export default {
-        name: "dashboard-notification"
-    }
+  export default {
+    name: 'dashboard-notification'
+  }
 </script>
 
 <style scoped>

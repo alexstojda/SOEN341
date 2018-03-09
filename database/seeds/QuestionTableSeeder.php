@@ -1,16 +1,14 @@
 <?php
 
-use Illuminate\Database\Seeder;
+    use Illuminate\Database\Seeder;
 
-class QuestionTableSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        factory(App\Question::class, 10)->create();
+    class QuestionTableSeeder extends Seeder {
+        /**
+         * Run the database seeds.
+         *
+         * @return void
+         */
+        public function run() {
+            factory(App\Question::class, 10)->create();
+        }
     }
-}

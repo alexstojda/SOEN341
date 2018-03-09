@@ -26,7 +26,7 @@
     data () {
       return {
         votes: {},
-        auth_status: this.auth===1,
+        auth_status: this.auth === 1,
       }
     },
     props: {

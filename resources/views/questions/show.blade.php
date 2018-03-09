@@ -172,48 +172,48 @@
         }
     </style>
     <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': '{{csrf_token()}}'
-            }
-        });
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': '{{csrf_token()}}'
+        }
+      })
 
-        var simplemde = new SimpleMDE({
-            element: $("#answer_body")[0],
-            autosave: true,
-            forceSync: true,
-            renderingConfig: {
-                singleLineBreaks: false
-            }
-        });
+      var simplemde = new SimpleMDE({
+        element: $('#answer_body')[0],
+        autosave: true,
+        forceSync: true,
+        renderingConfig: {
+          singleLineBreaks: false
+        }
+      })
 
-        $('.accept-answer').hover(function () {
-            if(!$(this).prop('disabled'))
-                $(this).toggleClass('glyphicon-unchecked glyphicon-check btn-success');
-        }).click(function () {
-            $('.accept-answer').prop('disabled', true);
-            var question_id = $(this).data('questionid');
-            var answer_id = $(this).data('answerid');
-            var invoker = $(this);
-            $.ajax({
-                url: '/api/question/acceptAnswer',
-                method: 'POST',
-                dataType: 'json',
-                data: {
-                    question_id: question_id,
-                    answer_id: answer_id
-                }
-            }).done(function (result) {
-                if (result.status === "success") {
-                    invoker.prop('disabled', false);
-                    invoker.toggleClass('glyphicon-unchecked glyphicon-check btn-success');
-                } else {
-                    $('.accept-answer').prop('disabled', false);
-                    alert(result.body.message);
-                }
-            }).fail(function (result) {
-                console.log(result);
-            });
-        });
+      $('.accept-answer').hover(function () {
+        if (!$(this).prop('disabled'))
+          $(this).toggleClass('glyphicon-unchecked glyphicon-check btn-success')
+      }).click(function () {
+        $('.accept-answer').prop('disabled', true)
+        var question_id = $(this).data('questionid')
+        var answer_id = $(this).data('answerid')
+        var invoker = $(this)
+        $.ajax({
+          url: '/api/question/acceptAnswer',
+          method: 'POST',
+          dataType: 'json',
+          data: {
+            question_id: question_id,
+            answer_id: answer_id
+          }
+        }).done(function (result) {
+          if (result.status === 'success') {
+            invoker.prop('disabled', false)
+            invoker.toggleClass('glyphicon-unchecked glyphicon-check btn-success')
+          } else {
+            $('.accept-answer').prop('disabled', false)
+            alert(result.body.message)
+          }
+        }).fail(function (result) {
+          console.log(result)
+        })
+      })
     </script>
 @endsection
