@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-sm-1">
                         <span class="pull-left text-center">
-                            <vote :id="{{$question->id}}" model="questions" :auth="{{Auth::check()}}"
+                            <vote :id="{{$question->id}}" model="questions" :auth="{{var_export(Auth::check())}}"
                                   csrf="{{csrf_token()}}"></vote>
                         </span>
                 </div>
@@ -73,7 +73,7 @@
                 <div class="row">
                     <div class="pull-left col-xs-1 text-center">
                         {{--add the up/down vote buttons--}}
-                        <vote :id="{{$answer->id}}" model="answers" :auth="{{Auth::check()}}"
+                        <vote :id="{{$answer->id}}" model="answers" :auth="{{var_export(Auth::check())}}"
                               csrf="{{csrf_token()}}"></vote>
                         @if($canAcceptAnswer && !$hasAcceptedAnswer)
                             <button class="accept-answer btn glyphicon glyphicon-unchecked"
@@ -171,6 +171,7 @@
             z-index: 1100 !important;
         }
     </style>
+    @if(Auth::check())
     <script>
       $.ajaxSetup({
         headers: {
@@ -216,4 +217,5 @@
         })
       })
     </script>
+    @endif
 @endsection
