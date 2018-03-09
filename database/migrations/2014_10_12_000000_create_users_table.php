@@ -19,6 +19,7 @@
                 $table->dateTime('last_login')->default(date('Y-m-d H:i:s'));
                 $table->ipAddress('last_ip');
                 $table->rememberToken();
+                $table->string('api_token', 60)->unique();
                 $table->timestamps();
                 $table->softDeletes();
             });

@@ -72,6 +72,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'last_ip' => $this->request->ip(),
             'last_login' => Carbon::now(),
+            'api_token' => str_random(60),
         ]);
     }
 }
