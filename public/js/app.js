@@ -12545,17 +12545,9 @@ if (token) {
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
- * @license
- * Lodash <https://lodash.com/>
- * Copyright JS Foundation and other contributors <https://js.foundation/>
- * Released under MIT license <https://lodash.com/license>
- * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
- * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- */
-;(function() {
-
-  /** Used as a safe reference for `undefined` in pre-ES5 environments. */
+/* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;
+      (function () {
+        /** Used as a safe reference for `undefined` in pre-ES5 environments. */
   var undefined;
 
   /** Used as the semantic version number. */
@@ -32484,8 +32476,8 @@ function nodeName( elem, name ) {
 
   return elem.nodeName && elem.nodeName.toLowerCase() === name.toLowerCase();
 
-};
-var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i );
+}
+  var rsingleTag = ( /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i );
 
 
 
@@ -43802,7 +43794,7 @@ function toggleCodeBlock(editor) {
 				line = cm.getLineHandle(block_start);
 				if(line.text.match(/^\s*$/)) {
 					// empty or all whitespace - keep going
-					continue;
+
 				} else {
 					if(code_type(cm, block_start, line) !== "indented") {
 						block_start += 1;
@@ -43815,7 +43807,7 @@ function toggleCodeBlock(editor) {
 				line = cm.getLineHandle(block_end);
 				if(line.text.match(/^\s*$/)) {
 					// empty or all whitespace - keep going
-					continue;
+
 				} else {
 					if(code_type(cm, block_end, line) !== "indented") {
 						block_end -= 1;
@@ -49183,14 +49175,10 @@ module.exports = Array.isArray || function (arr) {
 /* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {/**
- * marked - a markdown parser
- * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
- * https://github.com/chjj/marked
- */
+/* WEBPACK VAR INJECTION */(function(global) {
 
-;(function(root) {
-'use strict';
+(function (root) {
+        'use strict';
 
 /**
  * Block-Level Grammar
@@ -62164,7 +62152,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -62206,15 +62194,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: { VoteDisplay: __WEBPACK_IMPORTED_MODULE_1__vote_VoteDisplayComponent___default.a },
   data: function data() {
     return {
-      votes: {},
-      auth_status: this.auth === 1
+      votes: {}
     };
   },
 
   props: {
     id: Number,
     model: String,
-    auth: Number,
+    auth: Boolean,
     csrf: String
   },
   mounted: function mounted() {
@@ -62377,8 +62364,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.auth_status,
-                expression: "auth_status"
+                value: _vm.auth,
+                expression: "auth"
               }
             ],
             attrs: {
@@ -62410,8 +62397,8 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.auth_status,
-                expression: "auth_status"
+                value: _vm.auth,
+                expression: "auth"
               }
             ],
             attrs: {

@@ -1,14 +1,14 @@
 <template>
     <div class="col-sm-1">
         <span class="pull-left text-center">
-            <form v-show="auth_status" method="POST" :action="'/'+model+'/'+id+'/upvote'">
+            <form v-show="auth" method="POST" :action="'/'+model+'/'+id+'/upvote'">
                 <input name="_token" :value="csrf" type="hidden"/>
                 <button :dusk="'upvote-'+model[0]+id" class="glyphicon glyphicon-chevron-up" type="submit"></button>
             </form>
             <vote-display>
                 {{ votes.total }}
             </vote-display>
-            <form v-show="auth_status" method="POST" :action="'/'+model+'/'+id+'/downvote'">
+            <form v-show="auth" method="POST" :action="'/'+model+'/'+id+'/downvote'">
                 <input name="_token" :value="csrf" type="hidden"/>
                 <button :dusk="'downvote-'+model[0]+id" class="glyphicon glyphicon-chevron-down" type="submit"></button>
             </form>
@@ -26,13 +26,12 @@
     data () {
       return {
         votes: {},
-        auth_status: this.auth === 1,
       }
     },
     props: {
       id: Number,
       model: String,
-      auth: Number,
+      auth: Boolean,
       csrf: String,
     },
     mounted () {
