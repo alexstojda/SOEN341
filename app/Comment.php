@@ -36,9 +36,9 @@
 
         public function parent() {
             if (isset($this->question_id)) {
-                return $this->belongsTo(Question::class);
+                return $this->belongsTo(Question::class, 'question_id');
             } elseif (isset($this->answer_id)) {
-                return $this->belongsTo(Answer::class);
+                return $this->belongsTo(Answer::class, 'answer_id');
             } else {
                 return false;
             }
