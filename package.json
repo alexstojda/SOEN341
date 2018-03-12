@@ -19,6 +19,7 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "simplemde": "^1.11.2"
+        "simplemde": "^1.11.2",
+        "vue-simplemde": "^0.4.6"
     }
 }
