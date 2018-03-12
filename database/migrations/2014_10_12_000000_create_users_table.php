@@ -21,7 +21,6 @@
                 $table->rememberToken();
                 $table->string('api_token', 60)->unique();
                 $table->timestamps();
-                $table->softDeletes();
             });
         }
 

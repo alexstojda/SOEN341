@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="vote-count">
         <span>
             <slot></slot>
         </span>
@@ -9,7 +9,7 @@
 
 <script>
   export default {
-    name: 'vote-display',
+    name: 'vote-display'
   }
 </script>
 

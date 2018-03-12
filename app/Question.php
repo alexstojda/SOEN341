@@ -8,18 +8,19 @@
     /**
      * App\Question
      *
-     * @property int                                                          $id
-     * @property int|null                                                     $author_id
-     * @property string                                                       $title
-     * @property string                                                       $body
-     * @property int|null                                                     $answer_id
-     * @property string                                                       $status
-     * @property \Carbon\Carbon|null                                          $created_at
-     * @property \Carbon\Carbon|null                                          $updated_at
-     * @property string|null                                                  $deleted_at
-     * @property-read \App\User|null                                          $user
-     * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[]    $voters
-     * @property-read \Illuminate\Database\Eloquent\Collection|\App\Answer[]  $answers
+     * @property int $id
+     * @property int|null $author_id
+     * @property string $title
+     * @property string $body
+     * @property int|null $answer_id
+     * @property string $status
+     * @property \Carbon\Carbon|null $created_at
+     * @property \Carbon\Carbon|null $updated_at
+     * @property string|null $deleted_at
+     * @property-read \App\User|null $user
+     * @property-read \App\Answer|null $acceptedAnswer
+     * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $voters
+     * @property-read \Illuminate\Database\Eloquent\Collection|\App\Answer[] $answers
      * @property-read \Illuminate\Database\Eloquent\Collection|\App\Comment[] $comments
      * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereAnswerId($value)
      * @method static \Illuminate\Database\Eloquent\Builder|\App\Question whereAuthorId($value)
