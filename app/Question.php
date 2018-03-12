@@ -37,6 +37,31 @@
         protected $vote = User::class;
         protected $fillable = ['title', 'body', 'author_id'];
 
+        public function addComment($content, $author_id) {
+            Comment::create([
+                'body'        => $content,
+                'question_id' => $this->id,
+                'author_id'   => $author_id,
+            ]);
+        }
+
+        public function acceptAnswer(int $user_id, int $answer_id) {
+            if ($this->author_id !== $user_id) {
+                return false;
+            }
+
+            if ($this->answer_id === $answer_id) { //UNSET
+                $this->answer_id = null;
+                $this->status = 'open';
+            } else {  //SET
+                $this->answer_id = $answer_id;
+                $this->status = 'closed';
+            }
+            $this->save();
+
+            return $this;
+        }
+
         public function user() {
             return $this->belongsTo(User::class, 'author_id');
         }
@@ -49,7 +74,7 @@
             return $this->hasMany(Comment::class);
         }
 
-        public function acceptedAnswer() {
+        public function accepted() {
             return $this->belongsTo(Answer::class, 'answer_id');
         }
 

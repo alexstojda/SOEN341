@@ -35,12 +35,20 @@
         protected $vote = User::class;
         protected $fillable = ['body', 'question_id', 'author_id'];
 
+        public function addComment($content, $author_id) {
+            Comment::create([
+                'body'      => $content,
+                'answer_id' => $this->id,
+                'author_id' => $author_id,
+            ]);
+        }
+
         public function user() {
             return $this->belongsTo(User::class, 'author_id');
         }
 
         public function parent() {
-            return $this->belongsTo(Question::class);
+            return $this->belongsTo(Question::class, 'question_id');
         }
 
         public function comments() {
