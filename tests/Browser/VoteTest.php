@@ -23,26 +23,30 @@
             $question = factory(Question::class)->create();
 
             $this->browse(function(Browser $browser) use ($question, $user) {
+                $wait = 500; //wait time in ms, might need to fiddle with it to ensure travis pass
+
                 $browser->loginAs($user)
                     ->visit('/questions')
                     ->resize(1920, 1080)
                     ->click('@question');
 
-                $browser->click("@upvote-q$question->id");
+                $browser->waitFor("@upvote-q$question->id",10);
+
+                $browser->click("@upvote-q$question->id")->pause($wait);
                 $this->assertEquals(1, $question->countTotalVotes());
-                $browser->click("@upvote-q$question->id");
+                $browser->click("@upvote-q$question->id")->pause($wait);
                 $this->assertEquals(0, $question->countTotalVotes());
 
-                $browser->click("@downvote-q$question->id");
+                $browser->click("@downvote-q$question->id")->pause($wait);
                 $this->assertEquals(-1, $question->countTotalVotes());
-                $browser->click("@downvote-q$question->id");
+                $browser->click("@downvote-q$question->id")->pause($wait);
                 $this->assertEquals(0, $question->countTotalVotes());
 
-                $browser->click("@downvote-q$question->id");
+                $browser->click("@downvote-q$question->id")->pause($wait);
                 $this->assertEquals(-1, $question->countTotalVotes());
-                $browser->click("@upvote-q$question->id");
+                $browser->click("@upvote-q$question->id")->pause($wait);
                 $this->assertEquals(1, $question->countTotalVotes());
-                $browser->click("@downvote-q$question->id");
+                $browser->click("@downvote-q$question->id")->pause($wait);
                 $this->assertEquals(-1, $question->countTotalVotes());
             });
         }
@@ -59,26 +63,30 @@
             $answer = factory(Answer::class)->create();
 
             $this->browse(function(Browser $browser) use ($question, $user, $answer) {
+                $wait = 500; //wait time in ms, might need to fiddle with it to ensure travis pass
+
                 $browser->loginAs($user)
                     ->visit('/questions')
                     ->resize(1920, 1080)
                     ->click('@question');
 
-                $browser->click("@upvote-a$answer->id");
+                $browser->waitFor("@upvote-a$answer->id",10);
+
+                $browser->click("@upvote-a$answer->id")->pause($wait);
                 $this->assertEquals(1, $answer->countTotalVotes());
-                $browser->click("@upvote-a$answer->id");
+                $browser->click("@upvote-a$answer->id")->pause($wait);
                 $this->assertEquals(0, $answer->countTotalVotes());
 
-                $browser->click("@downvote-a$answer->id");
+                $browser->click("@downvote-a$answer->id")->pause($wait);
                 $this->assertEquals(-1, $answer->countTotalVotes());
-                $browser->click("@downvote-a$answer->id");
+                $browser->click("@downvote-a$answer->id")->pause($wait);
                 $this->assertEquals(0, $answer->countTotalVotes());
 
-                $browser->click("@downvote-a$answer->id");
+                $browser->click("@downvote-a$answer->id")->pause($wait);
                 $this->assertEquals(-1, $answer->countTotalVotes());
-                $browser->click("@upvote-a$answer->id");
+                $browser->click("@upvote-a$answer->id")->pause($wait);
                 $this->assertEquals(1, $answer->countTotalVotes());
-                $browser->click("@downvote-a$answer->id");
+                $browser->click("@downvote-a$answer->id")->pause($wait);
                 $this->assertEquals(-1, $answer->countTotalVotes());
             });
         }
