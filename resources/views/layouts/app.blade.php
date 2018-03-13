@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('styles')
 </head>
 <body>
     <div id="app">
@@ -81,6 +82,15 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @guest
+        <script type="text/javascript">
+                sessionStorage.clear()
+        </script>
+    @else
+        <script type="text/javascript">
+          sessionStorage.setItem('token', '{{Auth::user()->api_token}}' )
+        </script>
+    @endguest
     @yield('scripts')
 </body>
 </html>

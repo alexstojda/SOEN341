@@ -2,26 +2,45 @@
 
     namespace App\Http\Controllers;
 
-    use App\Answer;
     use App\Question;
+    use App\Http\Resources\Question as QuestionResource;
     use cebe\markdown\GithubMarkdown;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Support\Facades\Auth;
 
     class QuestionsController extends Controller {
         public function __construct() {
-            $this->middleware('auth')->except(['index', 'show']);
+            $this->middleware('auth')->except(['index','accept', 'show', 'QuestionsList', 'QuestionView']);
         }
 
         public function index() {
             $questions = Question::latest()->get();
 
-            return view('questions', compact('questions'));
+            if ($questions->first()) {
+                return QuestionResource::collection($questions);
+            }
+
+            return null; //TODO: write failure json
         }
 
         public function show($id) {
+            $question = Question::whereId($id)->first();
+            if ($question) {
+                return new QuestionResource($question);
+            }
+
+            return null; //TODO: write failure json
+        }
+
+        public function QuestionsList() {
+            $questions = Question::latest()->get();
+
+            return view('questions', compact('questions'));
+        }
+
+        public function QuestionView($id) {
             try {
-                $question = Question::find($id);
+                $question = Question::whereId($id)->first();
                 $comments = $question->comments;
 
                 $parser = new GithubMarkdown();
@@ -42,7 +61,9 @@
             $canAcceptAnswer = ($question['author_id'] == $user['id']);
             $hasAcceptedAnswer = (isset($question['answer_id']));
 
-            return view('questions.show', compact('question', 'answers', 'comments', 'answerComments', 'parser', 'canAcceptAnswer', 'hasAcceptedAnswer'));
+            return view('questions.show',
+                compact('question', 'answers', 'comments', 'answerComments', 'parser', 'canAcceptAnswer',
+                    'hasAcceptedAnswer'));
         }
 
         public function create() {
@@ -62,76 +83,5 @@
             ]);
 
             return redirect('questions');
-        }
-
-        public function upvote($id) {
-            try {
-                $question = Question::whereId($id)->first();
-            } catch (ModelNotFoundException $exception) {
-                return redirect()->back();
-            }
-            $user = Auth::user();
-
-            if ($user->hasUpVoted($question)) {
-                $user->cancelVote($question);
-            } else {
-                $user->upVote($question);
-            }
-            return redirect()->back();
-
-        }
-
-        public function downvote($id) {
-            try {
-                $question = Question::findOrFail($id);
-            } catch (ModelNotFoundException $exception) {
-                return redirect()->back();
-            }
-            $user = Auth::user();
-
-
-            if ($user->hasDownVoted($question)) {
-                $user->cancelVote($question);
-            } else {
-                $user->downVote($question);
-            }
-            return redirect()->back();
-
-        }
-
-        public function updateAcceptanceState() {
-
-            $this->validate(request(), [
-                'question_id' => 'required',
-                'answer_id'   => 'required',
-            ]);
-
-            try {
-                $answer = Answer::findOrFail(request('answer_id'));
-            } catch (ModelNotFoundException $exception) {
-                return response()->json(['status' => 'fail', 'body' => ['message' => 'Answer - ModelNotFoundException']]);
-            }
-
-            try {
-                $question = Question::findOrFail(request('question_id'));
-            } catch (ModelNotFoundException $exception) {
-                return response()->json(['status' => 'fail', 'body' => ['message' => 'Question - ModelNotFoundException']]);
-            }
-
-            $user = Auth::user();
-
-            if ($question['author_id'] != $user->id) {
-                return response()->json(['status' => 'fail', 'body' => ['message' => 'User did not ask the question']]);
-            } else {
-                if ($question['answer_id'] == request('answer_id')) {
-                    $question->answer_id = null;
-                    $question->save();
-                    return response()->json(['status' => 'success', 'body' => ['answerUnset' => true]]);
-                } else {
-                    $question->answer_id = $answer['id'];
-                    $question->save();
-                    return response()->json(['status' => 'success', 'body' => ['answerSet' => true]]);
-                }
-            }
         }
     }

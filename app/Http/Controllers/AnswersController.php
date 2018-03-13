@@ -3,66 +3,65 @@
     namespace App\Http\Controllers;
 
     use App\Answer;
+    use App\Http\Resources\Answer as AnswerResource;
+    use App\Question;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Support\Facades\Auth;
 
     class AnswersController extends Controller {
         public function __construct() {
-            $this->middleware('auth');
+            $this->middleware('auth:api')->except(['show', 'index']);
         }
 
-        public function store() {
+        public function store($id) {
             $this->validate(request(), [
-                'body'        => 'required',
-                'question_id' => 'required',
+                'body' => 'required',
             ]);
 
-            Answer::create([
-                'question_id' => request('question_id'),
-                'body'        => request('body'),
-                'author_id'   => Auth::id() //use this when sessions are created
-            ]);
+            $question = Question::whereId($id)->first();
 
-            return redirect()->action('QuestionsController@show', ['id' => request('question_id')]);
+            if ($question) {
+                Answer::create([
+                    'question_id' => $id,
+                    'body'        => request('body'),
+                    'author_id'   => Auth::guard('api')->id() //use this when sessions are created
+                ]);
+
+                return AnswerResource::collection($question->answers);
+            }
+
+            return null; //TODO: write failure json
         }
 
-        public function show($question_id) {
+        public function index($id) {
+            $question = Question::whereId($id)->first();
+            if ($question) {
+                return AnswerResource::collection($question->answers);
+            }
 
+            return null; //TODO: write failure json
         }
 
-        public function upvote($id) {
+        public function show($id) {
+            $answer = Answer::whereId($id)->first();
+            if ($answer) {
+                return new AnswerResource($answer);
+            }
+
+            return null; //TODO: write failure json
+        }
+
+        public function accept($id) {
             try {
-                $question = Answer::findOrFail($id);
+                $answer = Answer::whereId($id)->first();
             } catch (ModelNotFoundException $exception) {
-                return redirect()->back();
+                return response()->json(['status' => 'fail', 'message' => 'Answer - ModelNotFoundException']);
             }
-            $user = Auth::user();
+            $answer->parent->acceptAnswer(Auth::guard('api')->id(), $id);
 
-            if ($user->hasUpVoted($question)) {
-                $user->cancelVote($question);
-            } else {
-                $user->upVote($question);
-            }
-            return redirect()->back();
+            //return response()->json(['status' => 'fail', 'message' => 'User did not ask the question']);
 
-        }
-
-        public function downvote($id) {
-            try {
-                $answer = Answer::findOrFail($id);
-            } catch (ModelNotFoundException $exception) {
-                return redirect()->back();
-            }
-            $user = Auth::user();
-
-
-            if ($user->hasDownVoted($answer)) {
-                $user->cancelVote($answer);
-            } else {
-                $user->downVote($answer);
-            }
-            return redirect()->back();
-
+            return new AnswerResource($answer);
         }
     }
 

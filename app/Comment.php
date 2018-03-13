@@ -7,15 +7,15 @@
     /**
      * App\Comment
      *
-     * @property int                                 $id
-     * @property int|null                            $question_id
-     * @property int|null                            $answer_id
-     * @property int|null                            $author_id
-     * @property string                              $body
-     * @property \Carbon\Carbon|null                 $created_at
-     * @property \Carbon\Carbon|null                 $updated_at
-     * @property string|null                         $deleted_at
-     * @property-read \App\User|null                 $user
+     * @property int $id
+     * @property int|null $question_id
+     * @property int|null $answer_id
+     * @property int|null $author_id
+     * @property string $body
+     * @property \Carbon\Carbon|null $created_at
+     * @property \Carbon\Carbon|null $updated_at
+     * @property string|null $deleted_at
+     * @property-read \App\User|null $user
      * @property-read \App\Question|\App\Answer|null $parent
      * @method static \Illuminate\Database\Eloquent\Builder|\App\Comment whereAuthorId($value)
      * @method static \Illuminate\Database\Eloquent\Builder|\App\Comment whereBody($value)
@@ -36,9 +36,9 @@
 
         public function parent() {
             if (isset($this->question_id)) {
-                return $this->belongsTo(Question::class);
+                return $this->belongsTo(Question::class, 'question_id');
             } elseif (isset($this->answer_id)) {
-                return $this->belongsTo(Answer::class);
+                return $this->belongsTo(Answer::class, 'answer_id');
             } else {
                 return false;
             }

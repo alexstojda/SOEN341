@@ -8,6 +8,7 @@ require('./bootstrap')
 window.SimpleMDE = require('simplemde')
 
 window.Vue = require('vue')
+window.marked = require('marked')
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,10 +16,16 @@ window.Vue = require('vue')
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.use(require('vue-simplemde'))
+
 Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('dashboard-notification', require('./components/DashboardNotification.vue'))
 Vue.component('status-toast', require('./components/StatusToast.vue'))
-Vue.component('vote', require('./components/VoteComponent.vue'))
+Vue.component('vote', require('./components/vote/VoteComponent.vue'))
+Vue.component('comments', require('./components/comment/CommentsComponent.vue'))
+Vue.component('answers', require('./components/answer/AnswersComponent.vue'))
+Vue.component('select-answer', require('./components/answer/SelectAnswerComponent.vue'))
+Vue.component('question', require('./components/question/QuestionComponent.vue'))
 
 const app = new Vue({
   el: '#app'

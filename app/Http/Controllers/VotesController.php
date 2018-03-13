@@ -2,9 +2,7 @@
 
     namespace App\Http\Controllers;
 
-    use App\Answer;
-    use App\Question;
-    use Illuminate\Database\Eloquent\ModelNotFoundException;
+    use Illuminate\Support\Facades\Auth;
 
     /**
      * Class VotesController
@@ -13,6 +11,10 @@
      * @package App\Http\Controllers
      */
     class VotesController extends Controller {
+        public function __construct() {
+            $this->middleware('auth:api')->except(['show','index']);
+        }
+
         /**
          * Display the specified resource.
          *
@@ -20,29 +22,47 @@
          *
          * @return \Illuminate\Http\JsonResponse
          */
-        public function show($model, $id) {
-            try {
-                switch ($model) {
-                    case 'answers' :
-                        $result = Answer::find($id);
-                        break;
-                    case 'questions' :
-                        $result = Question::find($id);
-                        break;
-                    default :
-                        return redirect()->back();
-                }
-            } catch (ModelNotFoundException $exception) {
-                return redirect()->back();
+        public function index($model, $id) {
+            $model = $this->determineModel($model, $id);
+
+            return $this->generateResponse($model);
+        }
+
+        public function upvote($model, int $id) {
+            $model = $this->determineModel($model, $id);
+            $user = Auth::guard('api')->user();
+
+
+            if ($user->hasUpVoted($model)) {
+                $user->cancelVote($model);
+            } else {
+                $user->upVote($model);
+            }
+            return $this->generateResponse($model);
+
+        }
+
+        public function downvote($model, int $id) {
+            $model = parent::determineModel($model, $id);
+            $user = Auth::guard('api')->user();
+
+            if ($user->hasDownVoted($model)) {
+                $user->cancelVote($model);
+            } else {
+                $user->downVote($model);
             }
 
+            return $this->generateResponse($model);
+        }
+
+        private function generateResponse($model) {
             return response()->json([
-                'total'   => $result->countTotalVotes(),
-                'up'      => $result->countUpVoters(),
-                'down'    => $result->countDownVoters(),
-                'turnout' => $result->countVoters(),
-                'voters'  => $result->voters,
-                //'voted'   => $result->isVotedBy(),
+                'total'   => $model->countTotalVotes(),
+                'up'      => $model->countUpVoters(),
+                'down'    => $model->countDownVoters(),
+                'turnout' => $model->countVoters(),
+                'voters'  => $model->voters,
+                //'voted'   => $model->isVotedBy(),
             ]);
         }
     }
