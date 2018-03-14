@@ -6,3 +6,50 @@
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 //SimpleMDE
 @import "~simplemde/dist/simplemde.min.css";
+
+
+.nav > li > a:hover{
+  background-color: #f062d4 !important;
+
+}
+
+span,.fa {
+  color: #f062d4 !important;
+}
+
+.editor-toolbar,.glyphicon{
+  background-color: #030202 !important;
+  color: #f062d4 !important;
+}
+
+.comment {
+  background-color: rgba(22, 21, 21, 0.85) !important;
+}
+
+td,.CodeMirror,.form-control,::placeholder {
+  background-color: #2d2d2d !important;
+  color: #f062d4 !important;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.42;
+  border-radius: 15px;
+}
+
+.title {
+  font-size: 400%;
+  font-family: "Raleway", sans-serif;
+
+}
+
+.jumbotron {
+  background-color: #272727;
+  border: 1px solid black;
+  margin: auto;
+  width: 60%;
+}

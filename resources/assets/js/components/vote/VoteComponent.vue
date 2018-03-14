@@ -2,12 +2,12 @@
     <div :id="'vote-'+model+'-'+id" class="col-md-1">
         <span class="pull-left text-center">
             <button v-show="show_buttons" :dusk="'upvote-'+model[0]+id" @click="upvote"
-                    class="glyphicon glyphicon-chevron-up" type="submit"></button>
+                    class="glyphicon glyphicon-arrow-up btn-circle" type="submit"></button>
             <vote-display>
                 {{ votes.total }}
             </vote-display>
             <button v-show="show_buttons" :dusk="'downvote-'+model[0]+id" @click="downvote"
-                    class="glyphicon glyphicon-chevron-down" type="submit"></button>
+                    class="glyphicon glyphicon-arrow-down btn-circle" type="submit"></button>
         </span>
     </div>
 </template>

@@ -11,7 +11,7 @@
 
             <div class="col-md-10 col-md-offset-1">
 
-                <div class="panel panel-default panel-table">
+                <div class="panel panel-default panel-table rounded">
                     <div class="panel-heading">
                         <div class="row vertical-align">
                             <div class="col col-xs-6">
@@ -20,7 +20,7 @@
                             @if(Auth::check())
                                 <div class="col col-xs-6 text-right">
                                     {{--<a href="#" class="btn btn-default">Example</a>--}}
-                                    <button type="button" class="btn btn-sm btn-primary btn-create"
+                                    <button type="button" class="btn btn-sm btn-danger btn-create"
                                             onclick="window.location.href='questions/create'">Add a Question
                                     </button>
                                 </div>
