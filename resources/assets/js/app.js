@@ -26,6 +26,7 @@ Vue.component('comments', require('./components/comment/CommentsComponent.vue'))
 Vue.component('answers', require('./components/answer/AnswersComponent.vue'))
 Vue.component('select-answer', require('./components/answer/SelectAnswerComponent.vue'))
 Vue.component('question', require('./components/question/QuestionComponent.vue'))
+Vue.component('questions-top', require('./components/question/QuestionsListComponent.vue'))
 
 const app = new Vue({
   el: '#app'

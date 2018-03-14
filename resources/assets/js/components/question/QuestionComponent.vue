@@ -12,7 +12,7 @@
         </div>
         <div class="row">
             <div class="pull-right text-center">
-                By {{ question.author.name }} <br>
+               <a> By {{ question.author.name }} </a><br>
                 {{ question.dates.created.readable }}
             </div>
             <br>

@@ -20,6 +20,8 @@
 
     Route::get('questions', 'QuestionsController@index');
 
+    Route::get('questions/top', 'QuestionsController@top');
+
     Route::post('questions', 'QuestionsController@store');
 
     Route::get('questions/{id}', 'QuestionsController@show');

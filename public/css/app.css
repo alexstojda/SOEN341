@@ -5699,12 +5699,12 @@ tbody.collapse.in {
 }
 
 .navbar-default .navbar-brand {
-  color: #777;
+  color: #1dadac;
 }
 
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #5e5d5d;
+  color: #168181;
   background-color: transparent;
 }
 
@@ -8426,6 +8426,5 @@ td,
   background-color: #272727;
   border: 1px solid black;
   margin: auto;
-  width: 60%;
 }
 

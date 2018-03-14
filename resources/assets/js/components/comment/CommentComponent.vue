@@ -10,7 +10,7 @@
                 <span class="comment-copy">
                     {{ comment.body }}
                 </span>
-                –&nbsp;<a :href="'/users/'+comment.author.id" class="comment-user">{{comment.author.name}}</a>
+                –&nbsp;<a>{{comment.author.name}}</a>
                 <span class="comment-date " dir="ltr">
                     <a class="comment-link" :href="'#comment-'+comment.id">
                         <small :title="comment.date.full" class="relativetime-clean">{{comment.date.readable}}</small>

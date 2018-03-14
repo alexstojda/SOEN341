@@ -81,7 +81,8 @@
             <div class="container">
                 <div class="text-center card">
                     Recently Asked Questions
-
+                    <br>
+                    <questions-top></questions-top>
 
                 </div>
             </div>
