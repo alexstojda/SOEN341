@@ -18,6 +18,6 @@
          * @return \Illuminate\Http\Response
          */
         public function index() {
-            return view('home');
+            return redirect('questions');
         }
     }
