@@ -25,8 +25,7 @@ Vue.component('vote', require('./components/vote/VoteComponent.vue'))
 Vue.component('comments', require('./components/comment/CommentsComponent.vue'))
 Vue.component('answers', require('./components/answer/AnswersComponent.vue'))
 Vue.component('question', require('./components/question/QuestionComponent.vue'))
-//Vue.component('questions-top', require('./components/question/QuestionsListComponent.vue'))
-//TODO:@nico you never committed the question list vue file.. open it and ctrl+alt+A to add to git
+Vue.component('questions-top', require('./components/question/QuestionsListComponent.vue'))
 
 const app = new Vue({
   el: '#app'

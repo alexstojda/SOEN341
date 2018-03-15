@@ -60,7 +60,7 @@
     },
     methods: {
       handleSelectUpdate (answer) {  // 2 hacky methods for the price of 1
-        let answers = _.cloneDeep(this.answers) // force clone array so we can replace it later
+        let answers = this.answers.slice() //_.cloneDeep(this.answers) // force clone array so we can replace it later
         let i = _.findIndex(answers, ['id', answer.id])
         answers[i] = answer // is we do this on original then it never re-computes qAnswered
         this.answers = answers // using cloned array to trigger re-compute and whole list wide 'qAnswered' prop update
