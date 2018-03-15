@@ -24,7 +24,6 @@ Vue.component('status-toast', require('./components/StatusToast.vue'))
 Vue.component('vote', require('./components/vote/VoteComponent.vue'))
 Vue.component('comments', require('./components/comment/CommentsComponent.vue'))
 Vue.component('answers', require('./components/answer/AnswersComponent.vue'))
-Vue.component('select-answer', require('./components/answer/SelectAnswerComponent.vue'))
 Vue.component('question', require('./components/question/QuestionComponent.vue'))
 Vue.component('questions-top', require('./components/question/QuestionsListComponent.vue'))
 

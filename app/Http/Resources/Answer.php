@@ -14,8 +14,8 @@
          */
         public function toArray($request) {
             return [
-                'id'   => $this->id,
-                'body' => $this->body,
+                'id'       => $this->id,
+                'body'     => $this->body,
                 'selected' => ($this->id === $this->parent->answer_id),
 
                 'date' => [
@@ -29,7 +29,11 @@
                     'more' => url("api/users/$this->author_id"),
                 ],
 
-                'parent'   => ['id' => $this->question_id, 'more' => url("api/questions/$this->question_id")],
+                'parent'   => [
+                    'id'        => $this->parent->id,
+                    'author_id' => $this->parent->author_id,
+                    'more'      => url("api/questions/$this->question_id"),
+                ],
                 'comments' => ['count' => \count($this->comments), 'more' => url("api/answers/$this->id/comments")],
                 'votes'    => ['total' => $this->countTotalVotes(), 'more' => url("api/answers/$this->id/votes")],
             ];

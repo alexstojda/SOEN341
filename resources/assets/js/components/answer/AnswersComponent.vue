@@ -1,111 +1,95 @@
 <template>
-    <div class="container-fluid">
+    <div id="answers-container" class="container-fluid">
         <h3>{{count}} Answers</h3>
         <hr>
-        <div class="container answers-list">
-            <div class="row answer card" :id="'answer-'+answer.id" v-for="answer in answers" :key="answer.id">
-                <div class="pull-left col-md-1 text-center">
-                    <vote :id="answer.id" model="answers" :show_buttons="show_forms"></vote>
+        <div class="row">
+            <div class="col-md-12 answers" v-for="answer in answers" :key="answer.id" v-if="loaded"
+                 :id="'q-' + qid + '-answers'">
+                <answer class="row" :answer="answer" :show_forms="form.show"
+                        :qAnswered="qAnswered" :qOwner="(uid === answer.parent.author_id)"></answer>
 
-                    <select-answer v-show="uid === answer.author.id" :id="answer.id"
-                                   :selected="answer.selected"></select-answer>
+                <div class="row" :id="'a-'+answer.id+'-comments'">
+                    <comments class="col-md-11 col-md-offset-1" model="answers" :id="answer.id"
+                              :show_form="show_forms"></comments>
                 </div>
-
-                <div class="col-md-11 com-md-offset-1">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 v-html="renderMD(answer.body)">
-                            </h4>
-                            <br>
-                            <a><small>by {{answer.author.name}} - {{answer.date.readable}}</small></a>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <br>
-                        <comments class="col-md-12" model="answers" :id="answer.id"
-                                  :show_form="show_forms"></comments>
-                    </div>
-                </div>
-
-
             </div>
-        </div>
 
-        <div v-show="form.show" class="container answers-form">
-            <form class="form" @submit="onSubmit">
-                <div class="form-group">
-                    <label :for="form.id">Your answer:</label>
-                    <markdown-editor preview-class="markdown-body" v-model="form.text" :ref="form.id" name="body"
-                                     required></markdown-editor>
-                </div>
-                <button type="submit" class="btn btn-primary">Answer</button>
-            </form>
+            <div v-show="form.show" class="row answers-form container">
+                <form class="form" @submit="onSubmit">
+                    <div class="form-group">
+                        <label :for="form.id">Your answer:</label>
+                        <markdown-editor preview-class="markdown-body" v-model="form.text" :ref="form.id" name="body"
+                                         required></markdown-editor>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Answer</button>
+                </form>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import Comments from '../comment/CommentsComponent'
-    import SelectAnswer from './SelectAnswerComponent'
-    import markdownEditor from 'vue-simplemde/src/markdown-editor'
+  import Answer from './AnswerComponent'
+  import Comments from '../comment/CommentsComponent'
+  import markdownEditor from 'vue-simplemde/src/markdown-editor'
 
-    export default {
-        name: 'answers',
-        components: {SelectAnswer, markdownEditor, Comments},
-        data() {
-            return {
-                answers: [],
-                count: null,
-                form: {
-                    id: 'q' + this.qid + '-answer-body',
-                    text: '',
-                    show: this.show_forms
-                }
-            }
-        },
-        props: {
-            qid: Number,
-            uid: [Number, null],
-            show_forms: [Boolean, false]
-        },
-        methods: {
-            renderMD(md_text) { //TODO:@Stojda verify I haven't broken the page with these render options
-                marked.setOptions({
-                    renderer: new marked.Renderer(),
-                    gfm: true,
-                    tables: true,
-                    breaks: true,
-                    pedantic: false,
-                    sanitize: true,
-                    smartLists: true,
-                    smartypants: false
-                })
-                return marked(md_text)
-            },
-            onSubmit(evt) {
-                evt.preventDefault()
-
-                axios.post('/api/questions/' + this.qid + '/answer', {
-                    api_token: sessionStorage.getItem('token'),
-                    body: this.form.text
-                }).then((response) => {
-                    this.answers = response.data.data
-                })
-                this.form.text = ''
-                this.form.show = false
-            },
-            update() {
-                axios.get('/api/questions/' + this.qid + '/answers').then((response) => {
-                    this.answers = response.data.data
-                    this.count = this.answers.length //Object.keys(this.answers).length
-                })
-            }
-        },
-        mounted() {
-            this.update()
+  export default {
+    name: 'answers',
+    components: {Answer, markdownEditor, Comments},
+    data () {
+      return {
+        loaded: false,
+        answers: [],
+        count: null,
+        form: {
+          id: 'q' + this.qid + '-answer-body',
+          text: '',
+          show: this.show_forms
         }
+      }
+    },
+    props: {
+      qid: Number,
+      uid: [Number, null],
+      show_forms: [Boolean, false]
+    },
+    computed: {
+      qAnswered: function () {
+        return (_.find(this.answers, ['selected', true]) !== undefined)
+      }
+    },
+    methods: {
+      handleSelectUpdate (answer) {  // 2 hacky methods for the price of 1
+        let answers = _.cloneDeep(this.answers) // force clone array so we can replace it later
+        let i = _.findIndex(answers, ['id', answer.id])
+        answers[i] = answer // is we do this on original then it never re-computes qAnswered
+        this.answers = answers // using cloned array to trigger re-compute and whole list wide 'qAnswered' prop update
+      },
+      onSubmit (evt) {
+        evt.preventDefault()
+
+        axios.post('/api/questions/' + this.qid + '/answer', {
+          api_token: sessionStorage.getItem('token'),
+          body: this.form.text
+        }).then((response) => {
+          this.answers = response.data.data
+        })
+        this.form.text = ''
+        this.form.show = false
+      },
+      update () {
+        this.loaded = false
+        axios.get('/api/questions/' + this.qid + '/answers').then((response) => {
+          this.answers = response.data.data
+          this.count = this.answers.length //Object.keys(this.answers).length\
+          this.loaded = true
+        })
+      }
+    },
+    created () {
+      this.update()
     }
+  }
 </script>
 
 <style scoped>
