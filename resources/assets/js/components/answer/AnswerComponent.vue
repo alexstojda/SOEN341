@@ -9,7 +9,7 @@
         </div>
 
         <div class="col-md-11">
-            <h4 v-html="renderMD()"></h4>
+            <h4 v-html="renderMD(answer.body)"></h4>
             <br>
             <small>by {{answer.author.name}}</small>
         </div>
@@ -31,23 +31,21 @@
       },
       answerEnabled: function () {
         return (this.qOwner && (this.answerSelected || (!this.answerSelected && !this.qAnswered)))
-      },
+      }
     },
     methods: {
-      renderMD () { //TODO: #12 @Stojda verify I haven't broken the page with these render options
-        if (this.answer !== undefined) {
-          marked.setOptions({
-            renderer: new marked.Renderer(),
-            gfm: true,
-            tables: true,
-            breaks: true,
-            pedantic: false,
-            sanitize: true,
-            smartLists: true,
-            smartypants: false
-          })
-          return marked(this.answer.body)
-        }
+      renderMD (md_text) {
+        marked.setOptions({
+          renderer: new marked.Renderer(),
+          gfm: true,
+          tables: true,
+          breaks: true,
+          pedantic: false,
+          sanitize: true,
+          smartLists: true,
+          smartypants: false
+        })
+        return marked(md_text)
       },
       onClick (evt) {
         axios.get('/api/answers/' + this.answer.id + '/accept?api_token=' + sessionStorage.getItem('token')).then((response) => {

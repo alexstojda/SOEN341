@@ -1,5 +1,5 @@
 <template>
-    <div :id="'vote-'+model+'-'+id" class="col-md-1">
+    <div :id="model[0]+'-'+id+'-vote'" class="col-md-1">
         <span class="pull-left text-center">
             <button v-show="show_buttons" :dusk="'upvote-'+model[0]+id" @click="upvote"
                     class="glyphicon glyphicon-arrow-up btn-circle" type="submit"></button>
@@ -41,7 +41,7 @@
         })
       }
     },
-    mounted () {
+    created () {
       axios.get('/api/' + this.model + '/' + this.id + '/votes').then((response) => {
         this.votes = response.data
       })

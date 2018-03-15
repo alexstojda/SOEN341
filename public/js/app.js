@@ -15956,6 +15956,8 @@ Vue.component('vote', __webpack_require__(77));
 Vue.component('comments', __webpack_require__(9));
 Vue.component('answers', __webpack_require__(96));
 Vue.component('question', __webpack_require__(112));
+//Vue.component('questions-top', require('./components/question/QuestionsListComponent.vue'))
+//TODO:@nico you never committed the question list vue file.. open it and ctrl+alt+A to add to git
 
 var app = new Vue({
   el: '#app'
@@ -62602,7 +62604,7 @@ var render = function() {
                 expression: "show_buttons"
               }
             ],
-            staticClass: "glyphicon glyphicon-chevron-up",
+            staticClass: "glyphicon glyphicon-arrow-up btn-circle",
             attrs: { dusk: "upvote-" + _vm.model[0] + _vm.id, type: "submit" },
             on: { click: _vm.upvote }
           }),
@@ -62620,7 +62622,7 @@ var render = function() {
                 expression: "show_buttons"
               }
             ],
-            staticClass: "glyphicon glyphicon-chevron-down",
+            staticClass: "glyphicon glyphicon-arrow-down btn-circle",
             attrs: {
               dusk: "downvote-" + _vm.model[0] + _vm.id,
               type: "submit"
@@ -62919,14 +62921,7 @@ var render = function() {
                 )
               ]),
               _vm._v("\n            – "),
-              _c(
-                "a",
-                {
-                  staticClass: "comment-user",
-                  attrs: { href: "/users/" + _vm.comment.author.id }
-                },
-                [_vm._v(_vm._s(_vm.comment.author.name))]
-              ),
+              _c("a", [_vm._v(_vm._s(_vm.comment.author.name))]),
               _vm._v(" "),
               _c(
                 "span",
@@ -63377,7 +63372,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -63424,21 +63419,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
-    renderMD: function renderMD() {
-      //TODO: #12 @Stojda verify I haven't broken the page with these render options
-      if (this.answer !== undefined) {
-        marked.setOptions({
-          renderer: new marked.Renderer(),
-          gfm: true,
-          tables: true,
-          breaks: true,
-          pedantic: false,
-          sanitize: true,
-          smartLists: true,
-          smartypants: false
-        });
-        return marked(this.answer.body);
-      }
+    renderMD: function renderMD(md_text) {
+      marked.setOptions({
+        renderer: new marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: true,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false
+      });
+      return marked(md_text);
     },
     onClick: function onClick(evt) {
       var _this = this;
@@ -63499,7 +63491,9 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-11" }, [
-        _c("h4", { domProps: { innerHTML: _vm._s(_vm.renderMD()) } }),
+        _c("h4", {
+          domProps: { innerHTML: _vm._s(_vm.renderMD(_vm.answer.body)) }
+        }),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
@@ -64031,7 +64025,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     renderMD: function renderMD(md_text) {
-      //TODO:@Stojda verify I haven't broken the page with these render options
       marked.setOptions({
         renderer: new marked.Renderer(),
         gfm: true,
@@ -64105,9 +64098,9 @@ var render = function() {
             { staticClass: "row" },
             [
               _c("div", { staticClass: "pull-right text-center" }, [
-                _vm._v(
-                  "\n            By " + _vm._s(_vm.question.author.name) + " "
-                ),
+                _c("a", [
+                  _vm._v(" By " + _vm._s(_vm.question.author.name) + " ")
+                ]),
                 _c("br"),
                 _vm._v(
                   "\n            " +
