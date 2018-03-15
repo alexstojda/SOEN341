@@ -63251,7 +63251,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     handleSelectUpdate: function handleSelectUpdate(answer) {
       // 2 hacky methods for the price of 1
-      var answers = _.cloneDeep(this.answers); // force clone array so we can replace it later
+      var answers = this.answers.slice(); //_.cloneDeep(this.answers) // force clone array so we can replace it later
       var i = _.findIndex(answers, ['id', answer.id]);
       answers[i] = answer; // is we do this on original then it never re-computes qAnswered
       this.answers = answers; // using cloned array to trigger re-compute and whole list wide 'qAnswered' prop update
@@ -63372,7 +63372,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -63435,12 +63435,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     onClick: function onClick(evt) {
       var _this = this;
 
-      axios.get('/api/answers/' + this.answer.id + '/accept?api_token=' + sessionStorage.getItem('token')).then(function (response) {
-        //this.$emit('update', {answer: response.data.data})
-        _this.$parent.handleSelectUpdate(response.data.data);
-      }).catch(function (error) {
-        console.log(error);
-      });
+      evt.preventDefault();
+
+      if (this.answerEnabled) {
+        axios.get('/api/answers/' + this.answer.id + '/accept?api_token=' + sessionStorage.getItem('token')).then(function (response) {
+          //this.$emit('update', {answer: response.data.data})
+          _this.$parent.handleSelectUpdate(response.data.data);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
     }
   }
 });

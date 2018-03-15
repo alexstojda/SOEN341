@@ -48,12 +48,16 @@
         return marked(md_text)
       },
       onClick (evt) {
-        axios.get('/api/answers/' + this.answer.id + '/accept?api_token=' + sessionStorage.getItem('token')).then((response) => {
-          //this.$emit('update', {answer: response.data.data})
-          this.$parent.handleSelectUpdate(response.data.data)
-        }).catch((error) => {
-          console.log(error)
-        })
+        evt.preventDefault()
+
+        if (this.answerEnabled) {
+          axios.get('/api/answers/' + this.answer.id + '/accept?api_token=' + sessionStorage.getItem('token')).then((response) => {
+            //this.$emit('update', {answer: response.data.data})
+            this.$parent.handleSelectUpdate(response.data.data)
+          }).catch((error) => {
+            console.log(error)
+          })
+        }
       }
     }
   }

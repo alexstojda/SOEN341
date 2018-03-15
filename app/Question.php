@@ -54,7 +54,7 @@
             if ($this->answer_id === $answer_id) { //UNSET
                 $this->answer_id = null;
                 $this->status = 'open';
-            } else {  //SET
+            } elseif ($this->status === 'open') { //SET
                 $this->answer_id = $answer_id;
                 $this->status = 'closed';
             }
