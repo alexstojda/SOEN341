@@ -38,9 +38,11 @@ $input-color-placeholder: lighten($text-color, 30%);
 $panel-default-heading-bg: rgba(22, 21, 21, 0.85);
 $panel-bg: rgba(9, 9, 9, 0.76);
 $panel-footer-bg: rgba(34, 32, 32, 0.85);
-$panel-default-border: rgba(22, 21, 21, 0.85);
+$panel-default-border: #1dadac;
 $panel-inner-border: rgba(22, 21, 21, 0.85);
 $panel-default-text: $text-color;
+
+
 $pagination-bg: rgba(22, 21, 21, 0.85);
 
 //Links
@@ -51,3 +53,4 @@ $table-bg: rgba(22, 21, 21, 0.85);
 $table-border-color: rgba(0, 0, 0, 0.76);
 
 $navbar-default-brand-color: #1dadac;
+$hr-border: #1dadac;

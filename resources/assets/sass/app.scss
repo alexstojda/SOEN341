@@ -26,7 +26,13 @@ span,.fa {
   background-color: rgba(22, 21, 21, 0.85) !important;
 }
 
-td,.CodeMirror,.form-control,::placeholder {
+td,.CodeMirror,.form-control,.editor-preview,.editor-preview-side {
+  background-color: #2d2d2d !important;
+  color: #f062d4 !important;
+  border: 1px solid #1dadac;
+}
+
+::placeholder {
   background-color: #2d2d2d !important;
   color: #f062d4 !important;
 }
@@ -49,6 +55,19 @@ td,.CodeMirror,.form-control,::placeholder {
 
 .jumbotron {
   background-color: #272727;
-  border: 1px solid black;
+  border: 3px solid #f062d4;
   margin: auto;
+}
+
+li {
+  margin:auto;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #2d2d2d inset;
+  -webkit-text-fill-color: #f062d4;
+  transition: background-color 5000s ease-in-out 0s;
+  border: 1px solid #f062d4;
 }

@@ -72,18 +72,15 @@
         <hr>
         <div class="container-fluid">
 
-            <div class="title text-center jumbotron">
-                Spotted: Concordia
-                <br>Q&A
+            <div class="text-center jumbotron">
+                <img src="/images/SpottedLogoAlexiahh.jpg">
             </div>
 
             <hr>
             <div class="container">
                 <div class="text-center card">
-                    Recently Asked Questions
-                    <br>
+                    Recently Added Questions<br>
                     <questions-top></questions-top>
-
                 </div>
             </div>
 

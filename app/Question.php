@@ -36,6 +36,7 @@
     class Question extends Model {
         use CanBeVoted;
         protected $vote = User::class;
+        protected $user = User::class;
         protected $fillable = ['title', 'body', 'author_id'];
 
         public function addComment($content, $author_id) {
