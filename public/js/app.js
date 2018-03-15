@@ -15955,7 +15955,6 @@ Vue.component('status-toast', __webpack_require__(72));
 Vue.component('vote', __webpack_require__(77));
 Vue.component('comments', __webpack_require__(9));
 Vue.component('answers', __webpack_require__(96));
-Vue.component('select-answer', __webpack_require__(101));
 Vue.component('question', __webpack_require__(112));
 
 var app = new Vue({
@@ -62431,7 +62430,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     var _this3 = this;
 
     __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/' + this.model + '/' + this.id + '/votes').then(function (response) {
@@ -62587,7 +62586,7 @@ var render = function() {
     "div",
     {
       staticClass: "col-md-1",
-      attrs: { id: "vote-" + _vm.model + "-" + _vm.id }
+      attrs: { id: _vm.model[0] + "-" + _vm.id + "-vote" }
     },
     [
       _c(
@@ -62748,7 +62747,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.form.text = '';
       this.form.show = false;
     },
-    updateComments: function updateComments() {
+    update: function update() {
       var _this2 = this;
 
       axios.get('/api/' + this.model + '/' + this.id + '/comments').then(function (response) {
@@ -62756,8 +62755,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     }
   },
-  mounted: function mounted() {
-    this.updateComments();
+  created: function created() {
+    this.update();
   }
 });
 
@@ -62977,7 +62976,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "comments-container" }, [
+  return _c("div", { attrs: { id: "comments-container" } }, [
     _c(
       "ul",
       { staticClass: "comments-list list-group" },
@@ -63187,18 +63186,12 @@ exports.push([module.i, "/**\n * simplemde v1.11.2\n * Copyright Next Step Webs,
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__comment_CommentsComponent__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__comment_CommentsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__comment_CommentsComponent__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SelectAnswerComponent__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SelectAnswerComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__SelectAnswerComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AnswerComponent__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AnswerComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AnswerComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__comment_CommentsComponent__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__comment_CommentsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__comment_CommentsComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_simplemde_src_markdown_editor__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_simplemde_src_markdown_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_simplemde_src_markdown_editor__);
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -63236,9 +63229,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'answers',
-  components: { SelectAnswer: __WEBPACK_IMPORTED_MODULE_1__SelectAnswerComponent___default.a, markdownEditor: __WEBPACK_IMPORTED_MODULE_2_vue_simplemde_src_markdown_editor___default.a, Comments: __WEBPACK_IMPORTED_MODULE_0__comment_CommentsComponent___default.a },
+  components: { Answer: __WEBPACK_IMPORTED_MODULE_0__AnswerComponent___default.a, markdownEditor: __WEBPACK_IMPORTED_MODULE_2_vue_simplemde_src_markdown_editor___default.a, Comments: __WEBPACK_IMPORTED_MODULE_1__comment_CommentsComponent___default.a },
   data: function data() {
     return {
+      loaded: false,
       answers: [],
       count: null,
       form: {
@@ -63254,20 +63248,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     uid: [Number, null],
     show_forms: [Boolean, false]
   },
+  computed: {
+    qAnswered: function qAnswered() {
+      return _.find(this.answers, ['selected', true]) !== undefined;
+    }
+  },
   methods: {
-    renderMD: function renderMD(md_text) {
-      //TODO:@Stojda verify I haven't broken the page with these render options
-      marked.setOptions({
-        renderer: new marked.Renderer(),
-        gfm: true,
-        tables: true,
-        breaks: true,
-        pedantic: false,
-        sanitize: true,
-        smartLists: true,
-        smartypants: false
-      });
-      return marked(md_text);
+    handleSelectUpdate: function handleSelectUpdate(answer) {
+      // 2 hacky methods for the price of 1
+      var answers = _.cloneDeep(this.answers); // force clone array so we can replace it later
+      var i = _.findIndex(answers, ['id', answer.id]);
+      answers[i] = answer; // is we do this on original then it never re-computes qAnswered
+      this.answers = answers; // using cloned array to trigger re-compute and whole list wide 'qAnswered' prop update
     },
     onSubmit: function onSubmit(evt) {
       var _this = this;
@@ -63286,13 +63278,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     update: function update() {
       var _this2 = this;
 
+      this.loaded = false;
       axios.get('/api/questions/' + this.qid + '/answers').then(function (response) {
         _this2.answers = response.data.data;
-        _this2.count = _this2.answers.length; //Object.keys(this.answers).length
+        _this2.count = _this2.answers.length; //Object.keys(this.answers).length\
+        _this2.loaded = true;
       });
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     this.update();
   }
 });
@@ -63316,7 +63310,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-3e8f0edc"
+var __vue_scopeId__ = "data-v-518bea38"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -63327,7 +63321,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\answer\\SelectAnswerComponent.vue"
+Component.options.__file = "resources\\assets\\js\\components\\answer\\AnswerComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -63336,9 +63330,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3e8f0edc", Component.options)
+    hotAPI.createRecord("data-v-518bea38", Component.options)
   } else {
-    hotAPI.reload("data-v-3e8f0edc", Component.options)
+    hotAPI.reload("data-v-518bea38", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -63359,13 +63353,13 @@ var content = __webpack_require__(103);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("05061a53", content, false, {});
+var update = __webpack_require__(4)("20567158", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e8f0edc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SelectAnswerComponent.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e8f0edc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SelectAnswerComponent.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-518bea38\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AnswerComponent.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-518bea38\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AnswerComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -63383,7 +63377,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -63398,35 +63392,65 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'select-answer',
-  data: function data() {
-    return {
-      enabled: true,
-      status: this.selected
-    };
-  },
-
+  name: 'answer',
   props: {
-    id: Number,
-    selected: [Boolean, false]
+    answer: {},
+    qOwner: [Boolean, false],
+    qAnswered: [Boolean, false],
+    show_forms: [Boolean, false]
+  },
+  computed: {
+    answerSelected: function answerSelected() {
+      return this.answer.selected;
+    },
+    answerEnabled: function answerEnabled() {
+      return this.qOwner && (this.answerSelected || !this.answerSelected && !this.qAnswered);
+    }
   },
   methods: {
+    renderMD: function renderMD() {
+      //TODO: #12 @Stojda verify I haven't broken the page with these render options
+      if (this.answer !== undefined) {
+        marked.setOptions({
+          renderer: new marked.Renderer(),
+          gfm: true,
+          tables: true,
+          breaks: true,
+          pedantic: false,
+          sanitize: true,
+          smartLists: true,
+          smartypants: false
+        });
+        return marked(this.answer.body);
+      }
+    },
     onClick: function onClick(evt) {
       var _this = this;
 
-      evt.preventDefault();
-      //TODO learn proper vue prop enable/disable and dynamic classes attribution
-      axios.get('/api/answers/' + this.id + '/accept?api_token=' + sessionStorage.getItem('token')).then(function (response) {
-        _this.status = response.data.data.selected;
-        if (_this.status === true) {
-          $('.accept-answer').toggleClass('glyphicon-unchecked glyphicon-check btn-success');
-        }
+      axios.get('/api/answers/' + this.answer.id + '/accept?api_token=' + sessionStorage.getItem('token')).then(function (response) {
+        //this.$emit('update', {answer: response.data.data})
+        _this.$parent.handleSelectUpdate(response.data.data);
+      }).catch(function (error) {
+        console.log(error);
       });
     }
-  },
-  mounted: function mounted() {}
+  }
 });
 
 /***/ }),
@@ -63437,10 +63461,52 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("button", {
-    staticClass: "accept-answer btn glyphicon glyphicon-unchecked",
-    on: { click: _vm.onClick }
-  })
+  return _c(
+    "div",
+    { staticClass: "answer", attrs: { id: "a-" + _vm.answer.id } },
+    [
+      _c(
+        "div",
+        { staticClass: "pull-left col-md-1 text-center" },
+        [
+          _c("vote", {
+            attrs: {
+              id: _vm.answer.id,
+              model: "answers",
+              show_buttons: _vm.show_forms
+            }
+          }),
+          _vm._v(" "),
+          _c("button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: this.answerSelected || this.qOwner,
+                expression: "(this.answerSelected || this.qOwner)"
+              }
+            ],
+            staticClass: "accept-answer btn glyphicon",
+            class: {
+              "btn-success glyphicon-check": _vm.answerSelected,
+              "glyphicon-unchecked": !_vm.answerSelected,
+              disabled: !_vm.answerEnabled
+            },
+            on: { click: _vm.onClick }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-11" }, [
+        _c("h4", { domProps: { innerHTML: _vm._s(_vm.renderMD()) } }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("small", [_vm._v("by " + _vm._s(_vm.answer.author.name))])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63448,7 +63514,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3e8f0edc", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-518bea38", module.exports)
   }
 }
 
@@ -63692,123 +63758,124 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid" }, [
-    _c("h3", [_vm._v(_vm._s(_vm.count) + " Answers")]),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "container answers-list" },
-      _vm._l(_vm.answers, function(answer) {
-        return _c(
-          "div",
-          {
-            key: answer.id,
-            staticClass: "row answer",
-            attrs: { id: "answer-" + answer.id }
-          },
-          [
-            _c(
-              "div",
-              { staticClass: "pull-left col-md-1 text-center" },
-              [
-                _c("vote", {
-                  attrs: {
-                    id: answer.id,
-                    model: "answers",
-                    show_buttons: _vm.show_forms
-                  }
-                }),
-                _vm._v(" "),
-                _c("select-answer", {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.uid === answer.author.id,
-                      expression: "uid === answer.author.id"
-                    }
-                  ],
-                  attrs: { id: answer.id, selected: answer.selected }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("h4", {
-              domProps: { innerHTML: _vm._s(_vm.renderMD(answer.body)) }
-            }),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("small", [_vm._v("by " + _vm._s(answer.author.name))]),
-            _vm._v(" "),
-            _c("comments", {
-              staticClass: "col-md-11 col-md-offset-1",
-              attrs: {
-                model: "answers",
-                id: answer.id,
-                show_form: _vm.show_forms
-              }
-            })
-          ],
-          1
-        )
-      })
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.form.show,
-            expression: "form.show"
-          }
-        ],
-        staticClass: "container answers-form"
-      },
-      [
-        _c("form", { staticClass: "form", on: { submit: _vm.onSubmit } }, [
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("label", { attrs: { for: _vm.form.id } }, [
-                _vm._v("Your answer:")
-              ]),
-              _vm._v(" "),
-              _c("markdown-editor", {
-                ref: _vm.form.id,
-                attrs: {
-                  "preview-class": "markdown-body",
-                  name: "body",
-                  required: ""
-                },
-                model: {
-                  value: _vm.form.text,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "text", $$v)
+  return _c(
+    "div",
+    { staticClass: "container-fluid", attrs: { id: "answers-container" } },
+    [
+      _c("h3", [_vm._v(_vm._s(_vm.count) + " Answers")]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row" },
+        [
+          _vm._l(_vm.answers, function(answer) {
+            return _vm.loaded
+              ? _c(
+                  "div",
+                  {
+                    key: answer.id,
+                    staticClass: "col-md-12 answers",
+                    attrs: { id: "q-" + _vm.qid + "-answers" }
                   },
-                  expression: "form.text"
-                }
-              })
-            ],
-            1
-          ),
+                  [
+                    _c("answer", {
+                      staticClass: "row",
+                      attrs: {
+                        answer: answer,
+                        show_forms: _vm.form.show,
+                        qAnswered: _vm.qAnswered,
+                        qOwner: _vm.uid === answer.parent.author_id
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "row",
+                        attrs: { id: "a-" + answer.id + "-comments" }
+                      },
+                      [
+                        _c("comments", {
+                          staticClass: "col-md-11 col-md-offset-1",
+                          attrs: {
+                            model: "answers",
+                            id: answer.id,
+                            show_form: _vm.show_forms
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              : _vm._e()
+          }),
           _vm._v(" "),
           _c(
-            "button",
-            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("Answer")]
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.form.show,
+                  expression: "form.show"
+                }
+              ],
+              staticClass: "row answers-form container"
+            },
+            [
+              _c(
+                "form",
+                { staticClass: "form", on: { submit: _vm.onSubmit } },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", { attrs: { for: _vm.form.id } }, [
+                        _vm._v("Your answer:")
+                      ]),
+                      _vm._v(" "),
+                      _c("markdown-editor", {
+                        ref: _vm.form.id,
+                        attrs: {
+                          "preview-class": "markdown-body",
+                          name: "body",
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.text,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "text", $$v)
+                          },
+                          expression: "form.text"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Answer")]
+                  )
+                ]
+              )
+            ]
           )
-        ])
-      ]
-    )
-  ])
+        ],
+        2
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63978,7 +64045,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return marked(md_text);
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     var _this = this;
 
     axios.get('/api/questions/' + this.id).then(function (response) {
@@ -63997,67 +64064,75 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.loaded
-    ? _c("div", { staticClass: "container-fluid" }, [
-        _c("h2", [_vm._v(" " + _vm._s(_vm.question.title) + " ")]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-1" }, [
-            _c(
-              "span",
-              { staticClass: "pull-left text-center" },
-              [
-                _c("vote", {
-                  attrs: {
-                    id: _vm.id,
-                    model: "questions",
-                    show_buttons: _vm.show_forms
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+    ? _c(
+        "div",
+        { staticClass: "container-fluid", attrs: { id: "question-container" } },
+        [
+          _c(
+            "div",
+            { staticClass: "row", attrs: { id: "q-" + _vm.question.id } },
+            [
+              _c("h2", [_vm._v(" " + _vm._s(_vm.question.title) + " ")]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-1" }, [
+                _c(
+                  "span",
+                  { staticClass: "pull-left text-center" },
+                  [
+                    _c("vote", {
+                      attrs: {
+                        id: _vm.id,
+                        model: "questions",
+                        show_buttons: _vm.show_forms
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "col-md-11",
+                domProps: { innerHTML: _vm._s(_vm.renderMD(_vm.question.body)) }
+              })
+            ]
+          ),
           _vm._v(" "),
-          _c("div", {
-            staticClass: "col-sm-11",
-            domProps: { innerHTML: _vm._s(_vm.renderMD(_vm.question.body)) }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "row" },
-          [
-            _c("div", { staticClass: "pull-right text-center" }, [
-              _vm._v(
-                "\n            By " + _vm._s(_vm.question.author.name) + " "
-              ),
+          _c(
+            "div",
+            { staticClass: "row" },
+            [
+              _c("div", { staticClass: "pull-right text-center" }, [
+                _vm._v(
+                  "\n            By " + _vm._s(_vm.question.author.name) + " "
+                ),
+                _c("br"),
+                _vm._v(
+                  "\n            " +
+                    _vm._s(_vm.question.dates.created.readable) +
+                    "\n        "
+                )
+              ]),
+              _vm._v(" "),
               _c("br"),
-              _vm._v(
-                "\n            " +
-                  _vm._s(_vm.question.dates.created.readable) +
-                  "\n        "
-              )
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("comments", {
-              staticClass: "col-md-11 col-md-offset-1",
-              attrs: {
-                model: "questions",
-                id: _vm.id,
-                show_form: _vm.show_forms
-              }
-            })
-          ],
-          1
-        )
-      ])
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("comments", {
+                staticClass: "col-md-11 col-md-offset-1",
+                attrs: {
+                  model: "questions",
+                  id: _vm.id,
+                  show_form: _vm.show_forms
+                }
+              })
+            ],
+            1
+          )
+        ]
+      )
     : _vm._e()
 }
 var staticRenderFns = []
