@@ -1,32 +1,33 @@
 // Body
-$body-bg: #f5f8fa;
+$body-bg: rgba(22, 21, 21, 0.85);
 
 // Borders
-$laravel-border-color: darken($body-bg, 10%);
-$list-group-border: $laravel-border-color;
-$navbar-default-border: $laravel-border-color;
-$panel-default-border: $laravel-border-color;
-$panel-inner-border: $laravel-border-color;
+$laravel-border-color: rgba(0, 0, 0, 0.76);
+$list-group-border: rgba(0, 0, 0, 0.76);
+$navbar-default-border: rgba(22, 21, 21, 0.85);
+
 
 // Brands
-$brand-primary: #3097d1;
-$brand-info: #8eb4cb;
+$brand-primary: #f062d4;
+$brand-info: #f062d4;
 $brand-success: #2ab27b;
 $brand-warning: #cbb956;
-$brand-danger: #bf5329;
+$brand-danger: #f062d4;
 
 // Typography
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 $font-family-sans-serif: "Raleway", sans-serif;
-$font-size-base: 14px;
+$font-size-base: 16px;
 $line-height-base: 1.6;
-$text-color: #636b6f;
+$text-color: #f062d4;
 
 // Navbar
-$navbar-default-bg: #fff;
+$navbar-default-bg: rgba(0, 0, 0, 0.76);
+
 
 // Buttons
 $btn-default-color: $text-color;
+$btn-default-bg: rgba(22, 21, 21, 0.85);
 
 // Inputs
 $input-border: lighten($text-color, 40%);
@@ -34,4 +35,22 @@ $input-border-focus: lighten($brand-primary, 25%);
 $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
-$panel-default-heading-bg: #fff;
+$panel-default-heading-bg: rgba(22, 21, 21, 0.85);
+$panel-bg: rgba(9, 9, 9, 0.76);
+$panel-footer-bg: rgba(34, 32, 32, 0.85);
+$panel-default-border: #1dadac;
+$panel-inner-border: rgba(22, 21, 21, 0.85);
+$panel-default-text: $text-color;
+
+
+$pagination-bg: rgba(22, 21, 21, 0.85);
+
+//Links
+$link-color: #1dadac;
+
+//tables
+$table-bg: rgba(22, 21, 21, 0.85);
+$table-border-color: rgba(0, 0, 0, 0.76);
+
+$navbar-default-brand-color: #1dadac;
+$hr-border: #1dadac;

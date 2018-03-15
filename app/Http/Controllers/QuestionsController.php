@@ -10,11 +10,21 @@
 
     class QuestionsController extends Controller {
         public function __construct() {
-            $this->middleware('auth')->except(['index','accept', 'show', 'QuestionsList', 'QuestionView']);
+            $this->middleware('auth')->except(['index','accept', 'show', 'top', 'QuestionsList', 'QuestionView']);
         }
 
         public function index() {
             $questions = Question::latest()->get();
+
+            if ($questions->first()) {
+                return QuestionResource::collection($questions);
+            }
+
+            return null; //TODO: write failure json
+        }
+
+        public function top() {
+            $questions = Question::latest()->paginate(5);
 
             if ($questions->first()) {
                 return QuestionResource::collection($questions);

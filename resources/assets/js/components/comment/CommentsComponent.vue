@@ -1,5 +1,5 @@
 <template>
-    <div class="comments-container">
+    <div id="comments-container">
         <ul class="comments-list list-group">
             <comment :comment="comment" v-for="comment in comments" :key="comment.id"></comment>
         </ul>
@@ -51,14 +51,14 @@
         this.form.text = ''
         this.form.show = false
       },
-      updateComments () {
+      update () {
         axios.get('/api/' + this.model + '/' + this.id + '/comments').then((response) => {
           this.comments = response.data.data
         })
       }
     },
-    mounted () {
-      this.updateComments()
+    created () {
+      this.update()
     }
   }
 </script>

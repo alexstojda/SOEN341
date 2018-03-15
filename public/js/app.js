@@ -375,6 +375,197 @@ module.exports = {
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
@@ -10052,197 +10243,6 @@ return CodeMirror$1;
 
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11994,7 +11994,7 @@ module.exports = defaults;
 "use strict";
 /*global require,module*/
 
-var CodeMirror = __webpack_require__(1);
+var CodeMirror = __webpack_require__(3);
 __webpack_require__(45);
 __webpack_require__(46);
 __webpack_require__(47);
@@ -14030,7 +14030,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(87)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(89)
 /* template */
@@ -14545,7 +14545,7 @@ module.exports = Cancel;
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(1), __webpack_require__(18), __webpack_require__(48));
+    mod(__webpack_require__(3), __webpack_require__(18), __webpack_require__(48));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror", "../xml/xml", "../meta"], mod);
   else // Plain browser env
@@ -15423,7 +15423,7 @@ CodeMirror.defineMIME("text/x-markdown", "markdown");
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(1));
+    mod(__webpack_require__(3));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -15839,7 +15839,7 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(1));
+    mod(__webpack_require__(3));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -15922,7 +15922,7 @@ CodeMirror.overlayMode = function(base, overlay, combine) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(21);
-module.exports = __webpack_require__(117);
+module.exports = __webpack_require__(122);
 
 
 /***/ }),
@@ -15955,8 +15955,8 @@ Vue.component('status-toast', __webpack_require__(72));
 Vue.component('vote', __webpack_require__(77));
 Vue.component('comments', __webpack_require__(9));
 Vue.component('answers', __webpack_require__(96));
-Vue.component('select-answer', __webpack_require__(101));
 Vue.component('question', __webpack_require__(112));
+Vue.component('questions-top', __webpack_require__(117));
 
 var app = new Vue({
   el: '#app'
@@ -46801,7 +46801,7 @@ module.exports = function spread(callback) {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(1));
+    mod(__webpack_require__(3));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -46894,7 +46894,7 @@ module.exports = function spread(callback) {
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
-var CodeMirror = __webpack_require__(1);
+var CodeMirror = __webpack_require__(3);
 
 CodeMirror.commands.tabAndIndentMarkdownList = function (cm) {
 	var ranges = cm.listSelections();
@@ -46946,7 +46946,7 @@ CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(1));
+    mod(__webpack_require__(3));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -46993,7 +46993,7 @@ CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(1));
+    mod(__webpack_require__(3));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../lib/codemirror"], mod);
   else // Plain browser env
@@ -47216,7 +47216,7 @@ CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(1));
+    mod(__webpack_require__(3));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -47291,7 +47291,7 @@ CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(1));
+    mod(__webpack_require__(3));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror"], mod);
   else // Plain browser env
@@ -47410,7 +47410,7 @@ CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
 
 (function(mod) {
   if (true) // CommonJS
-    mod(__webpack_require__(1), __webpack_require__(17), __webpack_require__(19));
+    mod(__webpack_require__(3), __webpack_require__(17), __webpack_require__(19));
   else if (typeof define == "function" && define.amd) // AMD
     define(["../../lib/codemirror", "../markdown/markdown", "../../addon/mode/overlay"], mod);
   else // Plain browser env
@@ -61855,7 +61855,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(64)
 /* template */
@@ -61978,7 +61978,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(67)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(70)
 /* template */
@@ -62050,7 +62050,7 @@ if(false) {
 /* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
@@ -62159,7 +62159,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(73)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(75)
 /* template */
@@ -62231,7 +62231,7 @@ if(false) {
 /* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
@@ -62291,7 +62291,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(78)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(80)
 /* template */
@@ -62363,7 +62363,7 @@ if(false) {
 /* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
@@ -62431,7 +62431,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     var _this3 = this;
 
     __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/' + this.model + '/' + this.id + '/votes').then(function (response) {
@@ -62449,7 +62449,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(82)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(84)
 /* template */
@@ -62521,7 +62521,7 @@ if(false) {
 /* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
@@ -62587,7 +62587,7 @@ var render = function() {
     "div",
     {
       staticClass: "col-md-1",
-      attrs: { id: "vote-" + _vm.model + "-" + _vm.id }
+      attrs: { id: _vm.model[0] + "-" + _vm.id + "-vote" }
     },
     [
       _c(
@@ -62603,7 +62603,7 @@ var render = function() {
                 expression: "show_buttons"
               }
             ],
-            staticClass: "glyphicon glyphicon-chevron-up",
+            staticClass: "glyphicon glyphicon-arrow-up btn-circle",
             attrs: { dusk: "upvote-" + _vm.model[0] + _vm.id, type: "submit" },
             on: { click: _vm.upvote }
           }),
@@ -62621,7 +62621,7 @@ var render = function() {
                 expression: "show_buttons"
               }
             ],
-            staticClass: "glyphicon glyphicon-chevron-down",
+            staticClass: "glyphicon glyphicon-arrow-down btn-circle",
             attrs: {
               dusk: "downvote-" + _vm.model[0] + _vm.id,
               type: "submit"
@@ -62674,7 +62674,7 @@ if(false) {
 /* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
@@ -62748,7 +62748,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.form.text = '';
       this.form.show = false;
     },
-    updateComments: function updateComments() {
+    update: function update() {
       var _this2 = this;
 
       axios.get('/api/' + this.model + '/' + this.id + '/comments').then(function (response) {
@@ -62756,8 +62756,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     }
   },
-  mounted: function mounted() {
-    this.updateComments();
+  created: function created() {
+    this.update();
   }
 });
 
@@ -62770,7 +62770,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(91)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(93)
 /* template */
@@ -62842,7 +62842,7 @@ if(false) {
 /* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
@@ -62920,14 +62920,7 @@ var render = function() {
                 )
               ]),
               _vm._v("\n            – "),
-              _c(
-                "a",
-                {
-                  staticClass: "comment-user",
-                  attrs: { href: "/users/" + _vm.comment.author.id }
-                },
-                [_vm._v(_vm._s(_vm.comment.author.name))]
-              ),
+              _c("a", [_vm._v(_vm._s(_vm.comment.author.name))]),
               _vm._v(" "),
               _c(
                 "span",
@@ -62977,7 +62970,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "comments-container" }, [
+  return _c("div", { attrs: { id: "comments-container" } }, [
     _c(
       "ul",
       { staticClass: "comments-list list-group" },
@@ -63084,7 +63077,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(97)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(100)
 /* template */
@@ -63156,7 +63149,7 @@ if(false) {
 /* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 exports.i(__webpack_require__(99), "");
 exports.push([module.i, "@import url(https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.css);", ""]);
@@ -63171,7 +63164,7 @@ exports.push([module.i, "\n.editor-toolbar.fullscreen[data-v-4ed77b02] {\n    z-
 /* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
@@ -63187,18 +63180,12 @@ exports.push([module.i, "/**\n * simplemde v1.11.2\n * Copyright Next Step Webs,
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__comment_CommentsComponent__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__comment_CommentsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__comment_CommentsComponent__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SelectAnswerComponent__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SelectAnswerComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__SelectAnswerComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AnswerComponent__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AnswerComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AnswerComponent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__comment_CommentsComponent__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__comment_CommentsComponent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__comment_CommentsComponent__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_simplemde_src_markdown_editor__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_simplemde_src_markdown_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_simplemde_src_markdown_editor__);
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -63236,9 +63223,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'answers',
-  components: { SelectAnswer: __WEBPACK_IMPORTED_MODULE_1__SelectAnswerComponent___default.a, markdownEditor: __WEBPACK_IMPORTED_MODULE_2_vue_simplemde_src_markdown_editor___default.a, Comments: __WEBPACK_IMPORTED_MODULE_0__comment_CommentsComponent___default.a },
+  components: { Answer: __WEBPACK_IMPORTED_MODULE_0__AnswerComponent___default.a, markdownEditor: __WEBPACK_IMPORTED_MODULE_2_vue_simplemde_src_markdown_editor___default.a, Comments: __WEBPACK_IMPORTED_MODULE_1__comment_CommentsComponent___default.a },
   data: function data() {
     return {
+      loaded: false,
       answers: [],
       count: null,
       form: {
@@ -63254,20 +63242,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     uid: [Number, null],
     show_forms: [Boolean, false]
   },
+  computed: {
+    qAnswered: function qAnswered() {
+      return _.find(this.answers, ['selected', true]) !== undefined;
+    }
+  },
   methods: {
-    renderMD: function renderMD(md_text) {
-      //TODO:@Stojda verify I haven't broken the page with these render options
-      marked.setOptions({
-        renderer: new marked.Renderer(),
-        gfm: true,
-        tables: true,
-        breaks: true,
-        pedantic: false,
-        sanitize: true,
-        smartLists: true,
-        smartypants: false
-      });
-      return marked(md_text);
+    handleSelectUpdate: function handleSelectUpdate(answer) {
+      // 2 hacky methods for the price of 1
+      var answers = this.answers.slice(); //_.cloneDeep(this.answers) // force clone array so we can replace it later
+      var i = _.findIndex(answers, ['id', answer.id]);
+      answers[i] = answer; // is we do this on original then it never re-computes qAnswered
+      this.answers = answers; // using cloned array to trigger re-compute and whole list wide 'qAnswered' prop update
     },
     onSubmit: function onSubmit(evt) {
       var _this = this;
@@ -63286,13 +63272,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     update: function update() {
       var _this2 = this;
 
+      this.loaded = false;
       axios.get('/api/questions/' + this.qid + '/answers').then(function (response) {
         _this2.answers = response.data.data;
-        _this2.count = _this2.answers.length; //Object.keys(this.answers).length
+        _this2.count = _this2.answers.length; //Object.keys(this.answers).length\
+        _this2.loaded = true;
       });
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     this.update();
   }
 });
@@ -63306,7 +63294,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(102)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(104)
 /* template */
@@ -63316,7 +63304,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-3e8f0edc"
+var __vue_scopeId__ = "data-v-518bea38"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -63327,7 +63315,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\answer\\SelectAnswerComponent.vue"
+Component.options.__file = "resources\\assets\\js\\components\\answer\\AnswerComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -63336,9 +63324,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3e8f0edc", Component.options)
+    hotAPI.createRecord("data-v-518bea38", Component.options)
   } else {
-    hotAPI.reload("data-v-3e8f0edc", Component.options)
+    hotAPI.reload("data-v-518bea38", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -63359,13 +63347,13 @@ var content = __webpack_require__(103);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("05061a53", content, false, {});
+var update = __webpack_require__(4)("20567158", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e8f0edc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SelectAnswerComponent.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3e8f0edc\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SelectAnswerComponent.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-518bea38\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AnswerComponent.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-518bea38\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AnswerComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -63378,12 +63366,12 @@ if(false) {
 /* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -63398,35 +63386,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'select-answer',
-  data: function data() {
-    return {
-      enabled: true,
-      status: this.selected
-    };
-  },
-
+  name: 'answer',
   props: {
-    id: Number,
-    selected: [Boolean, false]
+    answer: {},
+    qOwner: [Boolean, false],
+    qAnswered: [Boolean, false],
+    show_forms: [Boolean, false]
+  },
+  computed: {
+    answerSelected: function answerSelected() {
+      return this.answer.selected;
+    },
+    answerEnabled: function answerEnabled() {
+      return this.qOwner && (this.answerSelected || !this.answerSelected && !this.qAnswered);
+    }
   },
   methods: {
+    renderMD: function renderMD(md_text) {
+      marked.setOptions({
+        renderer: new marked.Renderer(),
+        gfm: true,
+        tables: true,
+        breaks: true,
+        pedantic: false,
+        sanitize: true,
+        smartLists: true,
+        smartypants: false
+      });
+      return marked(md_text);
+    },
     onClick: function onClick(evt) {
       var _this = this;
 
       evt.preventDefault();
-      //TODO learn proper vue prop enable/disable and dynamic classes attribution
-      axios.get('/api/answers/' + this.id + '/accept?api_token=' + sessionStorage.getItem('token')).then(function (response) {
-        _this.status = response.data.data.selected;
-        if (_this.status === true) {
-          $('.accept-answer').toggleClass('glyphicon-unchecked glyphicon-check btn-success');
-        }
-      });
+
+      if (this.answerEnabled) {
+        axios.get('/api/answers/' + this.answer.id + '/accept?api_token=' + sessionStorage.getItem('token')).then(function (response) {
+          //this.$emit('update', {answer: response.data.data})
+          _this.$parent.handleSelectUpdate(response.data.data);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
     }
-  },
-  mounted: function mounted() {}
+  }
 });
 
 /***/ }),
@@ -63437,10 +63456,54 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("button", {
-    staticClass: "accept-answer btn glyphicon glyphicon-unchecked",
-    on: { click: _vm.onClick }
-  })
+  return _c(
+    "div",
+    { staticClass: "answer", attrs: { id: "a-" + _vm.answer.id } },
+    [
+      _c(
+        "div",
+        { staticClass: "pull-left col-md-1 text-center" },
+        [
+          _c("vote", {
+            attrs: {
+              id: _vm.answer.id,
+              model: "answers",
+              show_buttons: _vm.show_forms
+            }
+          }),
+          _vm._v(" "),
+          _c("button", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: this.answerSelected || this.qOwner,
+                expression: "(this.answerSelected || this.qOwner)"
+              }
+            ],
+            staticClass: "accept-answer btn glyphicon",
+            class: {
+              "btn-success glyphicon-check": _vm.answerSelected,
+              "glyphicon-unchecked": !_vm.answerSelected,
+              disabled: !_vm.answerEnabled
+            },
+            on: { click: _vm.onClick }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-11" }, [
+        _c("h4", {
+          domProps: { innerHTML: _vm._s(_vm.renderMD(_vm.answer.body)) }
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("small", [_vm._v("by " + _vm._s(_vm.answer.author.name))])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63448,7 +63511,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-3e8f0edc", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-518bea38", module.exports)
   }
 }
 
@@ -63461,7 +63524,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(107)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(109)
 /* template */
@@ -63533,7 +63596,7 @@ if(false) {
 /* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
@@ -63692,123 +63755,124 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid" }, [
-    _c("h3", [_vm._v(_vm._s(_vm.count) + " Answers")]),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "container answers-list" },
-      _vm._l(_vm.answers, function(answer) {
-        return _c(
-          "div",
-          {
-            key: answer.id,
-            staticClass: "row answer",
-            attrs: { id: "answer-" + answer.id }
-          },
-          [
-            _c(
-              "div",
-              { staticClass: "pull-left col-md-1 text-center" },
-              [
-                _c("vote", {
-                  attrs: {
-                    id: answer.id,
-                    model: "answers",
-                    show_buttons: _vm.show_forms
-                  }
-                }),
-                _vm._v(" "),
-                _c("select-answer", {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.uid === answer.author.id,
-                      expression: "uid === answer.author.id"
-                    }
-                  ],
-                  attrs: { id: answer.id, selected: answer.selected }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("h4", {
-              domProps: { innerHTML: _vm._s(_vm.renderMD(answer.body)) }
-            }),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("small", [_vm._v("by " + _vm._s(answer.author.name))]),
-            _vm._v(" "),
-            _c("comments", {
-              staticClass: "col-md-11 col-md-offset-1",
-              attrs: {
-                model: "answers",
-                id: answer.id,
-                show_form: _vm.show_forms
-              }
-            })
-          ],
-          1
-        )
-      })
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.form.show,
-            expression: "form.show"
-          }
-        ],
-        staticClass: "container answers-form"
-      },
-      [
-        _c("form", { staticClass: "form", on: { submit: _vm.onSubmit } }, [
-          _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("label", { attrs: { for: _vm.form.id } }, [
-                _vm._v("Your answer:")
-              ]),
-              _vm._v(" "),
-              _c("markdown-editor", {
-                ref: _vm.form.id,
-                attrs: {
-                  "preview-class": "markdown-body",
-                  name: "body",
-                  required: ""
-                },
-                model: {
-                  value: _vm.form.text,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "text", $$v)
+  return _c(
+    "div",
+    { staticClass: "container-fluid", attrs: { id: "answers-container" } },
+    [
+      _c("h3", [_vm._v(_vm._s(_vm.count) + " Answers")]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row" },
+        [
+          _vm._l(_vm.answers, function(answer) {
+            return _vm.loaded
+              ? _c(
+                  "div",
+                  {
+                    key: answer.id,
+                    staticClass: "col-md-12 answers",
+                    attrs: { id: "q-" + _vm.qid + "-answers" }
                   },
-                  expression: "form.text"
-                }
-              })
-            ],
-            1
-          ),
+                  [
+                    _c("answer", {
+                      staticClass: "row",
+                      attrs: {
+                        answer: answer,
+                        show_forms: _vm.form.show,
+                        qAnswered: _vm.qAnswered,
+                        qOwner: _vm.uid === answer.parent.author_id
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "row",
+                        attrs: { id: "a-" + answer.id + "-comments" }
+                      },
+                      [
+                        _c("comments", {
+                          staticClass: "col-md-11 col-md-offset-1",
+                          attrs: {
+                            model: "answers",
+                            id: answer.id,
+                            show_form: _vm.show_forms
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              : _vm._e()
+          }),
           _vm._v(" "),
           _c(
-            "button",
-            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("Answer")]
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.form.show,
+                  expression: "form.show"
+                }
+              ],
+              staticClass: "row answers-form container"
+            },
+            [
+              _c(
+                "form",
+                { staticClass: "form", on: { submit: _vm.onSubmit } },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", { attrs: { for: _vm.form.id } }, [
+                        _vm._v("Your answer:")
+                      ]),
+                      _vm._v(" "),
+                      _c("markdown-editor", {
+                        ref: _vm.form.id,
+                        attrs: {
+                          "preview-class": "markdown-body",
+                          name: "body",
+                          required: ""
+                        },
+                        model: {
+                          value: _vm.form.text,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "text", $$v)
+                          },
+                          expression: "form.text"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Answer")]
+                  )
+                ]
+              )
+            ]
           )
-        ])
-      ]
-    )
-  ])
+        ],
+        2
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -63829,7 +63893,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(113)
 }
-var normalizeComponent = __webpack_require__(2)
+var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(115)
 /* template */
@@ -63901,7 +63965,7 @@ if(false) {
 /* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(2)(false);
 // imports
 
 
@@ -63964,7 +64028,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     renderMD: function renderMD(md_text) {
-      //TODO:@Stojda verify I haven't broken the page with these render options
       marked.setOptions({
         renderer: new marked.Renderer(),
         gfm: true,
@@ -63978,7 +64041,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return marked(md_text);
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     var _this = this;
 
     axios.get('/api/questions/' + this.id).then(function (response) {
@@ -63997,67 +64060,75 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.loaded
-    ? _c("div", { staticClass: "container-fluid" }, [
-        _c("h2", [_vm._v(" " + _vm._s(_vm.question.title) + " ")]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-1" }, [
-            _c(
-              "span",
-              { staticClass: "pull-left text-center" },
-              [
-                _c("vote", {
-                  attrs: {
-                    id: _vm.id,
-                    model: "questions",
-                    show_buttons: _vm.show_forms
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+    ? _c(
+        "div",
+        { staticClass: "container-fluid", attrs: { id: "question-container" } },
+        [
+          _c(
+            "div",
+            { staticClass: "row", attrs: { id: "q-" + _vm.question.id } },
+            [
+              _c("h2", [_vm._v(" " + _vm._s(_vm.question.title) + " ")]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-1" }, [
+                _c(
+                  "span",
+                  { staticClass: "pull-left text-center" },
+                  [
+                    _c("vote", {
+                      attrs: {
+                        id: _vm.id,
+                        model: "questions",
+                        show_buttons: _vm.show_forms
+                      }
+                    })
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "col-md-11",
+                domProps: { innerHTML: _vm._s(_vm.renderMD(_vm.question.body)) }
+              })
+            ]
+          ),
           _vm._v(" "),
-          _c("div", {
-            staticClass: "col-sm-11",
-            domProps: { innerHTML: _vm._s(_vm.renderMD(_vm.question.body)) }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "row" },
-          [
-            _c("div", { staticClass: "pull-right text-center" }, [
-              _vm._v(
-                "\n            By " + _vm._s(_vm.question.author.name) + " "
-              ),
+          _c(
+            "div",
+            { staticClass: "row" },
+            [
+              _c("div", { staticClass: "pull-right text-center" }, [
+                _c("a", [
+                  _vm._v(" By " + _vm._s(_vm.question.author.name) + " ")
+                ]),
+                _c("br"),
+                _vm._v(
+                  "\n            " +
+                    _vm._s(_vm.question.dates.created.readable) +
+                    "\n        "
+                )
+              ]),
+              _vm._v(" "),
               _c("br"),
-              _vm._v(
-                "\n            " +
-                  _vm._s(_vm.question.dates.created.readable) +
-                  "\n        "
-              )
-            ]),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("comments", {
-              staticClass: "col-md-11 col-md-offset-1",
-              attrs: {
-                model: "questions",
-                id: _vm.id,
-                show_form: _vm.show_forms
-              }
-            })
-          ],
-          1
-        )
-      ])
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("comments", {
+                staticClass: "col-md-11 col-md-offset-1",
+                attrs: {
+                  model: "questions",
+                  id: _vm.id,
+                  show_form: _vm.show_forms
+                }
+              })
+            ],
+            1
+          )
+        ]
+      )
     : _vm._e()
 }
 var staticRenderFns = []
@@ -64072,6 +64143,161 @@ if (false) {
 
 /***/ }),
 /* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(118)
+}
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(120)
+/* template */
+var __vue_template__ = __webpack_require__(121)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-f98c4afe"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\question\\QuestionsListComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f98c4afe", Component.options)
+  } else {
+    hotAPI.reload("data-v-f98c4afe", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(119);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("12bdddf5", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f98c4afe\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./QuestionsListComponent.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-f98c4afe\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./QuestionsListComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 120 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "questions-top",
+    data: function data() {
+        return {
+            questions: []
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        axios.get('/api/questions/top').then(function (response) {
+            _this.questions = response.data.data;
+        });
+    }
+});
+
+/***/ }),
+/* 121 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "ul",
+    _vm._l(_vm.questions, function(question) {
+      return _c("li", { key: question.id }, [
+        _c("a", { attrs: { href: "/questions/" + question.id } }, [
+          _vm._v(" " + _vm._s(question.title))
+        ]),
+        _vm._v(" "),
+        _c("small", [_vm._v("by " + _vm._s(question.author.name) + " ")])
+      ])
+    })
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f98c4afe", module.exports)
+  }
+}
+
+/***/ }),
+/* 122 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

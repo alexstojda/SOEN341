@@ -31,13 +31,14 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        Spotted
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
+                            <li><a href="{{url('/questions')}}">Go To Questions</a></li>
                         @auth()
                             <li><a href="{{url('/questions/create')}}">Ask a Question</a></li>
                         @endauth

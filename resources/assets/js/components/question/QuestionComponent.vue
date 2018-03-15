@@ -1,18 +1,18 @@
 <template>
-    <div v-if="loaded" class="container-fluid">
-        <h2> {{question.title}} </h2>
-        <hr>
-        <div class="row">
-            <div class="col-sm-1">
+    <div id="question-container" v-if="loaded" class="container-fluid">
+        <div class="row" :id="'q-'+question.id">
+            <h2> {{question.title}} </h2>
+            <hr>
+            <div class="col-md-1">
                 <span class="pull-left text-center">
                     <vote :id="id" model="questions" :show_buttons="show_forms"></vote>
                 </span>
             </div>
-            <div class="col-sm-11" v-html="renderMD(question.body)"></div>
+            <div class="col-md-11" v-html="renderMD(question.body)"></div>
         </div>
         <div class="row">
             <div class="pull-right text-center">
-                By {{ question.author.name }} <br>
+               <a> By {{ question.author.name }} </a><br>
                 {{ question.dates.created.readable }}
             </div>
             <br>
@@ -41,7 +41,7 @@
       show_forms: [Boolean, false]
     },
     methods: {
-      renderMD (md_text) { //TODO:@Stojda verify I haven't broken the page with these render options
+      renderMD (md_text) {
         marked.setOptions({
           renderer: new marked.Renderer(),
           gfm: true,
@@ -55,7 +55,7 @@
         return marked(md_text)
       }
     },
-    mounted () {
+    created () {
       axios.get('/api/questions/' + this.id).then((response) => {
         this.question = response.data.data
         this.loaded = true

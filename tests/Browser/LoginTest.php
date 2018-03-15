@@ -29,7 +29,7 @@
                     ->screenshot('login-0')
                     ->press('Login')
                     ->screenshot('login-1')
-                    ->assertPathIs('/home');
+                    ->assertPathIs('/questions');
             });
         }
 
@@ -53,7 +53,7 @@
                     ->screenshot('register-0')
                     ->press('Register')
                     ->screenshot('register-1')
-                    ->assertPathIs('/home');
+                    ->assertPathIs('/questions');
             });
         }
     }
