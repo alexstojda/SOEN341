@@ -17,8 +17,8 @@
                 $table->string('email')->unique();
                 $table->string('password');
                 $table->dateTime('last_login')->default(date('Y-m-d H:i:s'));
-                $table->ipAddress('last_ip');
-                $table->rememberToken();
+                $table->ipAddress('last_ip')->default(0);
+                $table->rememberToken()->default(null);
                 $table->string('api_token', 60)->unique();
                 $table->timestamps();
             });

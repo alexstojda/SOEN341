@@ -14,6 +14,13 @@ return [
     |
     */
 
+    'facebook' => [
+        'client_id' => '346486985845174',
+        'client_secret' => '12d11bab4667c850fb48640e87618f89',
+        'redirect' => 'http://soen341.oo/callback',
+    ],
+
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
@@ -34,5 +41,6 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+
 
 ];
