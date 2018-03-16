@@ -15,8 +15,8 @@ return [
     */
 
     'facebook' => [
-        'client_id' => '346486985845174',
-        'client_secret' => '12d11bab4667c850fb48640e87618f89',
+        'client_id' => env('S_CLIENTID'),
+        'client_secret' => env('S_SECRET'),
         'redirect' => 'http://soen341.oo/callback',
     ],
 
