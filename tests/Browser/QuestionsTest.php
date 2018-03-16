@@ -29,7 +29,7 @@ class QuestionsTest extends DuskTestCase
                 ->click('@create-q')
                 ->resize(1920, 1080)
                 ->screenshot('create-question-0')
-                ->assertPathIs('//questions/create')
+                ->assertPathIs('/questions/create')
                 ->assertSee('Create Question')
                 ->keys('@title-q', 'How to write a browser test?')
                 ->screenshot('create-question-1');
@@ -50,7 +50,7 @@ class QuestionsTest extends DuskTestCase
                 ->assertSee('How to write a browser test?')
                 ->assertSee('using Dusk');
 
-            $this->assertRegExp("/http:\/\/soen341\.oo\/questions\/\d+/", $browser->driver->getCurrentURL());
+            $this->assertRegExp("/http:\/\/127.0.0.1:8000\/questions\/\d+/", $browser->driver->getCurrentURL());
         });
     }
 }
