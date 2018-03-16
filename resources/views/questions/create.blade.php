@@ -18,14 +18,14 @@
 
             <div class="form-group">
                 <label for="q_header">Enter Main Question:</label>
-                <input type="text" class="form-control" id="q_header" name="title" required>
+                <input dusk="title-q" type="text" class="form-control" id="q_header" name="title" required>
             </div>
             <div class="form-group">
                 <label for="q_body">Full Question Specifications + Context:</label>
                 <textarea id="q_body" name="body" required></textarea>
             </div>
 
-            <button type="submit" class="btn btn-danger">Submit</button>
+            <button dusk="submit-q" type="submit" class="btn btn-danger">Submit</button>
         </form>
     </div>
 
@@ -38,13 +38,13 @@
         }
     </style>
     <script>
-      var simplemde = new SimpleMDE({
-        element: $('#q_body')[0],
-        autosave: true,
-        forceSync: true,
-        renderingConfig: {
-          singleLineBreaks: false
-        }
-      })
+        var simplemde = new SimpleMDE({
+            element: $('#q_body')[0],
+            autosave: true,
+            forceSync: true,
+            renderingConfig: {
+                singleLineBreaks: false
+            }
+        })
     </script>
 @endsection

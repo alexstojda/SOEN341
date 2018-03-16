@@ -20,7 +20,7 @@
                             @if(Auth::check())
                                 <div class="col col-xs-6 text-right">
                                     {{--<a href="#" class="btn btn-default">Example</a>--}}
-                                    <button type="button" class="btn btn-sm btn-danger btn-create"
+                                    <button dusk="create-q" type="button" class="btn btn-sm btn-danger btn-create"
                                             onclick="window.location.href='questions/create'">Add a Question
                                     </button>
                                 </div>
@@ -41,7 +41,7 @@
                                 <tbody>
                                 <tr>
                                     <td align="center">
-                                        <vote model="questions" :id="{{$question->id}}"></vote>
+                                        {{--<vote model="questions" :id="{{$question->id}}"></vote>--}}
                                     </td>
                                     <td class="hidden-xs">{{ $question->created_at->diffForHumans()}}</td>
                                     <td><a dusk="question" href="questions/{{ $question->id }}"
