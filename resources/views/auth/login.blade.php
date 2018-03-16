@@ -65,7 +65,7 @@
                             <br><br>
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
-                                    <a href="{{url('/redirect')}}" class="btn btn-success">Register with Facebook</a>
+                                    <a href="{{url('/redirect')}}" class="btn btn-success">Login with Facebook</a>
                                 </div>
                             </div>
                         </form>
