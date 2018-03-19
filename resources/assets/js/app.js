@@ -4,6 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+require('./eastereggs')
+
 require('./bootstrap')
 window.SimpleMDE = require('simplemde')
 
