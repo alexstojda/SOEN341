@@ -1,56 +1,53 @@
 <?php
 
-namespace Tests\Browser;
+    namespace Tests\Browser;
 
-use App\Question;
-use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Laravel\Dusk\Browser;
-use Tests\DuskTestCase;
-use Illuminate\Support\Facades\Route;
-
-class QuestionsTest extends DuskTestCase
-{
-    use DatabaseMigrations;
+    use App\Question;
+    use App\User;
+    use Illuminate\Foundation\Testing\DatabaseMigrations;
+    use Tests\DuskTestCase;
 
     /**
-     * A basic browser test example.
+     * Class QuestionsTest
+     * Test designed to replicate the user question creation process and ensure everything occurs as expected
      *
-     * @return void
-     * @throws \Throwable
+     * @package Tests\Browser
      */
-    public function testCreateQuestion()
-    {
-        $user = factory(User::class)->create();
+    class QuestionsTest extends DuskTestCase {
+        use DatabaseMigrations;
 
-        $this->browse(function ($browser) use ($user) {
-            $browser->loginAs($user)
-                ->visit('/questions')
-                ->click('@create-q')
-                ->resize(1920, 1080)
-                ->screenshot('create-question-0')
-                ->assertPathIs('/questions/create')
-                ->assertSee('Create Question')
-                ->keys('@title-q', 'How to write a browser test?')
-                ->screenshot('create-question-1');
+        /**
+         * Creates a question using dusk then checks the backend to ensure its existance
+         *
+         * @return void
+         * @throws \Throwable
+         */
+        public function testCreateQuestion() {
+            $user = factory(User::class)->create();
+            $question = factory(Question::class)->make(['author_id' => $user->id]);
 
-            $browser->driver->executeScript('simplemde.value("using Dusk")');
+            $this->browse(function($browser) use ($user, $question) {
+                $browser->loginAs($user)
+                    ->visit('/questions/create')
+                    ->resize(1920, 1080)
+                    ->assertSee('Create Question')
+                    ->keys('@title-q', $question->title)
+                    ->driver->executeScript("simplemde.value(\"$question->body\")"); //TODO: is there a better way?
 
-//            echo(Question::count());
-//            $URL = $browser->driver->getCurrentURL();
-//            echo($URL);
+                $browser->screenshot('create-question-0')
+                    ->click('@submit-q')
+                    ->assertPathIs('/questions')
+                    ->screenshot('create-question-1')
+                    ->assertSee($question->title);
+                    //->click('@question')
+                    //->screenshot('create-question-2')
+                    //->assertSee($question->title)
+                    //->assertSee($question->body);
+            });
 
-            $browser->screenshot('create-question-2')
-                ->click('@submit-q')
-                ->screenshot('create-question-3')
-                ->assertSee('How to write a browser test?')
-                ->assertPathIs('/questions')
-                ->click('@question')
-                ->screenshot('create-question-4')
-                ->assertSee('How to write a browser test?')
-                ->assertSee('using Dusk');
-
-            $this->assertRegExp("/http:\/\/127.0.0.1:8000\/questions\/\d+/", $browser->driver->getCurrentURL());
-        });
+            // checking the backend is a lot faster than using dusk to open the page and render the same dataset
+            $this->assertEquals(1, Question::count());
+            $this->assertDatabaseHas('questions',
+                ['author_id' => $user->id, 'title' => $question->title, 'body' => $question->body]);
+        }
     }
-}
