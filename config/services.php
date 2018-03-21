@@ -17,7 +17,7 @@ return [
     'facebook' => [
         'client_id' => env('S_CLIENTID'),
         'client_secret' => env('S_SECRET'),
-        'redirect' => env('APP_URL'),
+        'redirect' => env('APP_URL').'/callback',
     ],
 
 
