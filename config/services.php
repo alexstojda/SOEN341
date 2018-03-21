@@ -14,6 +14,13 @@ return [
     |
     */
 
+    'facebook' => [
+        'client_id' => env('S_CLIENTID'),
+        'client_secret' => env('S_SECRET'),
+        'redirect' => env('APP_URL').'/callback',
+    ],
+
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
@@ -34,5 +41,6 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+
 
 ];
