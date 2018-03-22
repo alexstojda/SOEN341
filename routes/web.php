@@ -28,3 +28,7 @@
     Route::get('/questions/{id}', 'QuestionsController@QuestionView');
 
     Route::post('/answers', 'AnswersController@store');
+
+    Route::get('/redirect', 'SocialAuthFacebookController@redirect');
+
+    Route::get('/callback', 'SocialAuthFacebookController@callback');

@@ -40,8 +40,41 @@
         }
 
         /**
+         * Tests the ui flow of loggining in via facebook
+         * @throws \Throwable
+         */
+        public function testFBlogin() : void {
+            $email = 'soen341fbauth@kdypro.com';
+
+            //$user = factory(User::class)->create();
+            $this->assertDatabaseMissing('users', ['email' => $email]);
+
+            $this->browse(function(Browser $browser) use ($email) {
+
+                $browser->visit('/login')
+                    ->resize(1920, 1080)
+                    ->clickLink('Login with Facebook')
+                    ->screenshot('fb-0')
+                    ->assertPathBeginsWith('/login.php')
+                    ->type('email', $email)
+                    ->type('pass', 'a123123a')
+                    ->screenshot('fb-1')
+                    ->press('Log In');
+
+                //ONLY FOR FIRST ACCOUNT LOGIN
+                    //->press('Continue As John')
+                    //->screenshot('fb-3');
+
+                $browser->assertPathIs('/questions')
+                    ->screenshot('fb-2')
+                    ->assertSee('John Smith');
+                //$this->assertDatabaseHas('users', ['email' => $email]);
+            });
+        }
+
+        /**
+         * A Dusk test example.
          * Tests the register by making a new user through dusk then checking whether it was added to the database
-         *
          * @return void
          * @throws \Throwable
          */
