@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Answer;
 use App\Question;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -74,5 +75,25 @@ class AnswersTest extends DuskTestCase
                 'body' => 'Type here...',
             ]
         );
+    }
+
+    /**
+     * List Answers from API
+     * @throws \Throwable
+     */
+    public function testAnswersApi() {
+        $user = factory(User::class)->create();
+        $question = factory(Question::class)->create(['author_id' => $user->id]);
+        $answer = factory(Answer::class)->create(['author_id' => $user->id, 'question_id' => $question->id]);
+
+        $this->browse(function($browser) use ($user, $question, $answer) {
+            $browser->visit("/api/questions/$question->id/answers")
+                ->assertSee($answer->body)
+                ->screenshot('answers-api-0')
+                ->visit('/api/answers/'.$answer->id)
+                ->assertSee($answer->body)
+                ->assertSee($answer->question_id)
+                ->screenshot('answers-api-1');
+        });
     }
 }
