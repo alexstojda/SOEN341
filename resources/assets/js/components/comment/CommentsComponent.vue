@@ -1,3 +1,4 @@
+// template for list of comments
 <template>
     <div id="comments-container">
         <ul class="comments-list list-group">

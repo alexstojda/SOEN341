@@ -1,3 +1,4 @@
+// template for a single answer
 <template>
     <div class="answer" :id="'a-'+answer.id">
         <div class="pull-left col-md-1 text-center">

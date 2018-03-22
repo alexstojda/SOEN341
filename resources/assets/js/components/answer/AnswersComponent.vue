@@ -1,3 +1,4 @@
+// template for the list of answers
 <template>
     <div id="answers-container" class="container-fluid">
         <h3>{{count}} Answers</h3>
