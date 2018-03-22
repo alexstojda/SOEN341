@@ -13,7 +13,8 @@ use Tests\DuskTestCase;
  *
  * @package Tests\Browser
  */
-class AnswersTest extends DuskTestCase {
+class AnswersTest extends DuskTestCase
+{
     use DatabaseMigrations;
 
     /**
@@ -23,7 +24,8 @@ class AnswersTest extends DuskTestCase {
      * @return void
      * @throws \Throwable
      */
-    public function testCreateAnswer() {
+    public function testCreateAnswer()
+    {
         // create user
         $user = factory(User::class)->create();
         // create question for user
@@ -34,7 +36,7 @@ class AnswersTest extends DuskTestCase {
         $this->assertNotEmpty($question);
 
         // now use dusk to create answer
-        $this->browse(function($browser) use ($user, $question) {
+        $this->browse(function ($browser) use ($user, $question) {
             $answerPlaceHolder = 'Type here...';
 
             $browser->loginAs($user)
@@ -52,24 +54,24 @@ class AnswersTest extends DuskTestCase {
 
         // make sure everything is in DB
         $this->assertDatabaseHas('users', [
-            'name'       => $user->name,
-            'email'      => $user->email,
-            'password'   => $user->password,
-            'last_ip'    => $user->last_ip,
+            'name' => $user->name,
+            'email' => $user->email,
+            'password' => $user->password,
+            'last_ip' => $user->last_ip,
             'last_login' => $user->last_login,
         ]);
 
         $this->assertDatabaseHas('questions', [
                 'author_id' => $question->author_id,
-                'body'      => $question->body,
-                'title'     => $question->title,
+                'body' => $question->body,
+                'title' => $question->title,
             ]
         );
 
         $this->assertDatabaseHas('answers', [
-                'author_id'   => $question->author_id,
+                'author_id' => $question->author_id,
                 'question_id' => $question->id,
-                'body'        => 'Type here...',
+                'body' => 'Type here...',
             ]
         );
     }
