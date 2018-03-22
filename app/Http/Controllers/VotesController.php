@@ -28,6 +28,11 @@
             return $this->generateResponse($model);
         }
 
+        /**
+         * @param $model
+         * @param int $id
+         * @return \Illuminate\Http\JsonResponse
+         */
         public function upvote($model, int $id) {
             $model = $this->determineModel($model, $id);
             $user = Auth::guard('api')->user();
@@ -42,6 +47,11 @@
 
         }
 
+        /**
+         * @param $model
+         * @param int $id
+         * @return \Illuminate\Http\JsonResponse
+         */
         public function downvote($model, int $id) {
             $model = parent::determineModel($model, $id);
             $user = Auth::guard('api')->user();
@@ -55,6 +65,10 @@
             return $this->generateResponse($model);
         }
 
+        /**
+         * @param $model
+         * @return \Illuminate\Http\JsonResponse
+         */
         private function generateResponse($model) {
             return response()->json([
                 'total'   => $model->countTotalVotes(),
