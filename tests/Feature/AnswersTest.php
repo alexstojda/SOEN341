@@ -56,4 +56,27 @@ class AnswersTest extends TestCase
             ]
         );
     }
+
+    public function testAnswersCanBeAccepted() {
+        // create user
+        $user = factory(User::class)->create();
+
+        // create question by user
+        $question = factory(Question::class)->create(['author_id' => $user->id, 'status' => 'open']);
+
+        // create answer by user to be accepted by user
+        $goodAnswer = factory(Answer::class)->create(['author_id' => $user->id, 'question_id' => $question->id]);
+
+        // create answer by user not to be accepted
+        $badAnswer = factory(Answer::class)->create(['author_id' => $user->id, 'question_id' => $question->id]);
+
+        // accept the good answer
+        $question->acceptAnswer($user->id, $goodAnswer->id);
+
+        // check if good answer is accepted
+        $this->assertTrue($goodAnswer->id === $question->answer_id);
+
+        // check if bad answer is not accepted
+        $this->assertNotTrue($badAnswer->id === $question->answer_id);
+    }
 }

@@ -51,4 +51,24 @@
             $this->assertDatabaseHas('questions',
                 ['author_id' => $user->id, 'title' => $question->title, 'body' => $question->body]);
         }
+
+        /**
+         * List Questions from API
+         * @throws \Throwable
+         */
+        public function testQuestionsApi() {
+            $user = factory(User::class)->create();
+            $question = factory(Question::class)->create(['author_id' => $user->id]);
+
+            $this->browse(function($browser) use ($user, $question) {
+                $browser->visit('/api/questions')
+                    ->assertSee($question->title)
+                    ->assertSee($question->body)
+                    ->screenshot('questions-api-0')
+                    ->visit('/api/questions/'.$question->id)
+                    ->assertSee($question->title)
+                    ->assertSee($question->body)
+                    ->screenshot('questions-api-1');
+            });
+        }
     }
