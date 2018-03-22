@@ -30,10 +30,16 @@
     class Comment extends Model {
         protected $fillable = ['body', 'question_id', 'answer_id', 'author_id', 'i_am_a'];
 
+        /**
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+         */
         public function user() {
             return $this->belongsTo(User::class, 'author_id');
         }
 
+        /**
+         * @return bool|\Illuminate\Database\Eloquent\Relations\BelongsTo
+         */
         public function parent() {
             if (isset($this->question_id)) {
                 return $this->belongsTo(Question::class, 'question_id');

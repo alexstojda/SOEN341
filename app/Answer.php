@@ -35,6 +35,11 @@
         protected $vote = User::class;
         protected $fillable = ['body', 'question_id', 'author_id'];
 
+        /**
+         * adds comment
+         * @param $content
+         * @param $author_id
+         */
         public function addComment($content, $author_id) {
             Comment::create([
                 'body'      => $content,
@@ -43,14 +48,23 @@
             ]);
         }
 
+        /**
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+         */
         public function user() {
             return $this->belongsTo(User::class, 'author_id');
         }
 
+        /**
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+         */
         public function parent() {
             return $this->belongsTo(Question::class, 'question_id');
         }
 
+        /**
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany
+         */
         public function comments() {
             return $this->hasMany(Comment::class);
         }
