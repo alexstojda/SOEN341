@@ -63776,7 +63776,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   watch: {
     value: function value(val) {
-      console.log(val);
       if (val === this.simplemde.value()) return;
       this.simplemde.value(val);
     }
