@@ -43,7 +43,7 @@
         count: null,
         form: {
           id: 'q' + this.qid + '-answer-body',
-          text: '',
+          text: 'Type here...',
           show: this.show_forms
         }
       }
