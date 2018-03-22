@@ -7,11 +7,17 @@
     use Laravel\Dusk\Browser;
     use Tests\DuskTestCase;
 
+    /**
+     * Class LoginTest
+     * Tests login/register functionality by replicating a user's process through dusk
+     *
+     * @package Tests\Browser
+     */
     class LoginTest extends DuskTestCase {
         use DatabaseMigrations;
 
         /**
-         * A Dusk test example.
+         * Tests the login via a new user and login input through dusk
          *
          * @return void
          * @throws \Throwable
@@ -68,7 +74,7 @@
 
         /**
          * A Dusk test example.
-         *
+         * Tests the register by making a new user through dusk then checking whether it was added to the database
          * @return void
          * @throws \Throwable
          */

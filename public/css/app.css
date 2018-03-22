@@ -4159,29 +4159,29 @@ fieldset[disabled] .btn-primary.focus {
 
 .btn-success {
   color: #fff;
-  background-color: #2ab27b;
-  border-color: #259d6d;
+  background-color: #1dadac;
+  border-color: #199796;
 }
 
 .btn-success:focus,
 .btn-success.focus {
   color: #fff;
-  background-color: #20895e;
-  border-color: #0d3625;
+  background-color: #168181;
+  border-color: #072a2a;
 }
 
 .btn-success:hover {
   color: #fff;
-  background-color: #20895e;
-  border-color: #196c4b;
+  background-color: #168181;
+  border-color: #116362;
 }
 
 .btn-success:active,
 .btn-success.active,
 .open > .btn-success.dropdown-toggle {
   color: #fff;
-  background-color: #20895e;
-  border-color: #196c4b;
+  background-color: #168181;
+  border-color: #116362;
 }
 
 .btn-success:active:hover,
@@ -4194,8 +4194,8 @@ fieldset[disabled] .btn-primary.focus {
 .open > .btn-success.dropdown-toggle:focus,
 .open > .btn-success.dropdown-toggle.focus {
   color: #fff;
-  background-color: #196c4b;
-  border-color: #0d3625;
+  background-color: #116362;
+  border-color: #072a2a;
 }
 
 .btn-success:active,
@@ -4213,12 +4213,12 @@ fieldset[disabled] .btn-primary.focus {
 fieldset[disabled] .btn-success:hover,
 fieldset[disabled] .btn-success:focus,
 fieldset[disabled] .btn-success.focus {
-  background-color: #2ab27b;
-  border-color: #259d6d;
+  background-color: #1dadac;
+  border-color: #199796;
 }
 
 .btn-success .badge {
-  color: #2ab27b;
+  color: #1dadac;
   background-color: #fff;
 }
 
@@ -6172,12 +6172,12 @@ a.label:focus {
 }
 
 .label-success {
-  background-color: #2ab27b;
+  background-color: #1dadac;
 }
 
 .label-success[href]:hover,
 .label-success[href]:focus {
-  background-color: #20895e;
+  background-color: #168181;
 }
 
 .label-info {
@@ -6499,7 +6499,7 @@ a.thumbnail.active {
 }
 
 .progress-bar-success {
-  background-color: #2ab27b;
+  background-color: #1dadac;
 }
 
 .progress-striped .progress-bar-success {
@@ -8438,5 +8438,9 @@ input:-webkit-autofill:focus input:-webkit-autofill {
   -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
   border: 1px solid #f062d4;
+}
+
+img {
+  width: 75%;
 }
 
