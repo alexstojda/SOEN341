@@ -41,7 +41,7 @@
                                 <tbody>
                                 <tr>
                                     <td align="center">
-                                        {{--<vote model="questions" :id="{{$question->id}}"></vote>--}}
+                                        <vote model="questions" :id="{{$question->id}}"></vote>
                                     </td>
                                     <td class="hidden-xs">{{ $question->created_at->diffForHumans()}}</td>
                                     <td><a dusk="question" href="questions/{{ $question->id }}"

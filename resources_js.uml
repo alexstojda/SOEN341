@@ -3,76 +3,154 @@
   <ID>JavaScript-modules-diagram</ID>
   <OriginalElement>D:/Projects/Git/SOEN341/resources</OriginalElement>
   <nodes>
-    <node x="489.0" y="673.0">D:/Projects/Git/SOEN341/resources/assets/js/components/DashboardNotification.vue</node>
-    <node x="307.0" y="603.0">D:/Projects/Git/SOEN341/resources/assets/js/components/ExampleComponent.vue</node>
-    <node x="633.0" y="534.0">D:/Projects/Git/SOEN341/resources/assets/js/components/StatusToast.vue</node>
-    <node x="167.0" y="372.0">D:/Projects/Git/SOEN341/resources/assets/js/components/VoteComponent.vue#VoteDisplay#840;D:/Projects/Git/SOEN341/resources/assets/js/components/VoteComponent.vue#axios#812;</node>
-    <node x="0.0" y="486.0">D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteDisplayComponent.vue</node>
-    <node x="429.0" y="310.0">D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#660;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#574;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#741;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#804;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#300;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#265;</node>
-    <node x="566.0" y="117.0">P:/Git/SOEN341/node_modules/bootstrap-sass/assets/javascripts/bootstrap.js</node>
-    <node x="389.0" y="112.0">D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#bootstrap.js#315;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#index.d.ts#607;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#jquery.js#294;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#lodash.js#11;</node>
-    <node x="234.0" y="242.0">P:/Git/SOEN341/node_modules/axios/index.d.ts</node>
-    <node x="590.0" y="236.0">P:/Git/SOEN341/node_modules/vue/types/index.d.ts</node>
-    <node x="252.0" y="41.0">P:/Git/SOEN341/node_modules/jquery/dist/jquery.js</node>
-    <node x="460.0" y="0.0">P:/Git/SOEN341/node_modules/lodash/lodash.js</node>
-    <node x="697.0" y="331.0">P:/Git/SOEN341/node_modules/simplemde/src/js/simplemde.js</node>
+    <node x="-19.5" y="585.5">D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswerComponent.vue</node>
+    <node x="258.0" y="552.5">D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#Answer#1376;D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#Comments#1417;D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#markdownEditor#1471;</node>
+    <node x="565.5" y="465.5">D:/Projects/Git/SOEN341/resources/assets/js/components/comment/CommentComponent.vue</node>
+    <node x="563.0" y="574.5">D:/Projects/Git/SOEN341/resources/assets/js/components/comment/CommentsComponent.vue#Comment#806;</node>
+    <node x="877.0" y="1345.5">D:/Projects/Git/SOEN341/resources/assets/js/components/DashboardNotification.vue</node>
+    <node x="83.0" y="1025.5">D:/Projects/Git/SOEN341/resources/assets/js/components/ExampleComponent.vue</node>
+    <node x="1541.0" y="763.5">D:/Projects/Git/SOEN341/resources/assets/js/components/MarkdownEditorComponent.vue#SimpleMDE#117;D:/Projects/Git/SOEN341/resources/assets/js/components/MarkdownEditorComponent.vue#marked#154;</node>
+    <node x="571.5" y="694.5">D:/Projects/Git/SOEN341/resources/assets/js/components/question/QuestionComponent.vue#Comments#939;</node>
+    <node x="1160.0" y="1025.5">D:/Projects/Git/SOEN341/resources/assets/js/components/question/QuestionsListComponent.vue</node>
+    <node x="1506.5" y="545.5">D:/Projects/Git/SOEN341/resources/assets/js/components/StatusToast.vue</node>
+    <node x="1235.0" y="323.5">D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteComponent.vue#VoteDisplay#654;D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteComponent.vue#axios#626;</node>
+    <node x="1216.0" y="465.5">D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteDisplayComponent.vue</node>
+    <node x="884.5" y="871.5">D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;</node>
+    <node x="1745.0" y="265.5">P:/Git/SOEN341/node_modules/bootstrap-sass/assets/javascripts/bootstrap.js</node>
+    <node x="1492.0" y="101.5">D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#bootstrap.js#315;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#index.d.ts#607;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#jquery.js#294;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#lodash.js#11;</node>
+    <node x="1224.0" y="65.5">D:/Projects/Git/SOEN341/resources/assets/js/eastereggs.js</node>
+    <node x="660.0" y="1265.5">P:/Git/SOEN341/node_modules/vue/types/index.d.ts</node>
+    <node x="1503.5" y="345.5">P:/Git/SOEN341/node_modules/axios/index.d.ts</node>
+    <node x="1496.0" y="-14.5">P:/Git/SOEN341/node_modules/jquery/dist/jquery.js</node>
+    <node x="1701.0" y="145.5">P:/Git/SOEN341/node_modules/lodash/lodash.js</node>
+    <node x="235.5" y="425.5">D:/Projects/Git/SOEN341/node_modules/vue-simplemde/src/markdown-editor.vue</node>
+    <node x="1609.0" y="665.5">D:/Projects/Git/SOEN341/node_modules/marked/lib/marked.js</node>
+    <node x="1270.0" y="785.5">P:/Git/SOEN341/node_modules/simplemde/src/js/simplemde.js</node>
+    <node x="874.0" y="-14.5">P:/Git/SOEN341/node_modules/vue-simplemde/dist/vue-simplemde.min.js</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/components/VoteComponent.vue#VoteDisplay#840;D:/Projects/Git/SOEN341/resources/assets/js/components/VoteComponent.vue#axios#812;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteDisplayComponent.vue">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
     <edge source="D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#bootstrap.js#315;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#index.d.ts#607;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#jquery.js#294;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#lodash.js#11;" target="P:/Git/SOEN341/node_modules/jquery/dist/jquery.js">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="0.0" y="-58.5" />
+      <point x="0.0" y="14.5" />
     </edge>
-    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#660;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#574;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#741;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#804;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#300;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#265;" target="D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#bootstrap.js#315;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#index.d.ts#607;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#jquery.js#294;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#lodash.js#11;">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/question/QuestionsListComponent.vue">
+      <point x="115.5" y="0.0" />
+      <point x="-120.0" y="0.0" />
     </edge>
-    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/components/VoteComponent.vue#VoteDisplay#840;D:/Projects/Git/SOEN341/resources/assets/js/components/VoteComponent.vue#axios#812;" target="P:/Git/SOEN341/node_modules/axios/index.d.ts">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/StatusToast.vue">
+      <point x="53.33333333333326" y="-168.5" />
+      <point x="1053.3333333333333" y="560.0" />
+      <point x="-93.5" y="0.0" />
     </edge>
-    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#660;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#574;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#741;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#804;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#300;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#265;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/VoteComponent.vue#VoteDisplay#840;D:/Projects/Git/SOEN341/resources/assets/js/components/VoteComponent.vue#axios#812;">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="P:/Git/SOEN341/node_modules/vue/types/index.d.ts">
+      <point x="-40.0" y="168.5" />
+      <point x="960.0" y="1280.0" />
+      <point x="60.0" y="0.0" />
     </edge>
-    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#660;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#574;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#741;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#804;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#300;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#265;" target="P:/Git/SOEN341/node_modules/simplemde/src/js/simplemde.js">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/components/question/QuestionComponent.vue#Comments#939;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/comment/CommentsComponent.vue#Comment#806;">
+      <point x="0.0" y="-25.5" />
+      <point x="0.0" y="25.5" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/DashboardNotification.vue">
+      <point x="0.0" y="168.5" />
+      <point x="0.0" y="-14.5" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#Answer#1376;D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#Comments#1417;D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#markdownEditor#1471;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/comment/CommentsComponent.vue#Comment#806;">
+      <point x="102.0" y="0.0" />
+      <point x="-117.0" y="0.0" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="D:/Projects/Git/SOEN341/node_modules/marked/lib/marked.js">
+      <point x="66.66666666666674" y="-168.5" />
+      <point x="1066.6666666666667" y="680.0" />
+      <point x="-71.0" y="0.0" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/components/MarkdownEditorComponent.vue#SimpleMDE#117;D:/Projects/Git/SOEN341/resources/assets/js/components/MarkdownEditorComponent.vue#marked#154;" target="P:/Git/SOEN341/node_modules/simplemde/src/js/simplemde.js">
+      <point x="-139.0" y="0.0" />
+      <point x="90.0" y="0.0" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="P:/Git/SOEN341/node_modules/simplemde/src/js/simplemde.js">
+      <point x="80.0" y="-168.5" />
+      <point x="1080.0" y="800.0" />
+      <point x="-90.0" y="0.0" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/components/MarkdownEditorComponent.vue#SimpleMDE#117;D:/Projects/Git/SOEN341/resources/assets/js/components/MarkdownEditorComponent.vue#marked#154;" target="D:/Projects/Git/SOEN341/node_modules/marked/lib/marked.js">
+      <point x="0.0" y="-36.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteComponent.vue#VoteDisplay#654;D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteComponent.vue#axios#626;">
+      <point x="40.0" y="-168.5" />
+      <point x="1040.0" y="360.0" />
+      <point x="-85.0" y="0.0" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/comment/CommentsComponent.vue#Comment#806;">
+      <point x="-40.0" y="-168.5" />
+      <point x="960.0" y="600.0" />
+      <point x="117.0" y="0.0" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/components/comment/CommentsComponent.vue#Comment#806;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/comment/CommentComponent.vue">
+      <point x="0.0" y="-25.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#bootstrap.js#315;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#index.d.ts#607;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#jquery.js#294;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#lodash.js#11;">
+      <point x="26.666666666666742" y="-168.5" />
+      <point x="1026.6666666666667" y="160.0" />
+      <point x="-68.0" y="0.0" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#Answer#1376;D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#Comments#1417;D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#markdownEditor#1471;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswerComponent.vue">
+      <point x="-102.0" y="0.0" />
+      <point x="99.5" y="0.0" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/ExampleComponent.vue">
+      <point x="-115.5" y="0.0" />
+      <point x="117.0" y="0.0" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#Answer#1376;D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#Comments#1417;D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#markdownEditor#1471;" target="D:/Projects/Git/SOEN341/node_modules/vue-simplemde/src/markdown-editor.vue">
+      <point x="0.0" y="-47.5" />
+      <point x="0.0" y="14.5" />
     </edge>
     <edge source="D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#bootstrap.js#315;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#index.d.ts#607;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#jquery.js#294;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#lodash.js#11;" target="P:/Git/SOEN341/node_modules/axios/index.d.ts">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="0.0" y="58.5" />
+      <point x="0.0" y="-14.5" />
     </edge>
-    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#660;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#574;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#741;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#804;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#300;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#265;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/ExampleComponent.vue">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteComponent.vue#VoteDisplay#654;D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteComponent.vue#axios#626;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteDisplayComponent.vue">
+      <point x="0.0" y="36.5" />
+      <point x="0.0" y="-14.5" />
     </edge>
-    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#660;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#574;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#741;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#804;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#300;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#265;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/DashboardNotification.vue">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#Answer#1376;D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#Comments#1417;D:/Projects/Git/SOEN341/resources/assets/js/components/answer/AnswersComponent.vue#markdownEditor#1471;">
+      <point x="-115.5" y="-40.0" />
+      <point x="360.0" y="1000.0" />
+      <point x="0.0" y="47.5" />
     </edge>
-    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#660;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#574;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#741;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#804;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#300;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#265;" target="P:/Git/SOEN341/node_modules/vue/types/index.d.ts">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="D:/Projects/Git/SOEN341/resources/assets/js/eastereggs.js">
+      <point x="13.333333333333258" y="-168.5" />
+      <point x="1013.3333333333333" y="80.0" />
+      <point x="-56.0" y="0.0" />
     </edge>
-    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#660;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#574;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#741;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#804;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#300;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#265;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/StatusToast.vue">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="D:/Projects/Git/SOEN341/resources/assets/js/components/question/QuestionComponent.vue#Comments#939;">
+      <point x="-115.5" y="-80.0" />
+      <point x="680.0" y="960.0" />
+      <point x="0.0" y="25.5" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteComponent.vue#VoteDisplay#654;D:/Projects/Git/SOEN341/resources/assets/js/components/vote/VoteComponent.vue#axios#626;" target="P:/Git/SOEN341/node_modules/axios/index.d.ts">
+      <point x="85.0" y="0.0" />
+      <point x="-56.5" y="0.0" />
     </edge>
     <edge source="D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#bootstrap.js#315;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#index.d.ts#607;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#jquery.js#294;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#lodash.js#11;" target="P:/Git/SOEN341/node_modules/lodash/lodash.js">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="68.0" y="0.0" />
+      <point x="-59.0" y="0.0" />
+    </edge>
+    <edge source="D:/Projects/Git/SOEN341/resources/assets/js/app.js#AnswersComponent.vue#1052;D:/Projects/Git/SOEN341/resources/assets/js/app.js#CommentsComponent.vue#972;D:/Projects/Git/SOEN341/resources/assets/js/app.js#DashboardNotification.vue#754;D:/Projects/Git/SOEN341/resources/assets/js/app.js#ExampleComponent.vue#668;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionComponent.vue#1131;D:/Projects/Git/SOEN341/resources/assets/js/app.js#QuestionsListComponent.vue#1218;D:/Projects/Git/SOEN341/resources/assets/js/app.js#StatusToast.vue#835;D:/Projects/Git/SOEN341/resources/assets/js/app.js#VoteComponent.vue#898;D:/Projects/Git/SOEN341/resources/assets/js/app.js#bootstrap.js#248;D:/Projects/Git/SOEN341/resources/assets/js/app.js#eastereggs.js#223;D:/Projects/Git/SOEN341/resources/assets/js/app.js#index.d.ts#325;D:/Projects/Git/SOEN341/resources/assets/js/app.js#marked.js#356;D:/Projects/Git/SOEN341/resources/assets/js/app.js#simplemde.js#290;D:/Projects/Git/SOEN341/resources/assets/js/app.js#vue-simplemde.min.js#606;" target="P:/Git/SOEN341/node_modules/vue-simplemde/dist/vue-simplemde.min.js">
+      <point x="0.0" y="-168.5" />
+      <point x="0.0" y="14.5" />
     </edge>
     <edge source="D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#bootstrap.js#315;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#index.d.ts#607;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#jquery.js#294;D:/Projects/Git/SOEN341/resources/assets/js/bootstrap.js#lodash.js#11;" target="P:/Git/SOEN341/node_modules/bootstrap-sass/assets/javascripts/bootstrap.js">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="40.0" y="58.5" />
+      <point x="1600.0" y="280.0" />
+      <point x="-95.0" y="0.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.5775623268698061" x="437.5" y="351.0" />
+  <settings layout="Hierarchic Group" zoom="0.5929078014184397" x="957.5" y="680.0" />
   <SelectedNodes />
   <Categories>
     <Category>All</Category>

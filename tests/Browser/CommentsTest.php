@@ -2,10 +2,10 @@
 
     namespace Tests\Browser;
 
-    use App\User;
-    use App\Question;
     use App\Answer;
     use App\Comment;
+    use App\Question;
+    use App\User;
     use Illuminate\Foundation\Testing\DatabaseMigrations;
     use Laravel\Dusk\Browser;
     use Tests\DuskTestCase;

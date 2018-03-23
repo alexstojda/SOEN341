@@ -27,7 +27,7 @@
                     'author_id'   => Auth::guard('api')->id() //use this when sessions are created
                 ]);
 
-                return AnswerResource::collection($question->answers);
+                return $this->index($id);
             }
 
             return null; //TODO: write failure json

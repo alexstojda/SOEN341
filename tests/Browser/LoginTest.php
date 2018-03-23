@@ -41,9 +41,10 @@
 
         /**
          * Tests the ui flow of loggining in via facebook
+         *
          * @throws \Throwable
          */
-        public function testFBlogin() : void {
+        public function testFBlogin(): void {
             $email = 'soen341fbauth@kdypro.com';
 
             //$user = factory(User::class)->create();
@@ -62,8 +63,8 @@
                     ->press('Log In');
 
                 //ONLY FOR FIRST ACCOUNT LOGIN
-                    //->press('Continue As John')
-                    //->screenshot('fb-3');
+                //->press('Continue As John')
+                //->screenshot('fb-3');
 
                 $browser->assertPathIs('/questions')
                     ->screenshot('fb-2')
@@ -75,6 +76,7 @@
         /**
          * A Dusk test example.
          * Tests the register by making a new user through dusk then checking whether it was added to the database
+         *
          * @return void
          * @throws \Throwable
          */
