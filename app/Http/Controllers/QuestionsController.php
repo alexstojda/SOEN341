@@ -89,9 +89,9 @@
             Question::create([
                 'title'     => request('title'),
                 'body'      => request('body'),
-                'author_id' => Auth::id() //use this when sessions are created
+                'author_id' => Auth::guard('api')->id() //use this when sessions are created
             ]);
 
-            return redirect('questions');
+            return $this->index();
         }
     }

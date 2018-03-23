@@ -16,7 +16,7 @@
             return [
                 'id'       => $this->id,
                 'body'     => $this->body,
-                'selected' => ($this->id === $this->parent->answer_id),
+                'selected' => ($this->id == $this->parent->answer_id),
 
                 'date' => [
                     'full'     => $this->updated_at->format('Y-m-d T H:i:s'),

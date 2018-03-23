@@ -19,7 +19,7 @@
             </button>
             <strong>Holy guacamole!</strong> You should check in on some of those fields below.
         </div>
-        <form method="POST" action="/questions">
+        <form method="POST" action="{{url('/questions?api_token='.Auth::user()->api_token)}}">
             @csrf
             <div class="form-group">
                 <label for="q_header">Enter Main Question:</label>

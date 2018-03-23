@@ -47,7 +47,7 @@
         }
 
         public function acceptAnswer(int $user_id, int $answer_id) {
-            if ($this->author_id !== $user_id) {
+            if ($this->author_id != $user_id) {
                 return false;
             }
 
