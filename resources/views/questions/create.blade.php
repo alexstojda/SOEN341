@@ -13,19 +13,24 @@
 
     <hr>
     <div class="container">
+        <div class="form-alert alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        </div>
         <form method="POST" action="/questions">
             @csrf
-
             <div class="form-group">
                 <label for="q_header">Enter Main Question:</label>
-                <input dusk="title-q" type="text" class="form-control" id="q_header" name="title" required>
+                <input dusk="title-q" type="text" class="form-control" id="q_header" name="title">
             </div>
             <div class="form-group">
                 <label for="q_body">Full Question Specifications + Context:</label>
-                <textarea id="q_body" name="body" required></textarea>
+                <textarea id="q_body" name="body"></textarea>
             </div>
 
-            <button dusk="submit-q" type="submit" class="btn btn-danger">Submit</button>
+            <button dusk="submit-q" type="submit" class="submit-question btn btn-danger">Submit</button>
         </form>
     </div>
 
@@ -38,6 +43,28 @@
         }
     </style>
     <script>
+        var validateSubmitForm = function () {
+            if ($.trim($("#q_header").val()).length === 0) {
+                return false;
+            } else if ($.trim($("#q_body").val()).length === 0) {
+                return false;
+            } else {
+                return true;
+            }
+        };
+        $(function () {
+            $(".form-alert").hide();
+            $("form").submit(function (e) {
+                console.log(validateSubmitForm());
+                if (!validateSubmitForm()) {
+                    e.preventDefault();
+                    $(".form-alert").fadeTo(8000, 500).slideUp(500, function () {
+                        $(".form-alert").slideUp(500);
+                    });
+
+                }
+            });
+        });
         var simplemde = new SimpleMDE({
             element: $('#q_body')[0],
             autosave: true,
