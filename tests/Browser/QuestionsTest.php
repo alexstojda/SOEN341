@@ -54,6 +54,7 @@
 
         /**
          * List Questions from API
+         *
          * @throws \Throwable
          */
         public function testQuestionsApi() {

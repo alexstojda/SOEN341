@@ -3,8 +3,8 @@
     namespace Tests\Unit;
 
     use App\Answer;
-    use App\Question;
     use App\Comment;
+    use App\Question;
     use App\User;
     use Illuminate\Foundation\Testing\RefreshDatabase;
     use Tests\TestCase;
@@ -28,6 +28,7 @@
                 ->assertStatus(200)
                 ->assertJsonFragment(['body' => $c->body]);
         }
+
         /**
          * Test GET comments via answers/id/comments endpoint
          */
@@ -65,6 +66,7 @@
                 ->assertStatus(200)
                 ->assertJsonFragment(['body' => $c->body]);
         }
+
         /**
          * Test create an comment via POST answers/id/comment endpoint
          */

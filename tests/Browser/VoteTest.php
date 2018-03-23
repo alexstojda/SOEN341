@@ -36,7 +36,7 @@
                     ->resize(1920, 1080)
                     ->click('@question');
 
-                $browser->waitFor("@upvote-q$question->id",5);
+                $browser->waitFor("@upvote-q$question->id", 5);
 
                 $browser->click("@upvote-q$question->id")->pause(self::wait);
                 $this->assertEquals(1, $question->countTotalVotes());
@@ -74,7 +74,7 @@
                     ->resize(1920, 1080)
                     ->click('@question');
 
-                $browser->waitFor("@upvote-a$answer->id",5);
+                $browser->waitFor("@upvote-a$answer->id", 5);
 
                 $browser->click("@upvote-a$answer->id")->pause(self::wait);
                 $this->assertEquals(1, $answer->countTotalVotes());

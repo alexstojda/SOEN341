@@ -48,8 +48,8 @@
             $question = factory(Question::class)->make(['author_id' => $user->id]);
             $this->post(url('/api/questions/'),
                 ['api_token' => $user->api_token, 'title' => $question->title, 'body' => $question->body])
-            //    ->assertStatus(302);
-            //$this->get(url('/api/questions'))
+                //    ->assertStatus(302);
+                //$this->get(url('/api/questions'))
                 ->assertStatus(200)
                 ->assertJsonFragment(['title' => $question->title]);
         }
