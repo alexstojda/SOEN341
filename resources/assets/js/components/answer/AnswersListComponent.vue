@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-12 answers" v-for="answer in answers" :key="answer.id" v-if="loaded"
                  :id="'q-' + qid + '-answers'">
-                <answer class="row" :answer="answer" :show_forms="form.show"
+                <answer class="row" :answer.sync="answer" :show_forms="form.show"
                         :qAnswered="qAnswered" :qOwner="(uid === answer.parent.author_id)"></answer>
 
                 <div class="row" :id="'a-'+answer.id+'-comments'">
@@ -19,8 +19,9 @@
                 <form class="form" @submit="onSubmit">
                     <div class="form-group">
                         <label :for="form.id">Your answer:</label>
-                        <markdown-editor preview-class="markdown-body" v-model="form.text" :ref="form.id" name="body"
-                                         required></markdown-editor>
+                        <markdown-editor preview-class="markdown-body" v-model="form.text"
+                                         placeholder="Share your thoughts?"
+                                         :ref="form.id" name="body" required></markdown-editor>
                     </div>
                     <button type="submit" class="btn btn-primary">Answer</button>
                 </form>
@@ -31,8 +32,8 @@
 
 <script>
   import Answer from './AnswerComponent'
-  import Comments from '../comment/CommentsComponent'
-  import markdownEditor from 'vue-simplemde/src/markdown-editor'
+  import Comments from '../comment/CommentsListComponent'
+  import markdownEditor from '../MarkdownEditorComponent'
 
   export default {
     name: 'answers',
@@ -44,7 +45,7 @@
         count: null,
         form: {
           id: 'q' + this.qid + '-answer-body',
-          text: 'Type here...',
+          text: '',
           show: this.show_forms
         }
       }
@@ -61,22 +62,28 @@
     },
     methods: {
       handleSelectUpdate (answer) {  // 2 hacky methods for the price of 1
+        this.loaded = false
         let answers = this.answers.slice() //_.cloneDeep(this.answers) // force clone array so we can replace it later
         let i = _.findIndex(answers, ['id', answer.id])
         answers[i] = answer // is we do this on original then it never re-computes qAnswered
         this.answers = answers // using cloned array to trigger re-compute and whole list wide 'qAnswered' prop update
+        this.loaded = true
       },
       onSubmit (evt) {
         evt.preventDefault()
-
+        this.loaded = false
         axios.post('/api/questions/' + this.qid + '/answer', {
           api_token: sessionStorage.getItem('token'),
           body: this.form.text
-        }).then((response) => {
+        }).then(response => {
           this.answers = response.data.data
+          this.count = this.answers.length
+        }).catch(reason => {
+          //TODO: add fail notification?
         })
         this.form.text = ''
-        this.form.show = false
+        //this.form.show = false
+        this.loaded = true
       },
       update () {
         this.loaded = false

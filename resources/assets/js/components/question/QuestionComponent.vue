@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import Comments from '../comment/CommentsComponent'
+  import Comments from '../comment/CommentsListComponent'
 
   export default {
     name: 'question',

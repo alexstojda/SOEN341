@@ -53,10 +53,11 @@
         }
 
         /**
-         * List Questions from API
+         * List Questions from API //REPLACED BY API UNIT TESTS
+         *
          * @throws \Throwable
          */
-        public function testQuestionsApi() {
+        /*public function testQuestionsApi() {
             $user = factory(User::class)->create();
             $question = factory(Question::class)->create(['author_id' => $user->id]);
 
@@ -70,5 +71,5 @@
                     ->assertSee($question->body)
                     ->screenshot('questions-api-1');
             });
-        }
+        }*/
     }

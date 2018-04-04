@@ -18,13 +18,13 @@
     });
 
 
-    Route::get('questions', 'QuestionsController@index');
+    Route::get('questions', 'QuestionsController@apiIndex');
 
-    Route::get('questions/top', 'QuestionsController@top');
+    Route::get('questions/top', 'QuestionsController@apiTop');
 
-    Route::post('questions', 'QuestionsController@store');
+    Route::post('questions', 'QuestionsController@apiStore');
 
-    Route::get('questions/{id}', 'QuestionsController@show');
+    Route::get('questions/{id}', 'QuestionsController@apiShow');
 
     Route::get('questions/{id}/answers', 'AnswersController@index');
 

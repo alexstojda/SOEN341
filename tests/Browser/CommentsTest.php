@@ -2,10 +2,10 @@
 
     namespace Tests\Browser;
 
-    use App\User;
-    use App\Question;
     use App\Answer;
     use App\Comment;
+    use App\Question;
+    use App\User;
     use Illuminate\Foundation\Testing\DatabaseMigrations;
     use Laravel\Dusk\Browser;
     use Tests\DuskTestCase;
@@ -74,11 +74,11 @@
         }
 
         /**
-         * List Comments from API
+         * List Comments from API //REPLACED BY API UNIT TESTS
          *
          * @throws \Throwable
          */
-        public function testCommentsApi() {
+        /*public function testCommentsApi() {
             //CREATE NEEDED DB OBJECTS
             $user = factory(User::class, 4)->create()->first();
             $question = factory(Question::class)->create(['author_id' => $user->id]);
@@ -104,5 +104,5 @@
                     ->assertSee($commentA->answer_id)
                     ->screenshot('comments-api-3');
             });
-        }
+        }*/
     }
