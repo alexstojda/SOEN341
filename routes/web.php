@@ -21,11 +21,11 @@
 
     Route::get('/questions/create', 'QuestionsController@create');
 
-    Route::post('/questions', 'QuestionsController@store');
+    Route::post('/questions', 'QuestionsController@newQuestion');
 
-    Route::get('/questions', 'QuestionsController@QuestionsList');
+    Route::get('/questions', 'QuestionsController@listAll');
 
-    Route::get('/questions/{id}', 'QuestionsController@QuestionView');
+    Route::get('/questions/{id}', 'QuestionsController@show');
 
     Route::post('/answers', 'AnswersController@store');
 

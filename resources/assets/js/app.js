@@ -18,14 +18,12 @@ window.marked = require('marked')
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.use(require('vue-simplemde'))
-
 Vue.component('example-component', require('./components/ExampleComponent.vue'))
 Vue.component('dashboard-notification', require('./components/DashboardNotification.vue'))
 Vue.component('status-toast', require('./components/StatusToast.vue'))
 Vue.component('vote', require('./components/vote/VoteComponent.vue'))
-Vue.component('comments', require('./components/comment/CommentsComponent.vue'))
-Vue.component('answers', require('./components/answer/AnswersComponent.vue'))
+Vue.component('comments', require('./components/comment/CommentsListComponent.vue'))
+Vue.component('answers', require('./components/answer/AnswersListComponent.vue'))
 Vue.component('question', require('./components/question/QuestionComponent.vue'))
 Vue.component('questions-top', require('./components/question/QuestionsListComponent.vue'))
 

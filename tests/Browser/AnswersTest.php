@@ -29,25 +29,26 @@
             $user = factory(User::class)->create();
             // create question for user
             $question = factory(Question::class)->create(['author_id' => $user->id]);
+            // make test answer
+            $answer = factory(Answer::class)->make(['question_id' => $question->id]);
 
             // sanity check
             $this->assertNotEmpty($user);
             $this->assertNotEmpty($question);
 
             // now use dusk to create answer
-            $this->browse(function($browser) use ($user, $question) {
-                $answerPlaceHolder = 'Type here...';
-
+            $this->browse(function($browser) use ($user, $question, $answer) {
                 $browser->loginAs($user)
                     ->visit("/questions/$question->id")
                     ->assertPathIs("/questions/$question->id")
                     ->resize(1920, 1080)
-                    ->assertSee('Answer');
+                    ->assertSee('Answer')
+                    ->screenshot('create-answer-0')
+                    ->driver->executeScript("Vue.simplemde.value(\"$answer->body\")"); //TODO: is there a better way?
 
-                $browser->screenshot('create-answer-0')
-                    ->press('Answer')
-                    ->waitForText($answerPlaceHolder)
-                    ->assertSee($answerPlaceHolder)
+                $browser->press('Answer')
+                    ->waitForText($answer->body)
+                    ->assertSee($answer->body)
                     ->screenshot('create-answer-1');
             });
 
@@ -70,17 +71,17 @@
             $this->assertDatabaseHas('answers', [
                     'author_id'   => $question->author_id,
                     'question_id' => $question->id,
-                    'body'        => 'Type here...',
+                    'body'        => $answer->body,
                 ]
             );
         }
 
         /**
-         * List Answers from API
+         * List Answers from API //REPLACED BY API UNIT TESTS
          *
          * @throws \Throwable
          */
-        public function testAnswersApi() {
+        /*public function testAnswersApi() {
             $user = factory(User::class)->create();
             $question = factory(Question::class)->create(['author_id' => $user->id]);
             $answer = factory(Answer::class)->create(['author_id' => $user->id, 'question_id' => $question->id]);
@@ -94,5 +95,5 @@
                     ->assertSee($answer->question_id)
                     ->screenshot('answers-api-1');
             });
-        }
+        }*/
     }
