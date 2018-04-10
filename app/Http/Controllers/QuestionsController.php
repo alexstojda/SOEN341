@@ -106,6 +106,9 @@
             return redirect('questions');
         }
 
+        /**
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+         */
         public function create() {
             return view('questions.create');
         }
