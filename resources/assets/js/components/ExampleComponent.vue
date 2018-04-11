@@ -1,3 +1,4 @@
+// example template
 <template>
     <div class="container">
         <div class="row">

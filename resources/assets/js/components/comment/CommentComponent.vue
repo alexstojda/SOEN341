@@ -1,3 +1,4 @@
+// template for single comment
 <template>
     <li :id="'comment-'+comment.id" class="comment card list-group-item">
         <!--div class="comment-actions">

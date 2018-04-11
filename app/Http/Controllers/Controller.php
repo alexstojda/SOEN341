@@ -8,9 +8,18 @@
     use Illuminate\Foundation\Validation\ValidatesRequests;
     use Illuminate\Routing\Controller as BaseController;
 
+    /**
+     * Class Controller
+     * @package App\Http\Controllers
+     */
     class Controller extends BaseController {
         use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+        /**
+         * @param string $model
+         * @param int $id
+         * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Http\RedirectResponse|null|object|static
+         */
         protected function determineModel(string $model, int $id) {
             try {
                 switch ($model) {

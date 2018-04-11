@@ -38,6 +38,11 @@
         protected $vote = User::class;
         protected $fillable = ['title', 'body', 'author_id'];
 
+        /**
+         * add comment
+         * @param $content
+         * @param $author_id
+         */
         public function addComment($content, $author_id) {
             Comment::create([
                 'body'        => $content,
@@ -46,6 +51,12 @@
             ]);
         }
 
+        /**
+         * accept answer
+         * @param int $user_id
+         * @param int $answer_id
+         * @return $this|bool
+         */
         public function acceptAnswer(int $user_id, int $answer_id) {
             if ($this->author_id != $user_id) {
                 return false;
@@ -63,18 +74,30 @@
             return $this;
         }
 
+        /**
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+         */
         public function user() {
             return $this->belongsTo(User::class, 'author_id');
         }
 
+        /**
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany
+         */
         public function answers() {
             return $this->hasMany(Answer::class);
         }
 
+        /**
+         * @return \Illuminate\Database\Eloquent\Relations\HasMany
+         */
         public function comments() {
             return $this->hasMany(Comment::class);
         }
 
+        /**
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+         */
         public function accepted() {
             return $this->belongsTo(Answer::class, 'answer_id');
         }

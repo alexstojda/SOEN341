@@ -1,3 +1,4 @@
+// template for list of questions
 <template>
     <ul>
         <li v-for="question in questions" :key="question.id">

@@ -1,3 +1,4 @@
+// template for notification when successfully running `composer fix`
 <template>
     <div class="container">
         <div class="alert alert-success">

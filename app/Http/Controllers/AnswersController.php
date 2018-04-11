@@ -8,11 +8,22 @@
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Support\Facades\Auth;
 
+    /**
+     * Class AnswersController
+     * @package App\Http\Controllers
+     */
     class AnswersController extends Controller {
+        /**
+         * AnswersController constructor.
+         */
         public function __construct() {
             $this->middleware('auth:api')->except(['show', 'index']);
         }
 
+        /**
+         * @param $id
+         * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection|null
+         */
         public function store($id) {
             $this->validate(request(), [
                 'body' => 'required',
@@ -33,6 +44,10 @@
             return null; //TODO: write failure json
         }
 
+        /**
+         * @param $id
+         * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection|null
+         */
         public function index($id) {
             $question = Question::whereId($id)->first();
             if ($question) {
@@ -42,6 +57,10 @@
             return null; //TODO: write failure json
         }
 
+        /**
+         * @param $id
+         * @return AnswerResource|null
+         */
         public function show($id) {
             $answer = Answer::whereId($id)->first();
             if ($answer) {
@@ -51,6 +70,10 @@
             return null; //TODO: write failure json
         }
 
+        /**
+         * @param $id
+         * @return AnswerResource|\Illuminate\Http\JsonResponse
+         */
         public function accept($id) {
             try {
                 $answer = Answer::whereId($id)->first();

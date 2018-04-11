@@ -1,3 +1,4 @@
+// template for single question
 <template>
     <div id="question-container" v-if="loaded" class="container-fluid">
         <div class="row" :id="'q-'+question.id">
